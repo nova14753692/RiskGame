@@ -12,3 +12,6 @@ After done placing armies, you can use 3 commands that I already implemented:
   -lav: to display free territories
   Note that: the number next to each territory is the number of army each player has on that territory
 Test it carefully.
+
+Branch SetTerritory: Fix some bugs, and update the way the game display on console window to be more organized. Additionally, 2 more
+commands are added (-shde: to detail about a territory, and -map: draw visual map)
