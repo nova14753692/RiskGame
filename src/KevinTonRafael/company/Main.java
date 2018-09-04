@@ -2,6 +2,10 @@ package KevinTonRafael.company;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +22,7 @@ public class Main {
         final int maxPlayer = 6;
         final String territoriesDataFileName = "TerritoryList.list";
         final String territoriesDataPath = System.getProperty("user.dir") + File.separator + "Data" + File.separator;
+        final String mapPath = System.getProperty("user.dir") + File.separator + "map.jpg";
         int numOfPlayer = 0;
 
         List<Player> players;
@@ -30,7 +35,7 @@ public class Main {
 
         players = createPlayers(numOfPlayer, userInput);
         territories = createTerritories(territoriesDataPath, territoriesDataFileName, userInput);
-        setTerritory(players, territories, userInput);
+        setTerritory(players, territories, userInput, mapPath);
         System.out.println();
     }
 
@@ -83,17 +88,14 @@ public class Main {
             } else return null;
         }
 
-        for (int i = 0; i < territoryNamesWithoutDup.size(); i++) territories.add(new Territory(territoryNames.get(i), i));
+        for (int i = 0; i < territoryNamesWithoutDup.size(); i++) territories.add(new Territory(territoryNames.get(i), i + 1));
 
         for (Territory territory : territories) {
             try {
                 FileReader fileReader = new FileReader(filePath + territory.getTerritoryName() + ".adj");
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
                 while((line = bufferedReader.readLine()) != null) {
-                    Territory territoryToAdd = null;
-                    for (Territory t : territories) {
-                        if (t.getTerritoryName().equals(line)) territoryToAdd = t;
-                    }
+                    Territory territoryToAdd = findTerritory(line, territories);
                     if(territoryToAdd != null) territory.getAdjTerritories().add(territoryToAdd);
                     else {
                         System.out.println("Mismatch between available Territory and their adjacent territories.");
@@ -115,8 +117,10 @@ public class Main {
         return territories;
     }
 
-    public static void setTerritory(@NotNull List<Player> players, @NotNull List<Territory> territories, Scanner userInput) {
+    public static void setTerritory(@NotNull List<Player> players, @NotNull List<Territory> territories, Scanner userInput, String mapPath) {
         int armiesEachPlayer = 0;
+        List<Territory> finalTerritories = new ArrayList<>();
+        finalTerritories.addAll(territories);
         switch(players.size())
         {
             case 2:
@@ -142,10 +146,13 @@ public class Main {
                 while (foundTerritory == null) {
                     int tIndex = -1;
                     String tName = null;
+                    System.out.println("======================================================================");
                     System.out.println("It's " + players.get(j).getPlayerName() + "'s turn to place armies.");
                     System.out.println("Enter -la to list all territories of all player and available territories.");
                     System.out.println("Enter -lm to list all territories of your possession.");
                     System.out.println("Enter -lav to list all available territories.");
+                    System.out.println("Enter -shde [Territory name] or -shde [Territory index] (eg: -shde Alaska or -shde 1)\n" +
+                            " to list detail about that territory and its adjacent territories.");
                     System.out.print("Enter Territory name, index, or command: ");
                     if (userInput.hasNext()) {
                         String input = userInput.next();
@@ -163,10 +170,24 @@ public class Main {
                                 printTerritory(players, territories, true);
                                 command = true;
                                 break;
+                            case "-map":
+                                displayMap(mapPath);
+                                command = true;
+                                break;
+                        }
+                        if (input.equals("-shde")) {
+                            input = userInput.next();
+                            try {
+                                if (!printTerritory(input, finalTerritories) && !printTerritory(Integer.parseInt(input), finalTerritories))
+                                    System.out.println("Territory not found.");
+                            } catch (NumberFormatException e) {
+                                System.out.println("Territory not found.");
+                            }
+                            command = true;
                         }
                         if (command) continue;
                         try {
-                            tIndex = Integer.parseInt(input) - 1;
+                            tIndex = Integer.parseInt(input);
                         } catch (NumberFormatException e) {
                             tName = input;
                         }
@@ -176,14 +197,10 @@ public class Main {
 
                         if (tName != null) {
                             String territoryName = tName;
-                            foundTerritory = territories.stream()
-                                    .filter(territory -> territory.getTerritoryName().equals(territoryName))
-                                    .findFirst().orElse(null);
+                            foundTerritory = findTerritory(territoryName, territories);
                         } else {
                             int territoryIndex = tIndex;
-                            foundTerritory = territories.stream()
-                                    .filter(territory -> territory.getTerritoryIndex() == territoryIndex)
-                                    .findFirst().orElse(null);
+                            foundTerritory = findTerritory(territoryIndex, territories);
                         }
                         if (foundTerritory != null) {
                             players.get(j).addOwnedTerritory(foundTerritory);
@@ -192,19 +209,12 @@ public class Main {
                     } else {
                         if (tName != null) {
                             String territoryName = tName;
-                            foundTerritory = players.get(j).getOwnedTerritories().stream()
-                                    .filter(territory -> territory.getTerritoryName().equals(territoryName))
-                                    .findFirst().orElse(null);
+                            foundTerritory = findTerritory(territoryName, players.get(j).getOwnedTerritories());
                         } else {
                             int territoryIndex = tIndex;
-                            foundTerritory = players.get(j).getOwnedTerritories().stream()
-                                    .filter(territory -> territory.getTerritoryIndex() == territoryIndex)
-                                    .findFirst().orElse(null);
+                            foundTerritory = findTerritory(territoryIndex, players.get(j).getOwnedTerritories());
                         }
-                        if (foundTerritory != null) {
-                            players.get(j).addOwnedTerritory(foundTerritory);
-                            territories.remove(foundTerritory);
-                        }
+                        if (foundTerritory != null) players.get(j).addOwnedTerritory(foundTerritory);
                         else if (tName != null) System.out.println("Territory " + tName + " is not available.");
                         else System.out.println("Territory index " + tIndex + " is not available.");
                     }
@@ -214,17 +224,19 @@ public class Main {
     }
 
     public static void printTerritory(@NotNull List<Player> players, @NotNull List<Territory> territories) {
+        System.out.println("======================================================================");
         players.forEach(player -> {
             System.out.println(player.getPlayerName() + "'s owned territories:");
             player.getOwnedTerritories().forEach(territory -> {
                 System.out.print(territory.getTerritoryName() + ": " + territory.getNumbOfArmy());
                 if (player.getOwnedTerritories().indexOf(territory) < player.getOwnedTerritories().size() - 1)
                     System.out.print(", ");
+                else System.out.println();
             });
-            System.out.println();
+            System.out.println("======================================================================");
         });
 
-        System.out.print("Unoccupied territories: ");
+        System.out.println("Unoccupied territories: ");
         boolean firstTerritory = true;
         for (Territory t : territories) {
             boolean isExist = false;
@@ -240,19 +252,21 @@ public class Main {
                 System.out.print(t.getTerritoryName());
             }
         }
-        System.out.println();
+        System.out.println("======================================================================");
     }
 
     public static void printTerritory(@NotNull Player player, @NotNull List<Player> players, @NotNull List<Territory> territories) {
+        System.out.println("======================================================================");
         System.out.println(player.getPlayerName() + "'s owned territories:");
         player.getOwnedTerritories().forEach(territory -> {
             System.out.print(territory.getTerritoryName() + ": " + territory.getNumbOfArmy());
             if (player.getOwnedTerritories().indexOf(territory) < player.getOwnedTerritories().size() - 1)
                 System.out.print(", ");
+            else System.out.println();
         });
-        System.out.println();
+        System.out.println("======================================================================");
 
-        System.out.print("Unoccupied territories: ");
+        System.out.println("Unoccupied territories: ");
         boolean firstTerritory = true;
         for (Territory t : territories) {
             boolean isExist = false;
@@ -268,11 +282,12 @@ public class Main {
                 System.out.print(t.getTerritoryName());
             }
         }
-        System.out.println();
+        System.out.println("======================================================================");
     }
 
     public static void printTerritory(@NotNull List<Player> players, @NotNull List<Territory> territories, boolean unoccupied) {
-        System.out.print("Unoccupied territories: ");
+        System.out.println("======================================================================");
+        System.out.println("Unoccupied territories: ");
         boolean firstTerritory = true;
         for (Territory t : territories) {
             boolean isExist = false;
@@ -288,19 +303,73 @@ public class Main {
                 System.out.print(t.getTerritoryName());
             }
         }
-        System.out.println();
+        System.out.println("======================================================================");
     }
 
-    public static void printTerritory(@NotNull String territoryName, @NotNull List<Territory> territories) {
-        Territory territory = territories.stream().filter(t -> t.getTerritoryName() == territoryName).findFirst().orElse(null);
-        if (territory != null) territory.printAdjTerritories();
-        else System.out.println("Territory not found.");
+    public static boolean printTerritory(@NotNull String territoryName, @NotNull List<Territory> territories) {
+        Territory territory = territories.stream().filter(t -> t.getTerritoryName().equals(territoryName)).findFirst().orElse(null);
+        if (territory != null) {
+            System.out.println("======================================================================");
+            territory.printAdjTerritories();
+            System.out.println("======================================================================");
+            return true;
+        }
+        return false;
     }
 
-    public static void printTerritory(@NotNull int territoryIndex, @NotNull List<Territory> territories) {
+    public static boolean printTerritory(@NotNull int territoryIndex, @NotNull List<Territory> territories) {
         Territory territory = territories.stream().filter(t -> t.getTerritoryIndex() == territoryIndex).findFirst().orElse(null);
-        if (territory != null) territory.printAdjTerritories();
-        else System.out.println("Territory not found.");
+        if (territory != null) {
+            System.out.println("======================================================================");
+            territory.printAdjTerritories();
+            System.out.println("======================================================================");
+            return true;
+        }
+        return false;
+    }
+
+    @Nullable
+    public static Territory findTerritory(String territoryName, @NotNull List<Territory> territories) {
+        return territories.stream()
+                .filter(territory -> territory.getTerritoryName().equals(territoryName))
+                .findFirst().orElse(null);
+    }
+
+    @Nullable
+    public static Territory findTerritory(int territoryIndex, @NotNull List<Territory> territories) {
+        return territories.stream()
+                .filter(territory -> territory.getTerritoryIndex() == territoryIndex)
+                .findFirst().orElse(null);
+    }
+
+    public static void displayMap(String mapPath) {
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(mapPath));
+        } catch (IOException e) {
+        }
+
+        if (img != null) {
+            final BufferedImage image = img;
+            JPanel jPanel = new JPanel() {
+                @Override
+                protected void paintComponent(Graphics graphic) {
+                    super.paintComponent(graphic);
+                    graphic.drawImage(image, 0, 0, null);
+                }
+            };
+
+            JFrame jFrame = buildFrame();
+            jFrame.add(jPanel);
+        }
+    }
+
+    private static JFrame buildFrame() {
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.setSize(1200, 850);
+        frame.setVisible(true);
+        return frame;
     }
 
 }

@@ -61,9 +61,14 @@ public class Territory {
     }
 
     public void printAdjTerritories() {
-        System.out.println(territoryName + " - " + occupiedBy.getPlayerName() + " has Adjacent territories: ");
+        System.out.print(territoryName);
+        if (occupiedBy != null) System.out.print(" - " + occupiedBy.getPlayerName());
+        System.out.println(" has Adjacent territories: ");
+        System.out.print("====> ");
         adjTerritories.forEach(t -> {
-            System.out.print(t.getTerritoryName() + " - " + t.getOccupiedBy().getPlayerName() + ": " + t.getNumbOfArmy());
+            System.out.print(t.getTerritoryName());
+            if (t.getOccupiedBy() != null) System.out.print(" - " + t.getOccupiedBy().getPlayerName());
+            System.out.print(": " + t.getNumbOfArmy());
             if (adjTerritories.indexOf(t) < adjTerritories.size() - 1) System.out.print(", ");
         });
         System.out.println();
