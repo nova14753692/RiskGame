@@ -26,7 +26,7 @@ public class Main {
         final int maxPlayer = 6;    //Maximum number of player
 
         //Name of the file contains list of all territories
-        final String territoriesDataFileName = "TerritoryList.list";
+        final String territoriesDataFileName = "TerritoryList";
 
         //The path to the Data folder which contains territories list and their adjacent territories
         final String territoriesDataPath = System.getProperty("user.dir") + File.separator + "Data" + File.separator;
@@ -38,14 +38,7 @@ public class Main {
         List<Player> players;   //List contains players
         List<Territory> territories;    //List contain territories
 
-        //Asking input number of player
-        //Number of player must be >= minPlayer
-        do {
-            System.out.print("How many players: ");
-            if (userInput.hasNextInt()) numOfPlayer = userInput.nextInt();
-        } while (numOfPlayer < minPlayer);
-
-        players = createPlayers(numOfPlayer, userInput);    //Create player objects and store them in players list
+        players = createPlayers(numOfPlayer, minPlayer, maxPlayer, userInput);    //Create player objects and store them in players list
 
         //Create territory objects and store them in territories list
         territories = createTerritories(territoriesDataPath, territoriesDataFileName, userInput);
@@ -67,15 +60,23 @@ public class Main {
      * @param userInput Variable that accepts user input
      * @return The list of every player
      */
-    public static List<Player> createPlayers(int numOfPlayer, Scanner userInput) {
+    public static List<Player> createPlayers(int numOfPlayer, int minPlayer, int maxPlayer, @NotNull Scanner userInput) {
         List<Player> players = new ArrayList<>();
+
+        //Asking input number of player
+        //Number of player must be >= minPlayer
+        do {
+            System.out.print("How many players: ");
+            if (userInput.hasNextInt()) numOfPlayer = userInput.nextInt();
+        } while (numOfPlayer < minPlayer || numOfPlayer > maxPlayer);
+        userInput.nextLine();
 
         int i = 1; //The index of player
         //Asking names of the players
         while(i <= numOfPlayer) {
             System.out.print("What is the name of player " + i + ": ");
-            if (userInput.hasNext()) {
-                players.add(new Player(userInput.next()));
+            if (userInput.hasNextLine()) {
+                players.add(new Player(userInput.nextLine()));
                 i++;
             }
             else System.out.println("Invalid input");
@@ -84,21 +85,21 @@ public class Main {
     }
 
     /**
-     * <p style="color:blue;">Return the list of every territory allowed in the game</p>
-     * @param filePath The path to the folder contains territory data
-     * @param fileName The territory list file name
-     * @param userInput Variable accepts user input
-     * @return The list of every territory allowed in the game
+     * <p style="color:blue;">Return the pair of the list of all territory name the game has just read, and the indicate number</p>
+     * <p style="color:blue;">if the indicate number is 1 means there are duplications in the data, if it's 0 means there is no duplication</p>
+     * @param filePath The path to the territories data folder
+     * @param fileName The of the territory data file
+     * @param fileExtension The extension of the territory data file
+     * @return The pair of the list of all territory name the game has just read, and the indicate number
      */
     @Nullable
-    public static  List<Territory> createTerritories(String filePath, String fileName, Scanner userInput) {
-        List<Territory> territories = new ArrayList<>();
-        List<String> territoryNames = new ArrayList<>();
+    public static Pair<List<String>, Integer> readTerritoriesData(String filePath, String fileName, String fileExtension) {
         String line;
+        List<String> territoryNames = new ArrayList<>();
 
         //Read territory data file to get the list of all territory
         try {
-            FileReader fileReader = new FileReader(filePath + fileName);
+            FileReader fileReader = new FileReader(filePath + fileName + fileExtension);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             //Store territory names to a list
@@ -116,17 +117,35 @@ public class Main {
 
         //Create another list to filter territoryName to delete all duplications
         List<String> territoryNamesWithoutDup = territoryNames.stream().distinct().collect(Collectors.toList());
+        Integer isDuplicated = 0;
+        if (territoryNamesWithoutDup.size() < territoryNames.size()) isDuplicated = 1;
+        return new Pair<List<String>, Integer>(territoryNamesWithoutDup, isDuplicated);
+    }
+
+    /**
+     * <p style="color:blue;">Return the list of every territory allowed in the game</p>
+     * @param filePath The path to the folder contains territory data
+     * @param fileName The territory list file name
+     * @param userInput Variable accepts user input
+     * @return The list of every territory allowed in the game
+     */
+    @Nullable
+    public static  List<Territory> createTerritories(String filePath, String fileName, @NotNull Scanner userInput) {
+        List<Territory> territories = new ArrayList<>();
+        Pair<List<String>, Integer> territoryDuplicatedPair = readTerritoriesData(filePath, fileName, ".list");
+        if (territoryDuplicatedPair == null) return null;
 
         String answer = null; //Store the user input if there are duplications whether if they want to continue
 
         //If the territory name list without duplications is less in size then territory names list
+        //Means the territoryDuplicatedPair returns 1 as the second value
         //It means that there are duplications
-        //If user answer no, then quit the program
-        if (territoryNamesWithoutDup.size() < territoryNames.size()) {
+        //If user answers no, then quit the program
+        if (territoryDuplicatedPair.getSecond() == 1) {
             System.out.println("There are duplications in TerritoryData!");
             while (answer != "Yes" && answer != "No") {
                 System.out.print("Match territory list and continue? (Yes/No): ");
-                if (userInput.hasNext()) answer = userInput.next();
+                if (userInput.hasNextLine()) answer = userInput.nextLine();
             }
             if (answer == "Yes") {
                 System.out.println("Territory list is updated and without duplication.");
@@ -134,38 +153,125 @@ public class Main {
         }
 
         //Create each territory base on each territory name in the territoryName list
-        for (int i = 0; i < territoryNamesWithoutDup.size(); i++) territories.add(new Territory(territoryNames.get(i), i + 1));
+        for (int i = 0; i < territoryDuplicatedPair.getFirst().size(); i++)
+            territories.add(new Territory(territoryDuplicatedPair.getFirst().get(i), i + 1));
 
         //Search and open file which contains adjacent territories for each territory in territories list
         for (Territory territory : territories) {
-            try {
-                FileReader fileReader = new FileReader(filePath + territory.getTerritoryName() + ".adj");
-                BufferedReader bufferedReader = new BufferedReader(fileReader);
+            Pair<List<String>, Integer> listIntegerPair = readTerritoriesData(filePath, territory.getTerritoryName(), ".adj");
 
-                //Compare the adjacent territories in the territories list
-                //If there is an adjacent territory does not exist in territories list, then output error
-                //Otherwise, add it to the adjacent territories list of each territory
-                while((line = bufferedReader.readLine()) != null) {
-                    Territory territoryToAdd = findTerritory(line, territories);
-                    if(territoryToAdd != null) territory.getAdjTerritories().add(territoryToAdd);
-                    else {
-                        System.out.println("Mismatch between available Territory and their adjacent territories.");
-                        return null;
-                    }
+            //Compare the adjacent territories in the territories list
+            //If there is an adjacent territory does not exist in territories list, then output error
+            //Otherwise, add it to the adjacent territories list of each territory
+            for (String s : listIntegerPair.getFirst()) {
+                Territory territoryToAdd = findTerritory(s, territories);
+                if (territoryToAdd != null) territory.getAdjTerritories().add(territoryToAdd);
+                else {
+                    System.out.println("Mismatch between available Territory and their adjacent territories.");
+                    return null;
                 }
-                bufferedReader.close();
-            }
-            catch(FileNotFoundException ex) {
-                System.out.println("Unable to open file '" + territory.getTerritoryName() + "'");
-                return null;
-            }
-            catch(IOException ex) {
-                System.out.println("Error reading file '" + territory.getTerritoryName() + "'");
-                return null;
             }
         }
 
         return territories;
+    }
+
+    /**
+     * <p style="color:blue;">Return number of army each player can have</p>
+     * @param numbOfPlayer The total number of player
+     * @return Number of army each player can have
+     */
+    public static int getNumberOfArmyEachPlayer(int numbOfPlayer) {
+        switch(numbOfPlayer) {
+            //40-((n-2)*5)
+            case 2:
+                return 40;
+            case 3:
+                return 35;
+            case 4:
+                return 30;
+            case 5:
+                return 25;
+            case 6:
+                return 20;
+        }
+        return -1;
+    }
+
+    /**
+     * <p style="color:blue;">Return the pair of string territory name and int territory index</p>
+     * @param territories The list contains all the available territories
+     * @param finalTerritories The list contains all the territories supported in the game
+     * @param players The list contains all player
+     * @param player The player the game need to ask for input
+     * @param mapPath The path to the map image
+     * @param userInput The object to retrieve the user input
+     * @return The pair of string territory name and int territory index
+     */
+    public static Pair<String, Integer> userInputRequest(List<Territory> territories, List<Territory> finalTerritories,
+                                                         List<Player> players, Player player, String mapPath, Scanner userInput) {
+        int tIndex = -1; //Territory index temporary variable, because no variable is allowed inside java lambda expression
+        String tName = null; //Territory name temporary variable, because no variable is allowed inside java lambda expression
+        boolean command = true;
+        while (command) {
+            //The questions program will ask each player each move
+            //Need refactor
+            System.out.println("======================================================================");
+            System.out.println("It's " + player.getPlayerName() + "'s turn to place armies.");
+            System.out.println("Enter -la to list all territories of all player and available territories.");
+            System.out.println("Enter -lm to list all territories of your possession.");
+            System.out.println("Enter -lav to list all available territories.");
+            System.out.println("Enter -shde [Territory name] or -shde [Territory index] (eg: -shde Alaska or -shde 1)\n" +
+                    " to list detail about that territory and its adjacent territories.");
+            System.out.print("Enter Territory name, or index, or command: ");
+
+            //Execute special command
+            if (userInput.hasNextLine()) {
+                command = false;
+                String input = userInput.nextLine();
+
+                switch (input) {
+                    case "-la":
+                        printTerritory(players, territories);
+                        command = true;
+                        break;
+                    case "-lm":
+                        printTerritory(player, players, territories);
+                        command = true;
+                        break;
+                    case "-lav":
+                        printTerritory(players, territories, true);
+                        command = true;
+                        break;
+                    case "-map":
+                        displayMap(mapPath);
+                        command = true;
+                        break;
+                }
+                if (input.length() > 6 && input.substring(0, 5).equals("-shde")) {
+                    input = input.substring(6);
+                    try {
+                        if (!printTerritory(input, finalTerritories) && !printTerritory(Integer.parseInt(input), finalTerritories))
+                            System.out.println("Territory not found.");
+                    } catch (NumberFormatException e) {
+                        System.out.println("Territory not found.");
+                    }
+                    command = true;
+                }
+                if (command) continue;
+
+                //Try to parse the input string to a integer
+                //If the string can be parse successfully, then the player entered a territory index instead of territory name
+                try {
+                    tIndex = Integer.parseInt(input);
+                } catch (NumberFormatException e) {
+                    //If the input string cannot be parse, then the player entered a territory name
+                    tName = input;
+                }
+                command = false;
+            }
+        }
+        return new Pair<String, Integer>(tName, tIndex);
     }
 
     /**
@@ -175,105 +281,28 @@ public class Main {
      * @param userInput Variable accepts user input
      * @param mapPath The path to the map image
      */
-    public static void setTerritory(@NotNull List<Player> players, @NotNull List<Territory> territories, Scanner userInput, String mapPath) {
-        int armiesEachPlayer = 0;
+    public static void setTerritory(@NotNull List<Player> players, @NotNull List<Territory> territories, @NotNull Scanner userInput, String mapPath) {
+        //Assign the number of army each player will have base on the number of player
+        int armiesEachPlayer = getNumberOfArmyEachPlayer(players.size());
+        if (armiesEachPlayer <= 0) return;
+
         List<Territory> finalTerritories = new ArrayList<>(); //The temporary list of territories
         //Add everything from territories list to the finalTerritories
         //territory list is now serves as the list contains only available territories
         finalTerritories.addAll(territories);
 
-        //Assign the number of army each player will have base on the number of player
-        switch(players.size())
-        {
-            //40-((n-2)*5)
-            case 2:
-                armiesEachPlayer = 40;
-                break;
-            case 3:
-                armiesEachPlayer = 35;
-                break;
-            case 4:
-                armiesEachPlayer = 30;
-                break;
-            case 5:
-                armiesEachPlayer = 25;
-                break;
-            case 6:
-                armiesEachPlayer = 20;
-                break;
-        }
-
         //Set territory stage
-        for (int i = 0; i < armiesEachPlayer; i++)
-        {
-            for (int j = 0; j < players.size(); j++)
-            {
+        for (int i = 0; i < armiesEachPlayer; i++) {
+            for (int j = 0; j < players.size(); j++) {
                 Territory foundTerritory = null;
 
                 //The loop will continue to ask what move the player wants
                 //It will continue to ask for user input until the player has entered a valid territory (when foundTerritory != null)
                 while (foundTerritory == null) {
-                    int tIndex = -1; //Territory index temporary variable, because no variable is allowed inside java lambda expression
-                    String tName = null; //Territory name temporary variable, because no variable is allowed inside java lambda expression
-
-                    //The questions program will ask each player each move
-                    //Need refactor
-                    System.out.println("======================================================================");
-                    System.out.println("It's " + players.get(j).getPlayerName() + "'s turn to place armies.");
-                    System.out.println("Enter -la to list all territories of all player and available territories.");
-                    System.out.println("Enter -lm to list all territories of your possession.");
-                    System.out.println("Enter -lav to list all available territories.");
-                    System.out.println("Enter -shde [Territory name] or -shde [Territory index] (eg: -shde Alaska or -shde 1)\n" +
-                            " to list detail about that territory and its adjacent territories.");
-                    System.out.print("Enter Territory name, or index, or command: ");
-
-                    //Execute special command
-                    if (userInput.hasNext()) {
-                        String input = userInput.next();
-                        boolean command = false;
-                        switch (input) {
-                            case "-la":
-                                printTerritory(players, territories);
-                                command = true;
-                                break;
-                            case "-lm":
-                                printTerritory(players.get(j), players, territories);
-                                command = true;
-                                break;
-                            case "-lav":
-                                printTerritory(players, territories, true);
-                                command = true;
-                                break;
-                            case "-map":
-                                displayMap(mapPath);
-                                command = true;
-                                break;
-                        }
-                        if (input.equals("-shde")) {
-                            input = userInput.next();
-                            try {
-                                if (!printTerritory(input, finalTerritories) && !printTerritory(Integer.parseInt(input), finalTerritories))
-                                    System.out.println("Territory not found.");
-                            } catch (NumberFormatException e) {
-                                System.out.println("Territory not found.");
-                            }
-                            command = true;
-                        }
-
-                        //If command == true, means the program will need to ask the same player again
-                        //Because the player has not made any move
-                        if (command) continue;
-
-                        //Try to parse the input string to a integer
-                        //If the string can be parse successfully, then the player entered a territory index instead of territory name
-                        try {
-                            tIndex = Integer.parseInt(input);
-                        } catch (NumberFormatException e) {
-                            //If the input string cannot be parse, then the player entered a territory name
-                            tName = input;
-                        }
-                    }
-
+                    Pair<String, Integer> stringIntegerPair = userInputRequest(territories, finalTerritories,
+                            players, players.get(j), mapPath, userInput);
+                    String tName = stringIntegerPair.getFirst();
+                    int tIndex = stringIntegerPair.getSecond();
                     //If territories list size is still > 0, then there is at least 1 free territory available
                     //If so, we add the territory the player entered to that player's owned territories list as a new territory
                     //Then, that territory need to be removed from the available territories list
@@ -313,8 +342,8 @@ public class Main {
                         //If the territory is already owned, then just increase its number of army
                         //Otherwise, output error
                         if (foundTerritory != null) players.get(j).addOwnedTerritory(foundTerritory);
-                        else if (tName != null) System.out.println("Territory " + tName + " is not available.");
-                        else System.out.println("Territory index " + tIndex + " is not available.");
+                        else if (tName != null) System.out.println("Player " + players.get(j) + " does not own " + tName);
+                        else System.out.println("Player " + players.get(j) + " does not own territory has index of " + tIndex);
                     }
                 }
             }
@@ -367,7 +396,7 @@ public class Main {
                 System.out.print(t.getTerritoryName());
             }
         }
-        System.out.println("======================================================================");
+        System.out.println("\n======================================================================");
     }
 
     /**
@@ -403,7 +432,7 @@ public class Main {
                 System.out.print(t.getTerritoryName());
             }
         }
-        System.out.println("======================================================================");
+        System.out.println("\n======================================================================");
     }
 
     /**
@@ -430,7 +459,7 @@ public class Main {
                 System.out.print(t.getTerritoryName());
             }
         }
-        System.out.println("======================================================================");
+        System.out.println("\n======================================================================");
     }
 
     /**
