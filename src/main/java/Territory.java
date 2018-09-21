@@ -1,7 +1,5 @@
-package KevinTonRafael.company;
-import org.jetbrains.annotations.NotNull;
-
 import java.lang.String;
+import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +10,7 @@ public class Territory {
     private boolean isOccupied; //Is the territory owned by any player?
     private Player occupiedBy; //Whom this territory is owned by?
     private int numbOfArmy; //Number of army currently are on this territory
+    private Army army;  //The army on this territory
 
     private List<Territory> adjTerritories; //The list contains all adjacent territories with this territory
 
@@ -20,13 +19,14 @@ public class Territory {
      * @param territoryName The name of this territory
      * @param territoryIndex The index of this territory (will be assigned base on its order in TerritoryDataList)
      */
-    public Territory(@NotNull String territoryName, int territoryIndex) {
+    public Territory( String territoryName, int territoryIndex) {
         this.territoryName = territoryName;
         this.isOccupied = false;
         this.occupiedBy = null;
         this.numbOfArmy = 0;
         this.territoryIndex = territoryIndex;
         adjTerritories = new ArrayList<Territory>();
+        this.army = null;
     }
 
     /**
@@ -82,7 +82,7 @@ public class Territory {
      * <p style="color:blue;">Set which player will own this territory</p>
      * @param occupiedBy The player which will be the new owner of this territory
      */
-    public void setOccupiedBy(@NotNull Player occupiedBy) {
+    public void setOccupiedBy( Player occupiedBy) {
         this.occupiedBy = occupiedBy;
     }
 
@@ -102,6 +102,37 @@ public class Territory {
         this.numbOfArmy = numbOfArmy;
     }
 
+    public Army getArmy() {
+        return army;
+    }
+
+    public void setArmy(int numbOfArmy) {
+        if (army == null) army = new FootSoldierArmy(numbOfArmy);
+        if (army.getNumbOfArmy() > army.getUpperBound() && !army.nextType.equals("")) {
+            try {
+                Class c = Class.forName(army.nextType);
+                army = (Army)c.getConstructor(Integer.TYPE).newInstance(numbOfArmy);
+            }
+            catch (ClassNotFoundException e) {
+                System.out.println("Error when convert army.");
+            }
+            catch (NoSuchMethodException e) {
+                System.out.println("Error when convert army.");
+            }
+            catch (IllegalAccessException e) {
+                System.out.println("Error when convert army.");
+            }
+            catch (InstantiationException e) {
+                System.out.println("Error when convert army.");
+            }
+            catch (InvocationTargetException e) {
+                System.out.println("Error when convert army.");
+            }
+        }
+        army.setNumbOfArmy(numbOfArmy);
+        this.numbOfArmy = numbOfArmy;
+    }
+
     /**
      * <p style="color:blue;">Print the list of all adjacent territories with this territory</p>
      */
@@ -117,7 +148,8 @@ public class Territory {
         adjTerritories.forEach(t -> {
             System.out.print(t.getTerritoryName());
             if (t.getOccupiedBy() != null) System.out.print(" - " + t.getOccupiedBy().getPlayerName());
-            System.out.print(": " + t.getNumbOfArmy());
+            System.out.print(" - index: " + t.getTerritoryIndex());
+            System.out.print(" : " + t.getNumbOfArmy());
             if (adjTerritories.indexOf(t) < adjTerritories.size() - 1) System.out.print(", ");
         });
         System.out.println();

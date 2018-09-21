@@ -1,6 +1,3 @@
-package KevinTonRafael.company;
-import org.jetbrains.annotations.NotNull;
-
 import java.lang.String;
 import java.util.List;
 import java.util.ArrayList;
@@ -11,25 +8,27 @@ import java.util.ArrayList;
 public class Player {
 
     private String playerName; //Name of player
-    private int numOfArmy; //Number of army the player has
+    private int numOfAvailableArmy; //Number of available army the player has
     private List<Territory> ownedTerritories; //List contains player's owned territories
     private boolean isLost; //Is this player lose
-    private int currentRollValue; //The current die value the player has rolled
-    private int numOfDice; //Number of die the player can at the same time in a roll, NOTE: it's different from number of roll
+    private int numOfDice; //Number of die the player can at the same time in a roll
     private List<Die> dice; //List contains the number of die that player can roll at the same time
+    private int minBonusArmies; //Minimum number of bonus armies the player will get each turn
+    private List<Card> ownedCards; //The list of card the player owns
 
     /**
      * <p style="color:blue;">Player constructor, create player</p>
      * <p>Assign only 1 die for the player to roll at the same time</p>
      * @param playerName The name which the player will be created with
      */
-    public Player(@NotNull String playerName) {
+    public Player( String playerName) {
         this.playerName = playerName;
-        this.numOfArmy = 0;
+        this.numOfAvailableArmy = 0;
         this.ownedTerritories = new ArrayList<Territory>();
+        this.ownedCards = new ArrayList<Card>();
         this.isLost = false;
-        this.currentRollValue = 0;
         this.numOfDice = 1;
+        this.minBonusArmies = 3;
         this.dice = new ArrayList<Die>() {
             {
                 add(new Die(1, 6));
@@ -39,16 +38,16 @@ public class Player {
 
     /**
      * <p style="color:blue;">Player constructor, create player</p>
-     * <p>Assign numbOfDie dice for the player to roll at the same time</p>
+     * <p>Assign numbOfMaxDie dice for the player to roll at the same time</p>
      * @param playerName The name which the player will be created with
      * @param numbOfDie The number of die the player can roll at the same time in a roll
      */
-    public Player(@NotNull String playerName, int numbOfDie) {
+    public Player( String playerName, int numbOfDie) {
         this.playerName = playerName;
-        this.numOfArmy = 0;
+        this.numOfAvailableArmy = 0;
         this.ownedTerritories = new ArrayList<Territory>();
+        this.ownedCards = new ArrayList<Card>();
         this.isLost = false;
-        this.currentRollValue = 0;
         this.numOfDice = 1;
         this.dice = new ArrayList<Die>();
         for (int i = 0; i < numbOfDie; i++) {
@@ -58,7 +57,7 @@ public class Player {
 
     /**
      * <p style="color:blue;">Player constructor, create player</p>
-     * <p>Assign numbOfDie dice for the player to roll at the same time</p>
+     * <p>Assign numbOfMaxDie dice for the player to roll at the same time</p>
      * <p>The smallest face value and the largest face value can be determine with
      * <b>minRollValue</b> and <b>maxRollValue</b> respectively</p>
      * @param playerName The name which the player will be created with
@@ -66,14 +65,14 @@ public class Player {
      * @param minRollValue The smallest face value
      * @param maxRollValue The largest face value
      */
-    public Player(@NotNull String playerName, int numbOfDie, int minRollValue, int maxRollValue) {
+    public Player( String playerName, int numbOfDie, int minRollValue, int maxRollValue) {
         this.playerName = playerName;
-        this.numOfArmy = 0;
+        this.numOfAvailableArmy = 0;
         this.ownedTerritories = new ArrayList<Territory>();
         this.isLost = false;
-        this.currentRollValue = 0;
         this.numOfDice = 1;
         this.dice = new ArrayList<Die>();
+        this.ownedCards = new ArrayList<Card>();
         for (int i = 0; i < numbOfDie; i++) {
             this.dice.add((new Die(minRollValue, maxRollValue)));
         }
@@ -91,16 +90,16 @@ public class Player {
      * <p style="color:blue;">Get number of army the player has</p>
      * @return The number of army the player has
      */
-    public int getNumOfArmy() {
-        return numOfArmy;
+    public int getNumOfAvailableArmy() {
+        return numOfAvailableArmy;
     }
 
     /**
      * <p style="color:blue;">Change the number of army the player has</p>
      * @param numOfArmy The new number of army the player will have
      */
-    public void setNumOfArmy(int numOfArmy) {
-        this.numOfArmy = numOfArmy;
+    public void setNumOfAvailableArmy(int numOfArmy) {
+        this.numOfAvailableArmy = numOfArmy;
     }
 
     /**
@@ -116,13 +115,41 @@ public class Player {
      * @param territory The territory the player is going to claim
      */
     public void addOwnedTerritory(Territory territory) {
-        if (ownedTerritories.contains(territory)) territory.setNumbOfArmy(territory.getNumbOfArmy() + 1);
+        if (ownedTerritories.contains(territory)) {
+            //territory.setNumbOfArmy(territory.getNumbOfArmy() + 1);
+            territory.setArmy(territory.getNumbOfArmy() + 1);
+        }
         else {
             territory.setNumbOfArmy(1);
             territory.setOccupied(true);
             territory.setOccupiedBy(this);
             ownedTerritories.add(territory);
         }
+        setNumOfAvailableArmy(getNumOfAvailableArmy() - 1);
+    }
+
+    public int getTotalNumbOfArmy() {
+        int total = 0;
+        for (Territory ownedTerritory : getOwnedTerritories()) total += ownedTerritory.getNumbOfArmy();
+        return total;
+    }
+
+    public void setBonusArmies(int bonusArmies) {
+        bonusArmies += getOwnedTerritories().size()/3;
+        if (bonusArmies < minBonusArmies) bonusArmies = minBonusArmies;
+        setNumOfAvailableArmy(getNumOfAvailableArmy() + bonusArmies);
+    }
+
+    public void printRolledDice() {
+        System.out.println(getPlayerName() + "'s roll result:");
+        System.out.print("====>");
+        dice.forEach(die -> {
+            if (die.getCurrentValue() > 0) {
+                if (dice.indexOf(die) > 0 && dice.indexOf(die) < dice.size() - 1) System.out.print(", ");
+                System.out.print(die.getCurrentValue());
+            }
+        });
+        System.out.println("\n====================================================================");
     }
 
     /**
@@ -139,14 +166,6 @@ public class Player {
      */
     public void setLost(boolean lost) {
         isLost = lost;
-    }
-
-    /**
-     * <p style="color:blue;">Get the total current face value of the dice the player has just rolled</p>
-     * @return The total face value of the dice the player has just rolled
-     */
-    public int getCurrentRollValue() {
-        return currentRollValue;
     }
 
     /**
@@ -173,4 +192,7 @@ public class Player {
         return dice;
     }
 
+    public List<Card> getOwnedCards() {
+        return ownedCards;
+    }
 }
