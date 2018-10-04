@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import org.junit.runner.JUnitCore;
 
 public class Main {
 
@@ -15,6 +16,7 @@ public class Main {
      * @param args arguments to use as parameters when user input console command when run the program
      */
     public static void main(String[] args) {
+        JUnitCore.runClasses(Tests.class);
 
         Scanner userInput = new Scanner(System.in);
 
