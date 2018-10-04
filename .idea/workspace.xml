@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="599758c1-7746-422d-88da-c76adf86704c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Army.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Army.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Calvary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Calvary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FootSoldierArmy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FootSoldierArmy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Territory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Territory.java" afterDir="false" />
-    </list>
+    <list default="true" id="599758c1-7746-422d-88da-c76adf86704c" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -342,7 +334,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538633173314" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538633905859" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
