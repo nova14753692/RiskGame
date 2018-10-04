@@ -1,5 +1,3 @@
-package KevinTonRafael.company;
-
 public class Pair<u, v> {
 
     private u first;

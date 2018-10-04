@@ -1,5 +1,3 @@
-package KevinTonRafael.company;
-
 public abstract class Army {
 
     protected int numbOfArmy;
@@ -22,6 +20,10 @@ public abstract class Army {
 
     public String getArmyName() {
         return armyName;
+    }
+
+    public void setArmyName(String armyName) {
+        this.armyName = armyName;
     }
 
     public int getLowerBound() {
