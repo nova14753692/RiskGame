@@ -6,5 +6,6 @@ public class FootSoldierArmy extends Army {
         lowerBound = 1;
         upperBound = 2;
         nextType = Calvary.class.getName();
+        previousType = "";
     }
 }

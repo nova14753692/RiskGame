@@ -6,5 +6,6 @@ public class Calvary extends Army {
         lowerBound = 3;
         upperBound = 5;
         nextType = "";
+        previousType = "FootSoldierArmy";
     }
 }
