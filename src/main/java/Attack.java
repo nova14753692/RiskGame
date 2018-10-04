@@ -46,8 +46,6 @@ public class Attack extends Battle {
                     otherTerritory.getOccupiedBy().getOwnedTerritories().remove(otherTerritory);
                     thisPlayer.addOwnedTerritory(otherTerritory);
                     otherTerritory.setNumbOfArmy(numbOfWinArmy);
-                    Card card = new TerritoryCard();
-                    thisPlayer.getOwnedCards().add(card);
                 }
             }
         }
@@ -70,8 +68,6 @@ public class Attack extends Battle {
                     otherTerritory.getOccupiedBy().getOwnedTerritories().remove(otherTerritory);
                     thisPlayer.addOwnedTerritory(otherTerritory);
                     otherTerritory.setNumbOfArmy(numbOfWinArmy);
-                    Card card = new TerritoryCard();
-                    thisPlayer.getOwnedCards().add(card);
                 }
             }
         }

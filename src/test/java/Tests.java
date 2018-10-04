@@ -86,5 +86,4 @@ public class Tests {
         assertEquals(army.getNumbOfArmy(), territory.getArmy().getNumbOfArmy());
         assertEquals(army.getArmyName(), territory.getArmy().getArmyName());
     }
-
 }
