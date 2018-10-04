@@ -142,11 +142,12 @@ public class Player {
 
     public void printRolledDice() {
         System.out.println(getPlayerName() + "'s roll result:");
-        System.out.print("====>");
+        System.out.print("====> ");
         dice.forEach(die -> {
             if (die.getCurrentValue() > 0) {
-                if (dice.indexOf(die) > 0 && dice.indexOf(die) < dice.size() - 1) System.out.print(", ");
+                if (dice.indexOf(die) > 0 && dice.indexOf(die) < dice.size() - 1) ;
                 System.out.print(die.getCurrentValue());
+                System.out.print("  ");
             }
         });
         System.out.println("\n====================================================================");

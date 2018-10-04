@@ -8,6 +8,26 @@ import static junit.framework.Assert.assertEquals;
 public class Tests {
 
     @Test
+    public void createPlayers() {
+        Player ePlayer1 = new Player("Ton", 3);
+        Player ePlayer2 = new Player("AI", 3);
+        List<Player> ePlayers = new ArrayList<>();
+        ePlayers.add(ePlayer1);
+        ePlayers.add(ePlayer2);
+        List<String> playerNames = new ArrayList<>();
+        playerNames.add("Ton");
+        playerNames.add("AI");
+        List<Player> players = Main.createPlayers(2,8, 3,  2, playerNames);
+        assertEquals(players.size(), ePlayers.size());
+        if (players.size() == ePlayers.size()) {
+            for (int i = 0; i < ePlayers.size(); i++) {
+                assertEquals(ePlayers.get(i).getPlayerName(), players.get(i).getPlayerName());
+                assertEquals(ePlayers.get(i).getPlayerName(), players.get(i).getPlayerName());
+            }
+        }
+    }
+
+    @Test
     public void startBattle() {
         Player ePlayer = new Player("Ton", 3);
         Territory eThisTerritory = new Territory("Alaska", 1);
@@ -31,27 +51,6 @@ public class Tests {
         Attack eAttacker = new Attack(ePlayer1, eThisTerritory, eOtherTerritory, 5, 1, 0, 1);
         eAttacker.afterBattle(1, 2);
         assertEquals(2, eOtherTerritory.getNumbOfArmy());
-    }
-
-    @Test
-    public void createPlayers() {
-        int eNumberOfPlayer = 2;
-        Player ePlayer1 = new Player("Ton", 3);
-        Player ePlayer2 = new Player("AI", 3);
-        List<Player> ePlayers = new ArrayList<>();
-        ePlayers.add(ePlayer1);
-        ePlayers.add(ePlayer2);
-        List<String> playerNames = new ArrayList<>();
-        playerNames.add("Ton");
-        playerNames.add("AI");
-        List<Player> players = Main.createPlayers(2, 6, 3, 2, playerNames);
-        assertEquals(players.size(), ePlayers.size());
-        if (players.size() == ePlayers.size()) {
-            for (int i = 0; i < ePlayers.size(); i++) {
-                assertEquals(ePlayers.get(i).getPlayerName(), players.get(i).getPlayerName());
-                assertEquals(ePlayers.get(i).getPlayerName(), players.get(i).getPlayerName());
-            }
-        }
     }
 
     @Test
