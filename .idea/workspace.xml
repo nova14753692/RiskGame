@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cbe5616b-ae35-45b4-b703-aecd8d723d01" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Army.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Army.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Attack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Attack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Battle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Battle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Calvary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Calvary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Defend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Defend.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Die.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Die.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FootSoldierArmy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/FootSoldierArmy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Pair.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Territory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Territory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/RiskGame/Tests.java" afterDir="false" />
-    </list>
+    <list default="true" id="cbe5616b-ae35-45b4-b703-aecd8d723d01" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -115,8 +99,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="30" column="39" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
+            <state relative-caret-position="379">
+              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
             </state>
           </provider>
         </entry>
@@ -141,6 +125,10 @@
         <option value="$PROJECT_DIR$/src/main/java/RiskGame/Main.java" />
       </list>
     </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="width" value="960" />
+    <option name="height" value="520" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -190,7 +178,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538636165785" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538636455885" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -209,7 +197,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.Tests">
     <configuration name="All in RiskGame" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
       <module name="RiskGame" />
       <option name="PACKAGE_NAME" value="" />
@@ -240,13 +228,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="RiskGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="RiskGame.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="RiskGame" />
+      <option name="MAIN_CLASS_NAME" value="RiskGame.Tests" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Android JUnit.All in RiskGame" />
       <item itemvalue="JUnit.All in RiskGame" />
       <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.Tests" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.Tests" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.All in RiskGame" />
         <item itemvalue="Android JUnit.All in RiskGame" />
@@ -380,8 +384,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="30" column="39" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
+        <state relative-caret-position="379">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
         </state>
       </provider>
     </entry>
