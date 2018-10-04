@@ -1,7 +1,3 @@
-package KevinTonRafael.company;
-
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Comparator;
 import java.util.Scanner;
 
@@ -13,7 +9,7 @@ public abstract class Battle {
     protected int numbOfInvolvedArmy;
     protected int numbOfMaxDie;
 
-    protected Battle(@NotNull Player thisPlayer, @NotNull Territory thisTerritory, @NotNull Territory otherTerritory,
+    protected Battle( Player thisPlayer,  Territory thisTerritory,  Territory otherTerritory,
                      int numbOfInvolvedArmy, int numbOfSpareArmy) {
         this.thisPlayer = thisPlayer;
         this.thisTerritory = thisTerritory;
@@ -31,7 +27,7 @@ public abstract class Battle {
 
     public abstract void afterBattle(int result, Scanner userInput);
 
-    public static final int getBattleResult(@NotNull Battle attacker, @NotNull Battle defender) {
+    public static final int getBattleResult( Battle attacker,  Battle defender) {
         if (attacker != null && defender != null && attacker.numbOfMaxDie > 0 && defender.numbOfMaxDie > 0) {
             Die attackerMaxFaceValueDie = attacker.thisPlayer.getDice().stream()
                     .max(Comparator.comparing(die -> die.getCurrentValue())).get();

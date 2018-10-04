@@ -1,5 +1,3 @@
-package KevinTonRafael.company;
-
 import java.util.Scanner;
 
 public class Attack extends Battle {
@@ -48,8 +46,28 @@ public class Attack extends Battle {
                     otherTerritory.getOccupiedBy().getOwnedTerritories().remove(otherTerritory);
                     thisPlayer.addOwnedTerritory(otherTerritory);
                     otherTerritory.setNumbOfArmy(numbOfWinArmy);
-                    Card card = new TerritoryCard();
-                    thisPlayer.getOwnedCards().add(card);
+                }
+            }
+        }
+    }
+
+    //For test
+    public void afterBattle(int result, int numbOfWinArmy) {
+        if (result > -2) {
+            if (result <= 0) {
+                thisTerritory.setNumbOfArmy(thisTerritory.getNumbOfArmy() - armyPenalty);
+                if (thisTerritory.getNumbOfArmy() == 0) thisPlayer.getOwnedTerritories().remove(thisTerritory);
+                if (thisPlayer.getOwnedTerritories().size() == 0) {
+                    thisPlayer.setLost(true);
+                    System.out.println(thisPlayer.getPlayerName() + " is lost.");
+                }
+            } else {
+                System.out.println(thisPlayer.getPlayerName() + " won.");
+                otherTerritory.setNumbOfArmy(otherTerritory.getNumbOfArmy() - armyPenaltyToDefender);
+                if (otherTerritory.getNumbOfArmy() == 0) {
+                    otherTerritory.getOccupiedBy().getOwnedTerritories().remove(otherTerritory);
+                    thisPlayer.addOwnedTerritory(otherTerritory);
+                    otherTerritory.setNumbOfArmy(numbOfWinArmy);
                 }
             }
         }

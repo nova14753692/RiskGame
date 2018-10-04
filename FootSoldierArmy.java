@@ -1,5 +1,3 @@
-package KevinTonRafael.company;
-
 public class FootSoldierArmy extends Army {
 
     public FootSoldierArmy(int numbOfArmy) {
