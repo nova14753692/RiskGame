@@ -1,3 +1,5 @@
+package RiskGame;
+
 import java.util.Scanner;
 
 public class Defend extends Battle {

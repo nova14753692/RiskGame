@@ -1,3 +1,5 @@
+package RiskGame;
+
 public abstract class Army {
 
     protected int numbOfArmy;

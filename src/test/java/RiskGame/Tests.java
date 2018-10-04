@@ -1,3 +1,6 @@
+package RiskGame;
+
+import RiskGame.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
