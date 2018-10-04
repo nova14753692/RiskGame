@@ -4,7 +4,10 @@ public abstract class Army {
     protected String armyName;
     protected int lowerBound;
     protected int upperBound;
+
     protected String nextType;
+
+    protected String previousType;
 
     public Army(int numbOfArmy) {
         this.numbOfArmy = numbOfArmy;
@@ -44,5 +47,17 @@ public abstract class Army {
 
     public String getNextType() {
         return nextType;
+    }
+
+    public String getPreviousType() {
+        return previousType;
+    }
+
+    public void setNextType(String nextType) {
+        this.nextType = nextType;
+    }
+
+    public void setPreviousType(String previousType) {
+        this.previousType = previousType;
     }
 }

@@ -12,6 +12,8 @@ public class Territory {
     private int numbOfArmy; //Number of army currently are on this territory
     private Army army;  //The army on this territory
 
+    private Territory lastTerritory;
+
     private List<Territory> adjTerritories; //The list contains all adjacent territories with this territory
 
     /**
@@ -19,7 +21,7 @@ public class Territory {
      * @param territoryName The name of this territory
      * @param territoryIndex The index of this territory (will be assigned base on its order in TerritoryDataList)
      */
-    public Territory( String territoryName, int territoryIndex) {
+    public Territory(String territoryName, int territoryIndex) {
         this.territoryName = territoryName;
         this.isOccupied = false;
         this.occupiedBy = null;
@@ -102,30 +104,28 @@ public class Territory {
         this.numbOfArmy = numbOfArmy;
     }
 
+    public Territory getLastTerritory() {
+        return lastTerritory;
+    }
+
+    public void setLastTerritory(Territory lastTerritory) {
+        this.lastTerritory = lastTerritory;
+    }
+
     public Army getArmy() {
         return army;
     }
 
     public void setArmy(int numbOfArmy) {
         if (army == null) army = new FootSoldierArmy(numbOfArmy);
-        if (army.getNumbOfArmy() > army.getUpperBound() && !army.nextType.equals("")) {
+
+        if (army.getNumbOfArmy() > army.getUpperBound() && !army.getNextType().equals("")) {
             try {
-                Class c = Class.forName(army.nextType);
+                Class c = Class.forName(army.getNextType());
                 army = (Army)c.getConstructor(Integer.TYPE).newInstance(numbOfArmy);
             }
-            catch (ClassNotFoundException e) {
-                System.out.println("Error when convert army.");
-            }
-            catch (NoSuchMethodException e) {
-                System.out.println("Error when convert army.");
-            }
-            catch (IllegalAccessException e) {
-                System.out.println("Error when convert army.");
-            }
-            catch (InstantiationException e) {
-                System.out.println("Error when convert army.");
-            }
-            catch (InvocationTargetException e) {
+            catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |
+                    IllegalAccessException | InvocationTargetException e) {
                 System.out.println("Error when convert army.");
             }
         }
@@ -155,4 +155,20 @@ public class Territory {
         System.out.println();
     }
 
+    public void Revoke()
+    {
+        this.territoryName = lastTerritory.getTerritoryName();
+        this.territoryIndex = lastTerritory.getTerritoryIndex();
+        this.isOccupied = lastTerritory.isOccupied();
+        this.occupiedBy = lastTerritory.getOccupiedBy();
+        this.numbOfArmy = lastTerritory.getNumbOfArmy();
+        this.army = lastTerritory.getArmy();
+    }
+
+    public void saveState() {
+        lastTerritory.setOccupiedBy(this.getOccupiedBy());
+        lastTerritory.setOccupied(this.isOccupied());
+        lastTerritory.setNumbOfArmy(this.getNumbOfArmy());
+        lastTerritory.setArmy(this.getArmy().numbOfArmy);
+    }
 }

@@ -102,7 +102,9 @@ public class Main {
         while(i <= numOfPlayer) {
             System.out.print("What is the name of player " + i + ": ");
             if (userInput.hasNextLine()) {
-                players.add(new Player(userInput.nextLine(), maxNumbOfDie));
+                Player player = new Player(userInput.nextLine(), maxNumbOfDie);
+                player.setLastPlayer(new Player(player.getPlayerName(), maxNumbOfDie));
+                players.add(player);
                 i++;
             }
             else System.out.println("Invalid input");
@@ -117,7 +119,9 @@ public class Main {
         int i = 0; //The index of player
         //Asking names of the players
         while(i < numOfPlayer) {
-            players.add(new Player(playerNames.get(i), maxNumbOfDie));
+            Player player = new Player(playerNames.get(i), maxNumbOfDie);
+            player.setLastPlayer(new Player(playerNames.get(i), maxNumbOfDie));
+            players.add(player);
             i++;
         }
         return players;
@@ -168,7 +172,6 @@ public class Main {
      * @param userInput Variable accepts user input
      * @return The list of every territory allowed in the game
      */
-    
     public static  List<Territory> createTerritories(String filePath, String fileName,  Scanner userInput) {
         List<Territory> territories = new ArrayList<>();
         Pair<List<String>, Integer> territoryDuplicatedPair = readTerritoriesData(filePath, fileName, ".list");
@@ -192,8 +195,11 @@ public class Main {
         }
 
         //Create each territory base on each territory name in the territoryName list
-        for (int i = 0; i < territoryDuplicatedPair.getFirst().size(); i++)
-            territories.add(new Territory(territoryDuplicatedPair.getFirst().get(i), i + 1));
+        for (int i = 0; i < territoryDuplicatedPair.getFirst().size(); i++) {
+            Territory territory = new Territory(territoryDuplicatedPair.getFirst().get(i), i + 1);
+            territory.setLastTerritory(new Territory(territoryDuplicatedPair.getFirst().get(i), i + 1));
+            territories.add(territory);
+        }
 
         //Search and open file which contains adjacent territories for each territory in territories list
         for (Territory territory : territories) {
@@ -315,6 +321,32 @@ public class Main {
         return new Pair<String, Integer>(tName, tIndex);
     }
 
+    public static boolean askForUndo(Scanner userInput) {
+        String input = "";
+        while (!input.toLowerCase().equals("n") || !input.toLowerCase().equals("y")) {
+            System.out.print("Do you want to undo (Y/N): ");
+            if (userInput.hasNextLine()) {
+                input = userInput.nextLine();
+                if (!input.toLowerCase().equals("y") && !input.toLowerCase().equals("n")) {
+                    System.out.println("You have to answer either Y or N.");
+                    continue;
+                } else if (input.toLowerCase().equals("n")) return false;
+                else if (input.toLowerCase().equals("y")) return true;
+            }
+        }
+        return false;
+    }
+
+    public static void undo(Player player, Territory territory) {
+        player.Revoke();
+        territory.Revoke();
+    }
+
+    public static void saveState(Player player, Territory territory) {
+        player.saveState();
+        territory.saveState();
+    }
+
     /**
      * <p style="color:blue;">Each player take turn to set up their availableTerritories</p>
      * @param players The player list
@@ -322,7 +354,7 @@ public class Main {
      * @param userInput Variable accepts user input
      * @param mapPath The path to the map image
      */
-    public static void setTerritory( List<Player> players,  List<Territory> availableTerritories,
+    public static void setTerritory(List<Player> players,  List<Territory> availableTerritories,
                                      List<Territory> finalTerritories,  Scanner userInput, String mapPath) {
         //Assign the number of army each player will have base on the number of player
         int armiesEachPlayer = getNumberOfArmyEachPlayer(players.size());
@@ -353,6 +385,11 @@ public class Main {
                         if (foundTerritory != null) {
                             players.get(j).addOwnedTerritory(foundTerritory);
                             availableTerritories.remove(foundTerritory);
+                            if (askForUndo(userInput)) {
+                                undo(players.get(j), foundTerritory);
+                                j--;
+                                i--;
+                            }
                         } else System.out.println("Territory not found");
                     } else {
                         //Occurred when there is no available territory but there are armies left that have not set
@@ -371,7 +408,15 @@ public class Main {
                         //If territory is found, then call the function addOwnedTerritory from player object
                         //If the territory is already owned, then just increase its number of army
                         //Otherwise, output error
-                        if (foundTerritory != null) players.get(j).addOwnedTerritory(foundTerritory);
+                        if (foundTerritory != null) {
+                            saveState(players.get(j), foundTerritory);
+                            players.get(j).addOwnedTerritory(foundTerritory);
+                            if (askForUndo(userInput)) {
+                                undo(players.get(j), foundTerritory);
+                                j--;
+                                i--;
+                            }
+                        }
                         else if (tName != null) System.out.println("Player " + players.get(j).getPlayerName() + " does not own " + tName);
                         else System.out.println("Player " + players.get(j).getPlayerName() + " does not own territory has index of " + tIndex);
                     }
@@ -388,7 +433,7 @@ public class Main {
      * @param userInput Variable accepts user input
      * @param mapPath The path to the map image
      */
-    public static void setTerritory( Player player,  List<Player> players,  List<Territory> availableTerritories,
+    public static void setTerritory(Player player,  List<Player> players,  List<Territory> availableTerritories,
                                      List<Territory> finalTerritories,  Scanner userInput, String mapPath) {
         //Set territory stage
         for (int i = 0; i < player.getNumOfAvailableArmy(); i++) {
@@ -413,6 +458,10 @@ public class Main {
                     if (foundTerritory != null) {
                         player.addOwnedTerritory(foundTerritory);
                         availableTerritories.remove(foundTerritory);
+                        if (askForUndo(userInput)) {
+                            undo(player, foundTerritory);
+                            i--;
+                        }
                     } else System.out.println("Territory not found");
                 } else {
                     //Occurred when there is no available territory but there are armies left that have not set
@@ -431,7 +480,14 @@ public class Main {
                     //If territory is found, then call the function addOwnedTerritory from player object
                     //If the territory is already owned, then just increase its number of army
                     //Otherwise, output error
-                    if (foundTerritory != null) player.addOwnedTerritory(foundTerritory);
+                    if (foundTerritory != null) {
+                        saveState(player, foundTerritory);
+                        player.addOwnedTerritory(foundTerritory);
+                        if (askForUndo(userInput)) {
+                            undo(player, foundTerritory);
+                            i--;
+                        }
+                    }
                     else if (tName != null)
                         System.out.println("Player " + player.getPlayerName() + " does not own " + tName);
                     else
@@ -453,7 +509,7 @@ public class Main {
         for (int i = 0; i < players.size(); i++) {
             while (!players.get(i).isLost()) {
                 String input;
-                String addOutput = "It's " + players.get(i).getPlayerName() + " to attack.\nDo you want to attack (Yes/No): ";
+                String addOutput = "It's " + players.get(i).getPlayerName() + " to attack.\nDo you want to attack (Y/N): ";
                 input = userInputRequest(finalTerritories, finalTerritories, players, players.get(i), mapPath, addOutput, userInput).getFirst();
                 if (input == null) input = "";
                 if (!input.toLowerCase().equals("y")&& !input.toLowerCase().equals("n")) {
@@ -490,9 +546,12 @@ public class Main {
                     if (defenderTerritory == null)
                         System.out.println("Territory not found." +
                                 "\nCheck if the territory you enter is valid and not one of your owned territories.");
+                    /*else if (askForUndo(userInput)) {
+                        i--;
+                        continue;
+                    }*/
                     System.out.println("======================================================================");
                 }
-
                 int result = play(currentPlayer, attackerTerritory, defenderTerritory.getOccupiedBy(), defenderTerritory, userInput);
             }
         }
@@ -527,8 +586,14 @@ public class Main {
                     numbOfDefenderSpareArmy);
             if (def.startBattle(def.askUserNumberOfDice(userInput))) {
                 result = Battle.getBattleResult(atk, def);
+                saveState(atk.thisPlayer, atk.thisTerritory);
                 atk.afterBattle(result, userInput);
+                saveState(def.thisPlayer, def.thisTerritory);
                 def.afterBattle(result, userInput);
+            }
+            if (askForUndo(userInput)) {
+                undo(atk.thisPlayer, atk.thisTerritory);
+                undo(def.thisPlayer, def.thisTerritory);
             }
         }
         return result;

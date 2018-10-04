@@ -15,6 +15,7 @@ public class Player {
     private List<Die> dice; //List contains the number of die that player can roll at the same time
     private int minBonusArmies; //Minimum number of bonus armies the player will get each turn
     private List<Card> ownedCards; //The list of card the player owns
+    private Player lastPlayer;
 
     /**
      * <p style="color:blue;">Player constructor, create player</p>
@@ -42,7 +43,7 @@ public class Player {
      * @param playerName The name which the player will be created with
      * @param numbOfDie The number of die the player can roll at the same time in a roll
      */
-    public Player( String playerName, int numbOfDie) {
+    public Player(String playerName, int numbOfDie) {
         this.playerName = playerName;
         this.numOfAvailableArmy = 0;
         this.ownedTerritories = new ArrayList<Territory>();
@@ -99,6 +100,7 @@ public class Player {
      * @param numOfArmy The new number of army the player will have
      */
     public void setNumOfAvailableArmy(int numOfArmy) {
+        //lastPlayer.setNumOfAvailableArmy(this.numOfAvailableArmy);
         this.numOfAvailableArmy = numOfArmy;
     }
 
@@ -125,6 +127,7 @@ public class Player {
             territory.setOccupiedBy(this);
             ownedTerritories.add(territory);
         }
+        //lastPlayer.setNumOfAvailableArmy(this.numOfAvailableArmy);
         setNumOfAvailableArmy(getNumOfAvailableArmy() - 1);
     }
 
@@ -166,6 +169,7 @@ public class Player {
      * @param lost If <b>True</b>, the player will lose. If <b>False</b> the player will continue to play
      */
     public void setLost(boolean lost) {
+        //lastPlayer.setLost(this.isLost);
         isLost = lost;
     }
 
@@ -182,6 +186,7 @@ public class Player {
      * @param numOfDice The new number of dice player will now have
      */
     public void setNumOfDice(int numOfDice) {
+        //lastPlayer.setNumOfDice(this.numOfDice);
         this.numOfDice = numOfDice;
     }
 
@@ -196,4 +201,38 @@ public class Player {
     public List<Card> getOwnedCards() {
         return ownedCards;
     }
+
+    public void Revoke() {
+        numOfAvailableArmy = lastPlayer.getNumOfAvailableArmy();
+        ownedTerritories.clear();
+        ownedTerritories.addAll(lastPlayer.getOwnedTerritories());
+        playerName = lastPlayer.getPlayerName();
+        isLost = lastPlayer.isLost();
+        numOfDice = lastPlayer.getNumOfDice();
+        dice.clear();
+        dice.addAll(lastPlayer.getDice());
+
+        //ownedTerritories.stream().forEach(item -> item.setOccupiedBy(this));
+    }
+
+    public void saveState() {
+        lastPlayer.setNumOfDice(this.numOfDice);
+        lastPlayer.setLost(this.isLost);
+        lastPlayer.setNumOfAvailableArmy(this.numOfAvailableArmy);
+        lastPlayer.getOwnedTerritories().clear();
+        lastPlayer.getOwnedTerritories().addAll(this.getOwnedTerritories());
+        lastPlayer.getDice().clear();
+        lastPlayer.getDice().addAll(this.getDice());
+        lastPlayer.ownedCards.clear();
+        lastPlayer.getOwnedCards().addAll(this.getOwnedCards());
+    }
+
+    public Player getLastPlayer() {
+        return lastPlayer;
+    }
+
+    public void setLastPlayer(Player lastPlayer) {
+        this.lastPlayer = lastPlayer;
+    }
+
 }
