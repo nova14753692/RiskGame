@@ -2,9 +2,11 @@ package RiskGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.channels.WritePendingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -34,6 +36,18 @@ public class Main {
         //The path to the map image
         final String mapPath = System.getProperty("user.dir") + File.separator + "map.jpg";
 
+        String fileName = "Replay1.re";
+        try {
+            FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + File.separator +
+                    "Replay" + File.separator + fileName);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+        }
+        catch(IOException e) {
+            System.out.println("Error recording replay.");
+        }
+
         List<Player> players;   //List contains players
         List<Territory> finalTerritories;    //List contain territories
 
@@ -53,8 +67,14 @@ public class Main {
         players.get(0).setNumOfAvailableArmy(getNumberOfArmyEachPlayer(players.size()));
         players.get(1).setNumOfAvailableArmy(getNumberOfArmyEachPlayer(players.size()));
         for (int i = 1; i <= 42; i++) {
-            if (i % 2 != 0) players.get(0).addOwnedTerritory(findTerritory(i, finalTerritories));
-            else players.get(1).addOwnedTerritory(findTerritory(i, finalTerritories));
+            if (i % 2 != 0) {
+                players.get(0).addOwnedTerritory(findTerritory(i, finalTerritories));
+                recordSetTerritory(players.get(0), findTerritory(i, finalTerritories));
+            }
+            else {
+                players.get(1).addOwnedTerritory(findTerritory(i, finalTerritories));
+                recordSetTerritory(players.get(1), findTerritory(i, finalTerritories));
+            }
         }
         for (int i = 1; i <= 28; i++) {
             if (i % 2 != 0) players.get(0).addOwnedTerritory(findTerritory(i, finalTerritories));
@@ -136,7 +156,6 @@ public class Main {
      * @param fileExtension The extension of the territory data file
      * @return The pair of the list of all territory name the game has just read, and the indicate number
      */
-    
     public static Pair<List<String>, Integer> readTerritoriesData(String filePath, String fileName, String fileExtension) {
         String line;
         List<String> territoryNames = new ArrayList<>();
@@ -191,7 +210,7 @@ public class Main {
                 if (userInput.hasNextLine()) answer = userInput.nextLine();
             }
             if (answer == "Yes") {
-                System.out.println("RiskGame.Territory list is updated and without duplication.");
+                System.out.println(".Territory list is updated and without duplication.");
             } else return null;
         }
 
@@ -213,7 +232,7 @@ public class Main {
                 Territory territoryToAdd = findTerritory(s, territories);
                 if (territoryToAdd != null) territory.getAdjTerritories().add(territoryToAdd);
                 else {
-                    System.out.println("Mismatch between available RiskGame.Territory and their adjacent territories.");
+                    System.out.println("Mismatch between available .Territory and their adjacent territories.");
                     return null;
                 }
             }
@@ -256,8 +275,8 @@ public class Main {
      */
     public static Pair<String, Integer> userInputRequest(List<Territory> territories, List<Territory> finalTerritories,
                                                          List<Player> players, Player player, String mapPath, String addOutput, Scanner userInput) {
-        int tIndex = -1; //RiskGame.Territory index temporary variable, because no variable is allowed inside java lambda expression
-        String tName = null; //RiskGame.Territory name temporary variable, because no variable is allowed inside java lambda expression
+        int tIndex = -1; //.Territory index temporary variable, because no variable is allowed inside java lambda expression
+        String tName = null; //.Territory name temporary variable, because no variable is allowed inside java lambda expression
         boolean command = true;
         while (command) {
             //The questions program will ask each player each move
@@ -268,9 +287,9 @@ public class Main {
             System.out.println("Enter -la to list all territories of all player and available territories.");
             System.out.println("Enter -lm to list all territories of your possession.");
             System.out.println("Enter -lav to list all available territories.");
-            System.out.println("Enter -shde [RiskGame.Territory name] or -shde [RiskGame.Territory index] (eg: -shde Alaska or -shde 1)\n" +
+            System.out.println("Enter -shde [.Territory name] or -shde [.Territory index] (eg: -shde Alaska or -shde 1)\n" +
                     " to list detail about that territory and its adjacent territories.");
-            System.out.print("Enter RiskGame.Territory name, or index, or command: ");
+            System.out.print("Enter .Territory name, or index, or command: ");
 
             //Execute special command
             if (userInput.hasNextLine()) {
@@ -300,9 +319,9 @@ public class Main {
                     input = input.substring(6);
                     try {
                         if (!printTerritory(input, finalTerritories) && !printTerritory(Integer.parseInt(input), finalTerritories))
-                            System.out.println("RiskGame.Territory not found.");
+                            System.out.println(".Territory not found.");
                     } catch (NumberFormatException e) {
-                        System.out.println("RiskGame.Territory not found.");
+                        System.out.println(".Territory not found.");
                     }
                     command = true;
                 }
@@ -388,10 +407,11 @@ public class Main {
                             availableTerritories.remove(foundTerritory);
                             if (askForUndo(userInput)) {
                                 undo(players.get(j), foundTerritory);
+                                availableTerritories.add(foundTerritory);
                                 j--;
                                 i--;
                             }
-                        } else System.out.println("RiskGame.Territory not found");
+                        } else System.out.println(".Territory not found");
                     } else {
                         //Occurred when there is no available territory but there are armies left that have not set
                         //At this time, each player can place their armies any where within their owned availableTerritories
@@ -418,8 +438,8 @@ public class Main {
                                 i--;
                             }
                         }
-                        else if (tName != null) System.out.println("RiskGame.Player " + players.get(j).getPlayerName() + " does not own " + tName);
-                        else System.out.println("RiskGame.Player " + players.get(j).getPlayerName() + " does not own territory has index of " + tIndex);
+                        else if (tName != null) System.out.println(".Player " + players.get(j).getPlayerName() + " does not own " + tName);
+                        else System.out.println(".Player " + players.get(j).getPlayerName() + " does not own territory has index of " + tIndex);
                     }
                 }
             }
@@ -461,9 +481,10 @@ public class Main {
                         availableTerritories.remove(foundTerritory);
                         if (askForUndo(userInput)) {
                             undo(player, foundTerritory);
+                            availableTerritories.add(foundTerritory);
                             i--;
                         }
-                    } else System.out.println("RiskGame.Territory not found");
+                    } else System.out.println("Territory not found");
                 } else {
                     //Occurred when there is no available territory but there are armies left that have not set
                     //At this time, each player can place their armies any where within their owned availableTerritories
@@ -490,9 +511,9 @@ public class Main {
                         }
                     }
                     else if (tName != null)
-                        System.out.println("RiskGame.Player " + player.getPlayerName() + " does not own " + tName);
+                        System.out.println("Player " + player.getPlayerName() + " does not own " + tName);
                     else
-                        System.out.println("RiskGame.Player " + player.getPlayerName() + " does not own territory has index of " + tIndex);
+                        System.out.println("Player " + player.getPlayerName() + " does not own territory has index of " + tIndex);
                 }
             }
         }
@@ -529,7 +550,7 @@ public class Main {
                     String tName = stringIntegerPair.getFirst();
                     int tIndex = stringIntegerPair.getSecond();
                     attackerTerritory = findTerritory(tName, tIndex, players.get(i).getOwnedTerritories());
-                    if (attackerTerritory == null) System.out.println("RiskGame.Territory not found.");
+                    if (attackerTerritory == null) System.out.println(".Territory not found.");
                     System.out.println("======================================================================");
                 }
 
@@ -545,7 +566,7 @@ public class Main {
                             .collect(Collectors.toList());
                     defenderTerritory = findTerritory(tName, tIndex, otherPlayerTerritories);
                     if (defenderTerritory == null)
-                        System.out.println("RiskGame.Territory not found." +
+                        System.out.println(".Territory not found." +
                                 "\nCheck if the territory you enter is valid and not one of your owned territories.");
                     /*else if (askForUndo(userInput)) {
                         i--;
@@ -555,6 +576,7 @@ public class Main {
                 }
                 int result = play(currentPlayer, attackerTerritory, defenderTerritory.getOccupiedBy(), defenderTerritory, userInput);
             }
+            if (i == players.size() - 1 && !checkWinCondition(players)) i = -1;
         }
     }
 
@@ -596,6 +618,7 @@ public class Main {
                 undo(atk.thisPlayer, atk.thisTerritory);
                 undo(def.thisPlayer, def.thisTerritory);
             }
+            recordBattle((Attack)atk, (Defend)def, result);
         }
         return result;
     }
@@ -732,8 +755,8 @@ public class Main {
 
     /**
      * <p style="color:blue;">Print basic information of territory base on <b>territoryName</b> and all its adjacent territories</p>
-     * @param territoryName RiskGame.Territory name which the information is pulled from
-     * @param territories RiskGame.Territory list
+     * @param territoryName .Territory name which the information is pulled from
+     * @param territories .Territory list
      * @return <b>True</b> when territoryName is valid territory, and <b>False</b> when territoryName is not found
      */
     public static boolean printTerritory( String territoryName,  List<Territory> territories) {
@@ -751,7 +774,7 @@ public class Main {
 
     /**
      * <p style="color:blue;">Print basic information of territory base on <b>territoryIndex</b> and all its adjacent territories</p>
-     * @param territoryIndex RiskGame.Territory index which corresponding to the order the territory names are appeared in the console window
+     * @param territoryIndex .Territory index which corresponding to the order the territory names are appeared in the console window
      *                       and from that we can pull the information of the territory
      * @param territories The territory list
      * @return <b>True</b> when territoryName is valid territory, and <b>False</b> when territoryName is not found
@@ -802,7 +825,7 @@ public class Main {
      * @param territories The territory list
      * @return The territory if found one, or <b>null</b> of it is not found
      */
-    
+
     public static Territory findTerritory(String territoryName ,int territoryIndex,  List<Territory> territories) {
         Territory foundTerritory = null;
         if (territoryName != null) {
@@ -857,4 +880,50 @@ public class Main {
         return frame;
     }
 
+    private static void recordSetTerritory(Player player, Territory territory) {
+        String fileName = "Replay1.re";
+        try {
+            FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + File.separator +
+                    "Replay" + File.separator + fileName, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            PrintWriter printWriter = new PrintWriter(bufferedWriter);
+
+            printWriter.println("Player: " + player.getPlayerName() + " acquired " + territory.getTerritoryName() + ".\n");
+            printWriter.close();
+            bufferedWriter.close();
+        }
+        catch(IOException e) {
+            System.out.println("Error recording replay.");
+        }
+    }
+
+    private static void recordBattle(Attack atk, Defend def, int result) {
+        String fileName = "Replay1.re";
+        try {
+            FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + File.separator +
+                    "Replay" + File.separator + fileName, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            PrintWriter printWriter = new PrintWriter(bufferedWriter);
+
+            printWriter.println(atk.thisPlayer.getPlayerName() + " rolled: ");
+            atk.thisPlayer.printRolledDice();
+            printWriter.println(def.thisPlayer.getPlayerName() + " rolled: ");
+            def.thisPlayer.printRolledDice();
+            if (result < 0) {
+                printWriter.println(atk.thisPlayer.getPlayerName() + " won.\n");
+            }
+            else if (result >= 0){
+                printWriter.println(def.thisPlayer.getPlayerName() + " defended " + def.thisTerritory + ".\n");
+            }
+            printWriter.println(atk.thisTerritory.getTerritoryName() + " has " + atk.thisTerritory.getNumbOfArmy() +
+                    " on it. It's currently owned by " + atk.thisTerritory.getOccupiedBy().getPlayerName() + ".\n");
+            printWriter.println(atk.otherTerritory.getTerritoryName() + " has " + atk.otherTerritory.getNumbOfArmy() +
+                    " on it. It's currently owned by " + atk.otherTerritory.getOccupiedBy().getPlayerName() + ".\n");
+            bufferedWriter.close();
+            printWriter.close();
+        }
+        catch(IOException e) {
+            System.out.println("Error recording replay.");
+        }
+    }
 }

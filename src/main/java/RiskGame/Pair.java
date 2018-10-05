@@ -6,7 +6,7 @@ public class Pair<u, v> {
     private v second;
 
     /**
-     * Constructs a new <code>RiskGame.Pair</code> with the given values.
+     * Constructs a new <code>Pair</code> with the given values.
      *
      * @param first  the first element
      * @param second the second element

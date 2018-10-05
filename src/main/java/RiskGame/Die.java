@@ -9,7 +9,7 @@ public class Die {
     private final int maxValue; //Largest face value of this die
 
     /**
-     * <p style="color:blue;">RiskGame.Die constructor, create a die</p>
+     * <p style="color:blue;">Die constructor, create a die</p>
      * @param minValue The smallest face value of this die
      * @param maxValue The largest face value of this die
      */

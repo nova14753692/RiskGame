@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * <p style="color:blue;">RiskGame.Player object that stores everything related to the player</p>
+ * <p style="color:blue;">.Player object that stores everything related to the player</p>
  */
 public class Player {
 
@@ -20,7 +20,7 @@ public class Player {
     private Player lastPlayer;
 
     /**
-     * <p style="color:blue;">RiskGame.Player constructor, create player</p>
+     * <p style="color:blue;">.Player constructor, create player</p>
      * <p>Assign only 1 die for the player to roll at the same time</p>
      * @param playerName The name which the player will be created with
      */
@@ -40,7 +40,7 @@ public class Player {
     }
 
     /**
-     * <p style="color:blue;">RiskGame.Player constructor, create player</p>
+     * <p style="color:blue;">.Player constructor, create player</p>
      * <p>Assign numbOfMaxDie dice for the player to roll at the same time</p>
      * @param playerName The name which the player will be created with
      * @param numbOfDie The number of die the player can roll at the same time in a roll
@@ -59,7 +59,7 @@ public class Player {
     }
 
     /**
-     * <p style="color:blue;">RiskGame.Player constructor, create player</p>
+     * <p style="color:blue;">.Player constructor, create player</p>
      * <p>Assign numbOfMaxDie dice for the player to roll at the same time</p>
      * <p>The smallest face value and the largest face value can be determine with
      * <b>minRollValue</b> and <b>maxRollValue</b> respectively</p>
@@ -83,7 +83,7 @@ public class Player {
 
     /**
      * <p style="color:blue;">Get player's name</p>
-     * @return RiskGame.Player's name
+     * @return .Player's name
      */
     public String getPlayerName() {
         return playerName;

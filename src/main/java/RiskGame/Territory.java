@@ -19,7 +19,7 @@ public class Territory {
     private List<Territory> adjTerritories; //The list contains all adjacent territories with this territory
 
     /**
-     * <p style="color:blue;">RiskGame.Territory constructor, create territory</p>
+     * <p style="color:blue;">.Territory constructor, create territory</p>
      * @param territoryName The name of this territory
      * @param territoryIndex The index of this territory (will be assigned base on its order in TerritoryDataList)
      */
@@ -35,7 +35,7 @@ public class Territory {
 
     /**
      * <p style="color:blue;">Get territory's name</p>
-     * @return RiskGame.Territory's name
+     * @return .Territory's name
      */
     public String getTerritoryName() {
         return territoryName;
@@ -43,7 +43,7 @@ public class Territory {
 
     /**
      * <p style="color:blue;">Get territory's index</p>
-     * @return RiskGame.Territory's index
+     * @return .Territory's index
      */
     public int getTerritoryIndex() {
         return territoryIndex;
