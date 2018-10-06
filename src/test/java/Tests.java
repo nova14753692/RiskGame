@@ -1,5 +1,3 @@
-package RiskGame;
-
 import RiskGame.*;
 import org.junit.Test;
 
