@@ -1,5 +1,3 @@
-package RiskGame;
-
 import java.util.Comparator;
 import java.util.Scanner;
 
