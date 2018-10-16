@@ -1,5 +1,4 @@
 package RiskGame;
-
 import java.util.Scanner;
 
 public class Defend extends Battle {
@@ -20,6 +19,19 @@ public class Defend extends Battle {
     }
 
     public void afterBattle(int result, Scanner userInput) {
+        if (result > -2) {
+            if (result > 0) {
+                if (thisPlayer.getOwnedTerritories().size() == 0) {
+                    thisPlayer.setLost(true);
+                    System.out.println(thisPlayer.getPlayerName() + " is lost.");
+                }
+            }
+            else {
+                System.out.println(thisPlayer.getPlayerName() + " successfully defended " + thisTerritory.getTerritoryName() + ".");
+            }
+        }
+    }
+    public void afterBattle(int result) {
         if (result > -2) {
             if (result > 0) {
                 if (thisPlayer.getOwnedTerritories().size() == 0) {
