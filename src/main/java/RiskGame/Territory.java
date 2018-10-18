@@ -86,8 +86,9 @@ public class Territory {
      * <p style="color:blue;">Set which player will own this territory</p>
      * @param occupiedBy The player which will be the new owner of this territory
      */
-    public void setOccupiedBy( Player occupiedBy) {
+    public void setOccupiedBy(Player occupiedBy) {
         this.occupiedBy = occupiedBy;
+        this.isOccupied = true;
     }
 
     /**

@@ -1,5 +1,6 @@
 package RiskGame;
 
+import java.io.PrintWriter;
 import java.lang.String;
 import java.util.List;
 import java.util.ArrayList;
@@ -152,10 +153,21 @@ public class Player {
             if (die.getCurrentValue() > 0) {
                 if (dice.indexOf(die) > 0 && dice.indexOf(die) < dice.size() - 1) ;
                 System.out.print(die.getCurrentValue());
-                System.out.print("  ");
+                System.out.print(" ");
             }
         });
         System.out.println("\n====================================================================");
+    }
+
+    public void printRolledDice(PrintWriter printWriter) {
+        dice.forEach(die -> {
+            if (die.getCurrentValue() > 0) {
+                if (dice.indexOf(die) > 0 && dice.indexOf(die) < dice.size() - 1) ;
+                printWriter.print(die.getCurrentValue());
+                printWriter.print(" ");
+            }
+        });
+        printWriter.println();
     }
 
     /**

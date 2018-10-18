@@ -2,16 +2,13 @@ package RiskGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.channels.WritePendingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-import org.junit.runner.JUnitCore;
 
 public class Main {
 
@@ -36,59 +33,126 @@ public class Main {
         //The path to the map image
         final String mapPath = System.getProperty("user.dir") + File.separator + "map.jpg";
 
-        String fileName = "Replay1.re";
-        try {
-            FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + File.separator +
-                    "Replay" + File.separator + fileName);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.flush();
-            bufferedWriter.close();
-        }
-        catch(IOException e) {
-            System.out.println("Error recording replay.");
-        }
+        String fileNamePlayerList = "ReplayPlayerList.re";
+        String fileNameTerritory = "ReplayTerritory.re";
+        String fileNameBattle = "ReplayBattle.re";
 
-        List<Player> players;   //List contains players
-        List<Territory> finalTerritories;    //List contain territories
+        List<Player> players = null;   //List contains players
 
-        //Create player objects and store them in players list
-        players = createPlayers( minPlayer, maxPlayer, maxNumbOfDie, userInput);
+        //List contain territories
+        List<Territory> finalTerritories = createTerritories(territoriesDataPath, territoriesDataFileName, userInput);
+        List<Territory> availableTerritories = null;
+        boolean isContinue = false;
 
-        //Create territory objects and store them in territories list
-        finalTerritories = createTerritories(territoriesDataPath, territoriesDataFileName, userInput);
-        List<Territory> availableTerritories = new ArrayList<Territory>();
-        availableTerritories.addAll(finalTerritories);
+        /*File filePlayerList = new File(System.getProperty("user.dir") + File.separator +
+                "Replay" + File.separator + fileNamePlayerList);
+        File fileTerritory = new File(System.getProperty("user.dir") + File.separator +
+                "Replay" + File.separator + fileNameTerritory);
+        File fileBattle = new File(System.getProperty("user.dir") + File.separator +
+                "Replay" + File.separator + fileNameBattle);
+        if (filePlayerList.exists() && fileTerritory.exists() && fileBattle.exists()) isContinue = true;
+        else isContinue = false;*/
 
-        //Set territory state of the game
-        //Allow each player to set up their territories
-        //setTerritory(players, availableTerritories, finalTerritories, userInput, mapPath);
+        if (DownloadSave.IsFileExist(fileNamePlayerList) && DownloadSave.IsFileExist(fileNameTerritory) &&
+                DownloadSave.IsFileExist(fileNameBattle)) isContinue = true;
+        else isContinue = false;
 
-        //Test
-        players.get(0).setNumOfAvailableArmy(getNumberOfArmyEachPlayer(players.size()));
-        players.get(1).setNumOfAvailableArmy(getNumberOfArmyEachPlayer(players.size()));
-        for (int i = 1; i <= 42; i++) {
-            if (i % 2 != 0) {
-                players.get(0).addOwnedTerritory(findTerritory(i, finalTerritories));
-                recordSetTerritory(players.get(0), findTerritory(i, finalTerritories));
+        if (!isContinue) {
+            try {
+                FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + File.separator +
+                        "Replay" + File.separator + fileNamePlayerList);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                //bufferedWriter.flush();
+
+                bufferedWriter.close();
             }
-            else {
-                players.get(1).addOwnedTerritory(findTerritory(i, finalTerritories));
-                recordSetTerritory(players.get(1), findTerritory(i, finalTerritories));
+            catch(IOException e) {
+                System.out.println("Error recording replay.");
+            }
+
+            try {
+                FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + File.separator +
+                        "Replay" + File.separator + fileNameTerritory);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                //bufferedWriter.flush();
+
+                bufferedWriter.close();
+            }
+            catch(IOException e) {
+                System.out.println("Error recording replay.");
+            }
+
+            try {
+                FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + File.separator +
+                        "Replay" + File.separator + fileNameBattle);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                //bufferedWriter.flush();
+
+                bufferedWriter.close();
+            }
+            catch(IOException e) {
+                System.out.println("Error recording replay.");
+            }
+
+            //Create player objects and store them in players list
+            players = createPlayers(minPlayer, maxPlayer, maxNumbOfDie, userInput);
+            recordPlayerNames(players);
+
+            //Create territory objects and store them in territories list
+            availableTerritories = new ArrayList<>();
+            availableTerritories.addAll(finalTerritories);
+
+            //Set territory state of the game
+            //Allow each player to set up their territories
+            //setTerritory(players, availableTerritories, finalTerritories, userInput, mapPath);
+
+            //Test
+            players.get(0).setNumOfAvailableArmy(getNumberOfArmyEachPlayer(players.size()));
+            players.get(1).setNumOfAvailableArmy(getNumberOfArmyEachPlayer(players.size()));
+            for (int i = 1; i <= 42; i++) {
+                if (i % 2 != 0) {
+                    players.get(0).addOwnedTerritory(findTerritory(i, finalTerritories));
+                    recordSetTerritory(players.get(0), findTerritory(i, finalTerritories));
+                } else {
+                    players.get(1).addOwnedTerritory(findTerritory(i, finalTerritories));
+                    recordSetTerritory(players.get(1), findTerritory(i, finalTerritories));
+                }
+            }
+            for (int i = 1; i <= 28; i++) {
+                if (i % 2 != 0) {
+                    players.get(0).addOwnedTerritory(findTerritory(i, finalTerritories));
+                    recordSetTerritory(players.get(0), findTerritory(i, finalTerritories));
+                }
+                else {
+                    players.get(1).addOwnedTerritory(findTerritory(i, finalTerritories));
+                    recordSetTerritory(players.get(1), findTerritory(i, finalTerritories));
+                }
             }
         }
-        for (int i = 1; i <= 28; i++) {
-            if (i % 2 != 0) players.get(0).addOwnedTerritory(findTerritory(i, finalTerritories));
-            else players.get(1).addOwnedTerritory(findTerritory(i, finalTerritories));
+        else {
+            players = readPlayerName();
+            readToTerritory(players, finalTerritories);
+            readToTerritoryArmy(players, finalTerritories);
+            availableTerritories = new ArrayList<>();
+            for (Territory territory : finalTerritories) {
+                if (!territory.isOccupied()) availableTerritories.add(territory);
+            }
         }
 
-        if (finalTerritories != null)
+        if (finalTerritories.size() > 0 && players != null)
         {
             if (!checkWinCondition(players)) {
                 battleStage(finalTerritories, players, mapPath, userInput);
-                players.forEach(player -> {
+
+                for (int i = 0; i < players.size(); i++) {
+                    players.get(i).setBonusArmies(0);
+                    setTerritory(players.get(i), players, availableTerritories, finalTerritories, userInput, mapPath);
+                }
+
+                /*players.forEach(player -> {
                     player.setBonusArmies(0);
                     setTerritory(player, players, availableTerritories, finalTerritories, userInput, mapPath);
-                });
+                });*/
             }
             else System.out.println(players.stream().filter(player -> !player.isLost()).findFirst().get().getPlayerName() + " wins.");
         }
@@ -646,7 +710,7 @@ public class Main {
      * @param players The player list
      * @param territories The territory list
      */
-    public static void printTerritory( List<Player> players,  List<Territory> territories) {
+    public static void printTerritory(List<Player> players,  List<Territory> territories) {
         System.out.println("======================================================================");
 
         //Print out each player's owned territories
@@ -696,7 +760,7 @@ public class Main {
      * @param players The player list
      * @param territories The territory list
      */
-    public static void printTerritory( Player player,  List<Player> players,  List<Territory> territories) {
+    public static void printTerritory(Player player,  List<Player> players,  List<Territory> territories) {
         System.out.println("======================================================================");
         System.out.println(player.getPlayerName() + "'s owned territories:");
         player.getOwnedTerritories().forEach(territory -> {
@@ -732,7 +796,7 @@ public class Main {
      * @param territories The territory list
      * @param unoccupied Just the variable so I can overload this function
      */
-    public static void printTerritory( List<Player> players,  List<Territory> territories, boolean unoccupied) {
+    public static void printTerritory(List<Player> players,  List<Territory> territories, boolean unoccupied) {
         System.out.println("======================================================================");
         System.out.println("Unoccupied territories: ");
         boolean firstTerritory = true;
@@ -759,7 +823,7 @@ public class Main {
      * @param territories .Territory list
      * @return <b>True</b> when territoryName is valid territory, and <b>False</b> when territoryName is not found
      */
-    public static boolean printTerritory( String territoryName,  List<Territory> territories) {
+    public static boolean printTerritory(String territoryName,  List<Territory> territories) {
         //Find the territory by name in the territories list, then store it in the territory variable
         Territory territory = territories.stream().filter(t -> t.getTerritoryName().equals(territoryName)).findFirst().orElse(null);
         if (territory != null) {
@@ -779,7 +843,7 @@ public class Main {
      * @param territories The territory list
      * @return <b>True</b> when territoryName is valid territory, and <b>False</b> when territoryName is not found
      */
-    public static boolean printTerritory( int territoryIndex,  List<Territory> territories) {
+    public static boolean printTerritory(int territoryIndex,  List<Territory> territories) {
         //Find the territory by index in the territories list, then store it in the territory variable
         Territory territory = territories.stream().filter(t -> t.getTerritoryIndex() == territoryIndex).findFirst().orElse(null);
         if (territory != null) {
@@ -825,7 +889,6 @@ public class Main {
      * @param territories The territory list
      * @return The territory if found one, or <b>null</b> of it is not found
      */
-
     public static Territory findTerritory(String territoryName ,int territoryIndex,  List<Territory> territories) {
         Territory foundTerritory = null;
         if (territoryName != null) {
@@ -880,50 +943,178 @@ public class Main {
         return frame;
     }
 
-    private static void recordSetTerritory(Player player, Territory territory) {
-        String fileName = "Replay1.re";
+    private  static void recordPlayerNames(List<Player> players) {
+        String fileName = "ReplayPlayerList.re";
         try {
             FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + File.separator +
                     "Replay" + File.separator + fileName, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             PrintWriter printWriter = new PrintWriter(bufferedWriter);
-
-            printWriter.println("Player: " + player.getPlayerName() + " acquired " + territory.getTerritoryName() + ".\n");
+            players.forEach(player -> printWriter.println(player.getPlayerName()));
             printWriter.close();
             bufferedWriter.close();
         }
         catch(IOException e) {
             System.out.println("Error recording replay.");
         }
+        UploadSave.Upload(System.getProperty("user.dir") + File.separator +
+                "Replay" + File.separator, fileName);
+    }
+
+    private static void recordSetTerritory(Player player, Territory territory) {
+        String fileName = "ReplayTerritory.re";
+        try {
+            FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + File.separator +
+                    "Replay" + File.separator + fileName, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            PrintWriter printWriter = new PrintWriter(bufferedWriter);
+
+            printWriter.println("Player: " + player.getPlayerName() + " acquired " + territory.getTerritoryName());
+            printWriter.close();
+            bufferedWriter.close();
+        }
+        catch(IOException e) {
+            System.out.println("Error recording replay.");
+        }
+        UploadSave.Upload(System.getProperty("user.dir") + File.separator +
+                "Replay" + File.separator, fileName);
     }
 
     private static void recordBattle(Attack atk, Defend def, int result) {
-        String fileName = "Replay1.re";
+        String fileName = "ReplayBattle.re";
         try {
             FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + File.separator +
                     "Replay" + File.separator + fileName, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             PrintWriter printWriter = new PrintWriter(bufferedWriter);
 
-            printWriter.println(atk.thisPlayer.getPlayerName() + " rolled: ");
-            atk.thisPlayer.printRolledDice();
-            printWriter.println(def.thisPlayer.getPlayerName() + " rolled: ");
-            def.thisPlayer.printRolledDice();
+            printWriter.print(atk.thisPlayer.getPlayerName() + " rolled: ");
+            atk.thisPlayer.printRolledDice(printWriter);
+            printWriter.print(def.thisPlayer.getPlayerName() + " rolled: ");
+            def.thisPlayer.printRolledDice(printWriter);
             if (result < 0) {
-                printWriter.println(atk.thisPlayer.getPlayerName() + " won.\n");
+                printWriter.println(atk.thisPlayer.getPlayerName() + " won.");
             }
             else if (result >= 0){
-                printWriter.println(def.thisPlayer.getPlayerName() + " defended " + def.thisTerritory + ".\n");
+                printWriter.println(def.thisPlayer.getPlayerName() + " defended " + def.thisTerritory.getTerritoryName());
             }
             printWriter.println(atk.thisTerritory.getTerritoryName() + " has " + atk.thisTerritory.getNumbOfArmy() +
-                    " on it. It's currently owned by " + atk.thisTerritory.getOccupiedBy().getPlayerName() + ".\n");
+                    " on it. It's currently owned by " + atk.thisTerritory.getOccupiedBy().getPlayerName());
             printWriter.println(atk.otherTerritory.getTerritoryName() + " has " + atk.otherTerritory.getNumbOfArmy() +
-                    " on it. It's currently owned by " + atk.otherTerritory.getOccupiedBy().getPlayerName() + ".\n");
+                    " on it. It's currently owned by " + atk.otherTerritory.getOccupiedBy().getPlayerName());
             bufferedWriter.close();
             printWriter.close();
         }
         catch(IOException e) {
             System.out.println("Error recording replay.");
         }
+        UploadSave.Upload(System.getProperty("user.dir") + File.separator +
+                "Replay" + File.separator, fileName);
+    }
+
+    private static List<Player> readPlayerName() {
+        String fileName = "ReplayPlayerList.re";
+        String line;
+        List<String> playerNames = new ArrayList<>();
+        try {
+            /*FileReader fileReader = new FileReader(System.getProperty("user.dir") + File.separator +
+                    "Replay" + File.separator + fileName);
+            BufferedReader bf = new BufferedReader(fileReader);*/
+            BufferedReader bf = new BufferedReader(new InputStreamReader(DownloadSave.GetInputStream(fileName)));
+            while ((line = bf.readLine()) != null) if (!line.equals("")) playerNames.add((line));
+            bf.close();
+        }
+        catch(FileNotFoundException ex) {
+            System.out.println("Unable to open file");
+        }
+        catch(IOException ex) {
+            System.out.println("Error reading file");
+        }
+        if (playerNames.size() > 0) return createPlayers(1, 6, 3, playerNames.size(), playerNames);
+        return null;
+    }
+
+    private static Pair<List<Player>, List<Territory>> readToTerritory(List<Player> players, List<Territory> finalTerritories) {
+        String fileName = "ReplayTerritory.re";
+        String line;
+        try {
+            /*FileReader fileReader = new FileReader(System.getProperty("user.dir") + File.separator +
+                    "Replay" + File.separator + fileName);
+            BufferedReader bf = new BufferedReader(fileReader);*/
+            BufferedReader bf = new BufferedReader(new InputStreamReader(DownloadSave.GetInputStream(fileName)));
+            while ((line = bf.readLine()) != null) {
+                if (!line.equals("")) {
+                    line = line.substring("Player: ".length(), line.length());
+                    String playerName = line.substring(0, line.length() - line.substring(line.indexOf(" acquired ")).length());
+                    Player thePlayer = players.stream().filter(player -> player.getPlayerName().equals(playerName))
+                            .findFirst().orElse(null);
+                    String territoryName = line.substring((playerName + " acquired ").length(), line.length());
+                    Territory theTerritory = findTerritory(territoryName, finalTerritories);
+                    thePlayer.addOwnedTerritory(theTerritory);
+                    //saveState(thePlayer, theTerritory);
+                }
+            }
+            bf.close();
+        }
+        catch(FileNotFoundException ex) {
+            System.out.println("Unable to open file");
+        }
+        catch(IOException ex) {
+            System.out.println("Error reading file");
+        }
+        return new Pair<>(players, finalTerritories);
+    }
+
+    private static Pair<List<Player>, List<Territory>> readToTerritoryArmy(List<Player> players, List<Territory> finalTerritories) {
+        String fileName = "ReplayBattle.re";
+        String line;
+        try {
+            /*FileReader fileReader = new FileReader(System.getProperty("user.dir") + File.separator +
+                    "Replay" + File.separator + fileName);
+            BufferedReader bf = new BufferedReader(fileReader);*/
+            BufferedReader bf = new BufferedReader(new InputStreamReader(DownloadSave.GetInputStream(fileName)));
+            while ((line = bf.readLine()) != null) {
+                if (!line.equals("")) {
+                    line = bf.readLine();
+                    line = bf.readLine();
+                    line = bf.readLine();
+
+                    String territoryName = line.substring(0, line.length() - line.substring(line.indexOf(" has "), line.length()).length());
+                    int numOfTroops = Integer.parseInt(line.substring(line.indexOf(" has ") + " has ".length(),
+                            line.indexOf(" has ") + " has ".length() + (line.length() -
+                            line.substring(0, line.indexOf(" has ") + " has ".length()).length() -
+                            line.substring(line.indexOf(" on ")).length())));
+                    String playerName = line.substring(line.substring(0, line.indexOf("by ") + 3).length(), line.length());
+                    Territory theTerritory = finalTerritories.stream().filter(territory -> territory.getTerritoryName()
+                            .equals(territoryName)).findFirst().orElse(null);
+                    if (theTerritory != null) theTerritory.setArmy(numOfTroops);
+                    Player thePlayer = players.stream().filter(player -> player.getPlayerName().equals(playerName))
+                            .findFirst().orElse(null);
+                    if (theTerritory != null) theTerritory.setOccupiedBy(thePlayer);
+                    //saveState(thePlayer, theTerritory);
+
+                    line = bf.readLine();
+                    String territoryName2 = line.substring(0, line.length() - line.substring(line.indexOf(" has "), line.length()).length());
+                    int numOfTroops2 = Integer.parseInt(line.substring(line.indexOf(" has ") + " has ".length(),
+                            line.indexOf(" has ") + " has ".length() + (line.length() -
+                                    line.substring(0, line.indexOf(" has ") + " has ".length()).length() -
+                                    line.substring(line.indexOf(" on ")).length())));
+                    String playerName2 = line.substring(line.substring(0, line.indexOf("by ") + 3).length(), line.length());
+                    Territory theTerritory2 = finalTerritories.stream().filter(territory -> territory.getTerritoryName()
+                            .equals(territoryName2)).findFirst().orElse(null);
+                    if (theTerritory2 != null) theTerritory2.setArmy(numOfTroops2);
+                    Player thePlayer2 = players.stream().filter(player -> player.getPlayerName().equals(playerName2))
+                            .findFirst().orElse(null);
+                    if (theTerritory2 != null) theTerritory2.setOccupiedBy(thePlayer2);
+                    //saveState(thePlayer2, theTerritory2);
+                }
+            }
+            bf.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Unable to open file");
+        } catch (IOException ex) {
+            System.out.println("Error reading file");
+        }
+        return new Pair<>(players, finalTerritories);
     }
 }
