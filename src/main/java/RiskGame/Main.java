@@ -17,7 +17,7 @@ public class Main {
      * @param args arguments to use as parameters when user input console command when run the program
      */
     public static void main(String[] args) {
-
+        TwitterPosting twitterPosting = new TwitterPosting();
         Scanner userInput = new Scanner(System.in);
 
         final int minPlayer = 2;    //Minimum number of player
@@ -96,6 +96,8 @@ public class Main {
 
             //Create player objects and store them in players list
             players = createPlayers(minPlayer, maxPlayer, maxNumbOfDie, userInput);
+            String message = players.get(0).getPlayerName()+" and "+players.get(1).getPlayerName()+ " starting the game- Risk Game The War Begin";
+            twitterPosting.tweetOut(message);
             recordPlayerNames(players);
 
             //Create territory objects and store them in territories list
