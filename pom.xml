@@ -19,6 +19,11 @@
             <artifactId>aws-java-sdk-s3</artifactId>
             <version>1.11.431</version>
         </dependency>
+        <dependency>
+    <groupId>org.twitter4j</groupId>  
+    <artifactId>twitter4j-core</artifactId>
+    <version>4.0.4</version>
+</dependency>
     </dependencies>
 
     <build>
