@@ -13,7 +13,7 @@ public class DownloadSave {
 
     public static InputStream GetInputStream(String fileName) {
         String bucketName = "riskgame";
-        AWSCredentials credentials = new BasicAWSCredentials("AKIAIMKWFF2WIMNHS6HQ", "SxUcC23j5Dq9V2rb8QQMqsdEDbWuBsKbOOZvYlx+");
+        
         AmazonS3 s3 = new AmazonS3Client(credentials);
         S3Object object = s3.getObject(new GetObjectRequest(bucketName, fileName));
         return object.getObjectContent();
@@ -21,7 +21,7 @@ public class DownloadSave {
 
     public static boolean IsFileExist(String fileName) {
         String bucketName = "riskgame";
-        AWSCredentials credentials = new BasicAWSCredentials("AKIAIMKWFF2WIMNHS6HQ", "SxUcC23j5Dq9V2rb8QQMqsdEDbWuBsKbOOZvYlx+");
+        
         AmazonS3 s3 = new AmazonS3Client(credentials);
         return s3.doesObjectExist(bucketName, fileName);
     }
