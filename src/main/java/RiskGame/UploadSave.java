@@ -18,7 +18,7 @@ public class UploadSave {
         String fileObjKeyName = fileName;
         //String fileName = "*** Path to file to upload ***";
 
-        AWSCredentials credentials = new BasicAWSCredentials("AKIAIMKWFF2WIMNHS6HQ", "SxUcC23j5Dq9V2rb8QQMqsdEDbWuBsKbOOZvYlx+");
+        
 
         try {
             /*AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
