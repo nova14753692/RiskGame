@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b30b2ca7-c81e-40b0-901a-3a480c7c7ea1" name="Default Changelist" comment="" />
+    <list default="true" id="b30b2ca7-c81e-40b0-901a-3a480c7c7ea1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/DieTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/DieTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-DieTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-DieTest.xml" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -347,7 +350,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="roll result&#9;null&#9;null&#10;die&#9;PSI&#9;JAVA://Battle#getNumbOfMaxDie" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540624724392" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540627156441" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Groovy JUnit" value="groovy.util.GroovyTestCase" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
@@ -376,7 +379,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.DieTest">
+  <component name="RunManager" selected="JUnit.TerritoryTest">
     <configuration name="DefendTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
       <module name="RiskGame" />
       <option name="PACKAGE_NAME" value="" />
@@ -427,10 +430,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.DieTest" />
         <item itemvalue="JUnit.TerritoryTest" />
-        <item itemvalue="JUnit.AttackTest" />
         <item itemvalue="Android JUnit.DefendTest" />
+        <item itemvalue="JUnit.DieTest" />
+        <item itemvalue="JUnit.AttackTest" />
         <item itemvalue="JUnit.BattleTest" />
       </list>
     </recent_temporary>
@@ -762,19 +765,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Attack.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="72" column="9" lean-forward="true" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="9" />
-          <folding>
-            <element signature="e#3639#3640#0" expanded="true" />
-            <element signature="e#3673#3674#0" expanded="true" />
-            <element signature="e#3724#3725#0" expanded="true" />
-            <element signature="e#3770#3771#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/AttackTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -809,6 +799,19 @@
             <element signature="e#257#258#0" expanded="true" />
             <element signature="e#296#297#0" expanded="true" />
             <element signature="e#346#347#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Attack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="72" column="9" lean-forward="true" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="9" />
+          <folding>
+            <element signature="e#3639#3640#0" expanded="true" />
+            <element signature="e#3673#3674#0" expanded="true" />
+            <element signature="e#3724#3725#0" expanded="true" />
+            <element signature="e#3770#3771#0" expanded="true" />
           </folding>
         </state>
       </provider>
