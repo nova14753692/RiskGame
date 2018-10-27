@@ -1,39 +1,28 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class DefendTest {
+public class DefendTest {
 
-    Player player = new Player("Ton", 3);
-    Territory thisTerritory = new Territory("Alaska", 1);
-    Territory otherTerritory = new Territory("Alberta", 2);
-    Defend defend = new Defend(player, thisTerritory, otherTerritory, 10, 3);
-
-    @BeforeEach
-    void setUp() {
-        System.out.println("Starting Test");
+    @Before
+    public void setUp() throws Exception {
     }
 
-    @AfterEach
-    void tearDown() {
-        System.out.println("Test Ended\n");
+    @After
+    public void tearDown() throws Exception {
     }
 
     @Test
-    void startBattle() {
-        System.out.println("startBattle test in progress...");
-        boolean result = defend.startBattle(1000);
-        assertEquals(true, result);
-
+    public void startBattle() {
     }
 
     @Test
-    void afterBattle() {
-        System.out.println("afterBattle test in progress...");
-        defend.afterBattle(1);
-        boolean result = defend.thisPlayer.isLost();
-        assertEquals( true, result);
+    public void afterBattle() {
+    }
+
+    @Test
+    public void afterBattle1() {
     }
 }

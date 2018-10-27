@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class DieTest {
+public class PairTest {
 
     @Before
     public void setUp() throws Exception {
@@ -15,22 +15,18 @@ public class DieTest {
     }
 
     @Test
-    public void roll() {
+    public void getFirst() {
     }
 
     @Test
-    public void reset() {
+    public void setFirst() {
     }
 
     @Test
-    public void getCurrentValue() {
+    public void getSecond() {
     }
 
     @Test
-    public void getMinValue() {
-    }
-
-    @Test
-    public void getMaxValue() {
+    public void setSecond() {
     }
 }

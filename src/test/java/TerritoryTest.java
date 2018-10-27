@@ -1,55 +1,64 @@
-import org.hamcrest.CoreMatchers;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
+import static org.junit.Assert.*;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+public class TerritoryTest {
 
-class TerritoryTest {
-
-    Territory territory = new Territory("Alaska", 1);
-    //List<String> adjTer = Arrays.asList("Northwest", "Alberta", "Kamchatka");
-
-    @BeforeEach
-    void setUp() {
-        System.out.println("Starting Test");
+    @Before
+    public void setUp() throws Exception {
     }
 
-    @AfterEach
-    void tearDown() {
-        System.out.println("Test Ended\n");
+    @After
+    public void tearDown() throws Exception {
     }
 
     @Test
-    void getTerritoryName() {
-        System.out.println("getTerritoryName test in progress...");
-        String result = territory.getTerritoryName();
-        assertEquals("Alaska", result);
+    public void getTerritoryName() {
     }
 
     @Test
-    void getTerritoryIndex() {
-        System.out.println("getTerritoryIndex test in progress...");
-        int result = territory.getTerritoryIndex();
-        assertEquals(1, result);
+    public void getTerritoryIndex() {
     }
 
     @Test
-    void getAdjTerritories() {
-        System.out.println("getAdjTerritories test in progress...");
-        List<Territory> result = territory.getAdjTerritories();
-        assertEquals(territory.getAdjTerritories(), result);
+    public void getAdjTerritories() {
     }
 
     @Test
-    void getOccupiedBy() {
-        System.out.println("getOccupiedBy test in progress...");
-        Player result = territory.getOccupiedBy();
-        assertEquals(territory.getOccupiedBy(), result);
+    public void isOccupied() {
+    }
+
+    @Test
+    public void setOccupied() {
+    }
+
+    @Test
+    public void getOccupiedBy() {
+    }
+
+    @Test
+    public void setOccupiedBy() {
+    }
+
+    @Test
+    public void getNumbOfArmy() {
+    }
+
+    @Test
+    public void setNumbOfArmy() {
+    }
+
+    @Test
+    public void getArmy() {
+    }
+
+    @Test
+    public void setArmy() {
+    }
+
+    @Test
+    public void printAdjTerritories() {
     }
 }

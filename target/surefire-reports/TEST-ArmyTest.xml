@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="7" failures="0" name="AttackTest" time="0.023" errors="0" skipped="0">
+<testsuite tests="9" failures="0" name="ArmyTest" time="0.002" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_191\jre\bin"/>
@@ -65,11 +65,13 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="AttackTest" name="getArmyPenalty" time="0"/>
-  <testcase classname="AttackTest" name="setArmyPenaltyToDefender" time="0"/>
-  <testcase classname="AttackTest" name="getArmyPenaltyToDefender" time="0"/>
-  <testcase classname="AttackTest" name="afterBattle" time="0"/>
-  <testcase classname="AttackTest" name="afterBattle1" time="0"/>
-  <testcase classname="AttackTest" name="setArmyPenalty" time="0"/>
-  <testcase classname="AttackTest" name="startBattle" time="0.023"/>
+  <testcase classname="ArmyTest" name="getUpperBound" time="0.002"/>
+  <testcase classname="ArmyTest" name="getNumbOfArmy" time="0"/>
+  <testcase classname="ArmyTest" name="setUpperBound" time="0"/>
+  <testcase classname="ArmyTest" name="getNextType" time="0"/>
+  <testcase classname="ArmyTest" name="setNumbOfArmy" time="0"/>
+  <testcase classname="ArmyTest" name="setArmyName" time="0"/>
+  <testcase classname="ArmyTest" name="getArmyName" time="0"/>
+  <testcase classname="ArmyTest" name="getLowerBound" time="0"/>
+  <testcase classname="ArmyTest" name="setLowerBound" time="0"/>
 </testsuite>

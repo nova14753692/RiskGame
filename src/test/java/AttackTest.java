@@ -1,37 +1,33 @@
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
+import static org.junit.Assert.*;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+public class AttackTest {
 
-import static org.junit.jupiter.api.Assertions.*;
+    @Before
+    public void setUp() throws Exception {
+    }
 
-class AttackTest {
+    @After
+    public void tearDown() throws Exception {
+    }
 
-    Player thisPlayer = new Player("Ton", 3);
-    Territory thisTerritory = new Territory("Alaska", 1);
-    Territory otherTerritory = new Territory("Alberta", 2);
+    private Player thisPlayer = new Player("Ton", 3);
+    private Territory thisTerritory = new Territory("Alaska", 1);
+    private Territory otherTerritory = new Territory("Alberta", 2);
     Attack attack = new Attack(thisPlayer, thisTerritory, otherTerritory, 1,1, 1,1);
 
-    @BeforeEach
-    void setUp() {
-        System.out.println("Starting Test");
-    }
-
-    @AfterEach
-    void tearDown() {
-        System.out.println("Test Passed!!!\n");
-    }
-
     @Test
-    void startBattle() {
+    public void startBattle() {
         System.out.println("startBattle test in progress...");
         boolean result = attack.startBattle(1000);
         assertFalse(result);
     }
 
     @Test
-    void afterBattle() {
+    public void afterBattle() {
         System.out.println("afterBattle test in progress...");
         attack.afterBattle(0, 2);
         boolean result = attack.thisPlayer.isLost();
@@ -39,19 +35,22 @@ class AttackTest {
     }
 
     @Test
-    void getArmyPenalty() {
+    public void afterBattle1() {
     }
 
     @Test
-    void setArmyPenalty(){
+    public void getArmyPenalty() {
     }
 
     @Test
-    void getArmyPenaltyToDefender() {
+    public void setArmyPenalty() {
     }
 
     @Test
-    void setArmyPenaltyToDefender() {
+    public void getArmyPenaltyToDefender() {
     }
 
+    @Test
+    public void setArmyPenaltyToDefender() {
+    }
 }
