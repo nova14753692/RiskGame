@@ -7,11 +7,13 @@ import static org.junit.Assert.*;
 public class AttackTest {
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
+        System.out.println("Starting Test");
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
+        System.out.println("Test Ended!!!\n");
     }
 
     private Player thisPlayer = new Player("Ton", 3);
@@ -22,7 +24,7 @@ public class AttackTest {
     @Test
     public void startBattle() {
         System.out.println("startBattle test in progress...");
-        boolean result = attack.startBattle(1000);
+        boolean result = attack.startBattle(10);
         assertFalse(result);
     }
 
@@ -32,10 +34,6 @@ public class AttackTest {
         attack.afterBattle(0, 2);
         boolean result = attack.thisPlayer.isLost();
         assertTrue(result);
-    }
-
-    @Test
-    public void afterBattle1() {
     }
 
     @Test
