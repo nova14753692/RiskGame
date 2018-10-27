@@ -63,4 +63,6 @@ public abstract class Battle {
     public int getNumbOfMaxDie() {
         return numbOfMaxDie;
     }
+
+
 }
