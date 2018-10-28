@@ -12,6 +12,8 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 public class UploadSave {
+    private static AWSCredentials credentials;
+
     public static void Upload(String filePath, String fileName) {
         String clientRegion = "us-east";
         String bucketName = "riskgame";
