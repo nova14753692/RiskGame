@@ -11,6 +11,8 @@ import java.io.InputStream;
 
 public class DownloadSave {
 
+    private static AWSCredentials credentials;
+
     public static InputStream GetInputStream(String fileName) {
         String bucketName = "riskgame";
         
