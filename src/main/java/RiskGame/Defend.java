@@ -8,8 +8,6 @@ public class Defend extends Battle {
         super(thisPlayer, thisTerritory, otherTerritory, numbOfInvolvedArmy, numbOfSpareArmy);
     }
 
-
-
     public boolean startBattle(int numbOfDie) {
         thisPlayer.getDice().forEach(die -> die.reset());
         if (numbOfMaxDie > 0 && numbOfMaxDie <= thisPlayer.getDice().size()) {
@@ -46,5 +44,4 @@ public class Defend extends Battle {
             }
         }
     }
-
 }
