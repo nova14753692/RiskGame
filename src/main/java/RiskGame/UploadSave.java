@@ -12,13 +12,15 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 public class UploadSave {
+    private static AWSCredentials credentials;
+
     public static void Upload(String filePath, String fileName) {
         String clientRegion = "us-east";
         String bucketName = "riskgame";
         String fileObjKeyName = fileName;
         //String fileName = "*** Path to file to upload ***";
 
-        AWSCredentials credentials = new BasicAWSCredentials("AKIAIMKWFF2WIMNHS6HQ", "SxUcC23j5Dq9V2rb8QQMqsdEDbWuBsKbOOZvYlx+");
+        
 
         try {
             /*AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
