@@ -924,8 +924,14 @@ public class MainTest {
                 if (!input.toLowerCase().equals("y") && !input.toLowerCase().equals("n")) {
                     System.out.println("You have to answer either Y or N.");
                     continue;
-                } else if (input.toLowerCase().equals("n")) result = false;
-                else if (input.toLowerCase().equals("y")) result = true;
+                } else if (input.toLowerCase().equals("n")) {
+                    result = false;
+                    break;
+                }
+                else if (input.toLowerCase().equals("y")) {
+                    result = true;
+                    break;
+                }
             }
         }
         assertEquals(result, false);
@@ -938,8 +944,14 @@ public class MainTest {
                 if (!input.toLowerCase().equals("y") && !input.toLowerCase().equals("n")) {
                     System.out.println("You have to answer either Y or N.");
                     continue;
-                } else if (input.toLowerCase().equals("n")) result = false;
-                else if (input.toLowerCase().equals("y")) result = true;
+                } else if (input.toLowerCase().equals("n")) {
+                    result = false;
+                    break;
+                }
+                else if (input.toLowerCase().equals("y")) {
+                    result = true;
+                    break;
+                }
             }
         }
         assertEquals(result, true);
@@ -972,8 +984,11 @@ public class MainTest {
 
         //Assign the number of army each player will have base on the number of player
         int armiesEachPlayer = Main.getNumberOfArmyEachPlayer(players.size());
+        assertEquals(armiesEachPlayer, 35);
         if (armiesEachPlayer <= 0) return;
         players.forEach(player -> player.setNumOfAvailableArmy(armiesEachPlayer));
+        assertEquals(players.get(0).getNumOfAvailableArmy(), 35);
+        assertEquals(players.get(1).getNumOfAvailableArmy(), 35);
 
         //Set territory stage
         for (int i = 0; i < armiesEachPlayer; i++) {
@@ -982,7 +997,7 @@ public class MainTest {
 
                 //The loop will continue to ask what move the player wants
                 //It will continue to ask for user input until the player has entered a valid territory (when foundTerritory != null)
-                while (foundTerritory == null) {
+                if (foundTerritory == null) {
                     String addOutput = "It's " + players.get(j).getPlayerName() + "'s turn to place armies.";
                     Pair<String, Integer> stringIntegerPair = Main.userInputRequest(availableTerritories, finalTerritories,
                             players, players.get(j), mapPath, addOutput, userInput);
