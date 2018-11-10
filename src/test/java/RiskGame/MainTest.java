@@ -3,10 +3,14 @@ package RiskGame;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import static org.junit.Assert.*;
 
@@ -23,6 +27,165 @@ public class MainTest {
     }
 
     @Test
+    public void Main() {
+        Scanner userInput = new Scanner(System.in);
+
+        final int minPlayer = 2;    //Minimum number of player
+        final int maxPlayer = 6;    //Maximum number of player
+        final int maxNumbOfDie = 3; //Maximum number of die each player can have
+
+        //Name of the file contains list of all territories
+        final String territoriesDataFileName = "TerritoryList";
+
+        //The path to the Data folder which contains territories list and their adjacent territories
+        final String territoriesDataPath = System.getProperty("user.dir") + File.separator + "Data" + File.separator;
+
+        //The path to the map image
+        final String mapPath = System.getProperty("user.dir") + File.separator + "map.jpg";
+
+        /*String fileNamePlayerList = "ReplayPlayerList.re";
+        String fileNameTerritory = "ReplayTerritory.re";
+        String fileNameBattle = "ReplayBattle.re";*/
+
+        List<Player> players = null;   //List contains players
+
+        //List contain territories
+        List<Territory> finalTerritories = Main.createTerritories(territoriesDataPath, territoriesDataFileName, userInput);
+        List<Territory> availableTerritories = null;
+        //boolean isContinue = false;
+
+        /*File filePlayerList = new File(System.getProperty("user.dir") + File.separator +
+                "Replay" + File.separator + fileNamePlayerList);
+        File fileTerritory = new File(System.getProperty("user.dir") + File.separator +
+                "Replay" + File.separator + fileNameTerritory);
+        File fileBattle = new File(System.getProperty("user.dir") + File.separator +
+                "Replay" + File.separator + fileNameBattle);
+        if (filePlayerList.exists() && fileTerritory.exists() && fileBattle.exists()) isContinue = true;
+        else isContinue = false;*/
+
+        /*if (DownloadSave.IsFileExist(fileNamePlayerList) && DownloadSave.IsFileExist(fileNameTerritory) &&
+                DownloadSave.IsFileExist(fileNameBattle)) isContinue = true;
+        else isContinue = false;
+
+        if (!isContinue) {
+            try {
+                FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + File.separator +
+                        "Replay" + File.separator + fileNamePlayerList);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                //bufferedWriter.flush();
+
+                bufferedWriter.close();
+            }
+            catch(IOException e) {
+                System.out.println("Error recording replay.");
+            }
+
+            try {
+                FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + File.separator +
+                        "Replay" + File.separator + fileNameTerritory);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                //bufferedWriter.flush();
+
+                bufferedWriter.close();
+            }
+            catch(IOException e) {
+                System.out.println("Error recording replay.");
+            }
+
+            try {
+                FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + File.separator +
+                        "Replay" + File.separator + fileNameBattle);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                //bufferedWriter.flush();
+
+                bufferedWriter.close();
+            }
+            catch(IOException e) {
+                System.out.println("Error recording replay.");
+            }*/
+
+        //Telegram Bot
+        ApiContextInitializer.init();
+        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+        TelegramBot telegramBot = new TelegramBot();
+        try {
+            telegramBotsApi.registerBot(telegramBot);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        telegramBot = null;
+        //telegramBot.sendMessage("Hi, let' start the game");
+
+        //Create player objects and store them in players list
+        //players = createPlayers(minPlayer, maxPlayer, maxNumbOfDie, userInput);
+        players = Main.createPlayers(minPlayer, maxPlayer, maxNumbOfDie, telegramBot);
+        //recordPlayerNames(players);
+
+        //Create territory objects and store them in territories list
+        availableTerritories = new ArrayList<>();
+        availableTerritories.addAll(finalTerritories);
+
+        //Set territory state of the game
+        //Allow each player to set up their territories
+        //setTerritory(players, availableTerritories, finalTerritories, userInput, mapPath);
+
+        //Test
+        players.add(new Player("Ton", 3));
+        players.add(new Player("AI", 3));
+        players.get(0).setNumOfAvailableArmy(Main.getNumberOfArmyEachPlayer(players.size()));
+        players.get(1).setNumOfAvailableArmy(Main.getNumberOfArmyEachPlayer(players.size()));
+        for (int i = 1; i <= 42; i++) {
+            if (i % 2 != 0) {
+                players.get(0).addOwnedTerritory(Main.findTerritory(i, finalTerritories));
+                //recordSetTerritory(players.get(0), findTerritory(i, finalTerritories));
+            } else {
+                players.get(1).addOwnedTerritory(Main.findTerritory(i, finalTerritories));
+                //recordSetTerritory(players.get(1), findTerritory(i, finalTerritories));
+            }
+        }
+        for (int i = 1; i <= 28; i++) {
+            if (i % 2 != 0) {
+                players.get(0).addOwnedTerritory(Main.findTerritory(i, finalTerritories));
+                //recordSetTerritory(players.get(0), findTerritory(i, finalTerritories));
+            }
+            else {
+                players.get(1).addOwnedTerritory(Main.findTerritory(i, finalTerritories));
+                //recordSetTerritory(players.get(1), findTerritory(i, finalTerritories));
+            }
+        }
+        /*}
+        else {
+            players = readPlayerName();
+            readToTerritory(players, finalTerritories);
+            readToTerritoryArmy(players, finalTerritories);
+            availableTerritories = new ArrayList<>();
+            for (Territory territory : finalTerritories) {
+                if (!territory.isOccupied()) availableTerritories.add(territory);
+            }
+        }
+*/
+
+        if (finalTerritories.size() > 0 && players != null)
+        {
+            if (!Main.checkWinCondition(players)) {
+                Main.battleStage(finalTerritories, players, mapPath, telegramBot);
+
+                for (int i = 0; i < players.size(); i++) {
+                    players.get(i).setBonusArmies(0);
+                    Main.setTerritory(players.get(i), players, availableTerritories, finalTerritories, telegramBot, mapPath);
+                }
+
+                /*players.forEach(player -> {
+                    player.setBonusArmies(0);
+                    setTerritory(player, players, availableTerritories, finalTerritories, userInput, mapPath);
+                });*/
+            }
+            else System.out.println(players.stream().filter(player -> !player.isLost()).findFirst().get().getPlayerName() + " wins.");
+        }
+        else System.out.println("Error when import territories data.\nExit.");
+    }
+
+    @Test
     public void createPlayers() {
         int numOfPlayer = 0;
         List<Player> players = new ArrayList<>();
@@ -31,24 +194,29 @@ public class MainTest {
         //Number of player must be >= minPlayer
         do {
             System.out.print("How many players: ");
-            try {
-                numOfPlayer = Integer.parseInt("2");
-            } catch (NumberFormatException e) {
-                numOfPlayer = 0;
+            if (true) {
+                try {
+                    numOfPlayer = Integer.parseInt("2");
+                } catch (NumberFormatException e) {
+                    numOfPlayer = 0;
+                }
             }
-        } while (numOfPlayer < 2 || numOfPlayer > 6);
+        } while (numOfPlayer < 1 || numOfPlayer > 6);
 
         int i = 1; //The index of player
         //Asking names of the players
         while(i <= numOfPlayer) {
             System.out.print("What is the name of player " + i + ": ");
-            String name = "";
+            String name;
             if (i == 1) name = "Ton";
             else name = "AI";
-            Player player = new Player(name, 3);
-            player.setLastPlayer(new Player(player.getPlayerName(), 3));
-            players.add(player);
-            i++;
+            if (true) {
+                Player player = new Player(name, 3);
+                player.setLastPlayer(new Player(player.getPlayerName(), 3));
+                players.add(player);
+                i++;
+            }
+            else System.out.println("Invalid input");
         }
         assertEquals(players.size(), 2);
         assertEquals(players.get(0).getPlayerName(), "Ton");
