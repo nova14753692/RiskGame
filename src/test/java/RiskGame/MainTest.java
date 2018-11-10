@@ -124,7 +124,8 @@ public class MainTest {
         //telegramBot.sendMessage("Hi, let' start the game");
 
         //Create player objects and store them in players list
-        //players = Main.createPlayers(minPlayer, maxPlayer, maxNumbOfDie, userInput);
+        //players = createPlayers(minPlayer, maxPlayer, maxNumbOfDie, userInput);
+        players = Main.createPlayers(minPlayer, maxPlayer, maxNumbOfDie, telegramBot);
         //recordPlayerNames(players);
 
         //Create territory objects and store them in territories list
@@ -137,7 +138,6 @@ public class MainTest {
         //setTerritory(players, availableTerritories, finalTerritories, userInput, mapPath);
 
         //Test
-        players = new ArrayList<>();
         players.add(new Player("Ton", 3));
         players.add(new Player("AI", 3));
         players.get(0).setNumOfAvailableArmy(Main.getNumberOfArmyEachPlayer(players.size()));
@@ -178,11 +178,11 @@ public class MainTest {
         if (finalTerritories.size() > 0 && players != null)
         {
             if (!Main.checkWinCondition(players)) {
-                //Main.battleStage(finalTerritories, players, mapPath, telegramBot);
+                Main.battleStage(finalTerritories, players, mapPath, telegramBot);
 
                 for (int i = 0; i < players.size(); i++) {
                     players.get(i).setBonusArmies(0);
-                    //Main.setTerritory(players.get(i), players, availableTerritories, finalTerritories, telegramBot, mapPath);
+                    Main.setTerritory(players.get(i), players, availableTerritories, finalTerritories, telegramBot, mapPath);
                 }
 
                 /*players.forEach(player -> {
@@ -775,10 +775,174 @@ public class MainTest {
             assertEquals(input, "Alaska");
         }
         assertEquals(command, true);
+
+        //Case 6
+        //The questions program will ask each player each move
+        //Need refactor
+        System.out.println("======================================================================");
+        //System.out.println("It's " + player.getPlayerName() + "'s turn to place armies.");
+        System.out.println("");
+        System.out.println("Enter -la to list all territories of all player and available territories.");
+        System.out.println("Enter -lm to list all territories of your possession.");
+        System.out.println("Enter -lav to list all available territories.");
+        System.out.println("Enter -map to the map.");
+        System.out.println("Enter -shde [.Territory name] or -shde [.Territory index] (eg: -shde Alaska or -shde 1)\n" +
+                " to list detail about that territory and its adjacent territories.");
+        System.out.print("Enter .Territory name, or index, or command: ");
+
+        players.clear();
+        territories.clear();
+        players.add(new Player("Ton"));
+        players.add(new Player("AI"));
+        territories.add(new Territory("Alaska", 0));
+        territories.add(new Territory("Northwest", 1));
+        //Execute special command
+        if (true) {
+            command = false;
+            String input = "1";
+
+            switch (input) {
+                case "-la":
+                    Main.printTerritory(players, territories);
+                    command = true;
+                    break;
+                case "-lm":
+                    Main.printTerritory(players.get(0), players, territories);
+                    System.out.println(players.get(0).getPlayerName() + " has: " + players.get(0).getNumOfAvailableArmy() + " armies.");
+                    command = true;
+                    break;
+                case "-lav":
+                    Main.printTerritory(players, territories, true);
+                    command = true;
+                    break;
+                case "-map":
+                    Main.displayMap("");
+                    command = true;
+                    break;
+            }
+            if (input.length() > 6 && input.substring(0, 5).equals("-shde")) {
+                input = input.substring(6);
+                try {
+                    if (!Main.printTerritory(input, territories) && !Main.printTerritory(Integer.parseInt(input), territories))
+                        System.out.println(".Territory not found.");
+                } catch (NumberFormatException e) {
+                    System.out.println(".Territory not found.");
+                }
+                command = true;
+            }
+
+            //Try to parse the input string to a integer
+            //If the string can be parse successfully, then the player entered a territory index instead of territory name
+            try {
+                tIndex = Integer.parseInt(input);
+                assertEquals(tIndex, 1);
+            } catch (NumberFormatException e) {
+                //If the input string cannot be parse, then the player entered a territory name
+                tName = input;
+            }
+        }
+        assertEquals(command, false);
+
+        //Case 7
+        //The questions program will ask each player each move
+        //Need refactor
+        System.out.println("======================================================================");
+        //System.out.println("It's " + player.getPlayerName() + "'s turn to place armies.");
+        System.out.println("");
+        System.out.println("Enter -la to list all territories of all player and available territories.");
+        System.out.println("Enter -lm to list all territories of your possession.");
+        System.out.println("Enter -lav to list all available territories.");
+        System.out.println("Enter -map to the map.");
+        System.out.println("Enter -shde [.Territory name] or -shde [.Territory index] (eg: -shde Alaska or -shde 1)\n" +
+                " to list detail about that territory and its adjacent territories.");
+        System.out.print("Enter .Territory name, or index, or command: ");
+
+        players.clear();
+        territories.clear();
+        players.add(new Player("Ton"));
+        players.add(new Player("AI"));
+        territories.add(new Territory("Alaska", 0));
+        territories.add(new Territory("Northwest", 1));
+        //Execute special command
+        if (true) {
+            command = false;
+            String input = "Alaska";
+
+            switch (input) {
+                case "-la":
+                    Main.printTerritory(players, territories);
+                    command = true;
+                    break;
+                case "-lm":
+                    Main.printTerritory(players.get(0), players, territories);
+                    System.out.println(players.get(0).getPlayerName() + " has: " + players.get(0).getNumOfAvailableArmy() + " armies.");
+                    command = true;
+                    break;
+                case "-lav":
+                    Main.printTerritory(players, territories, true);
+                    command = true;
+                    break;
+                case "-map":
+                    Main.displayMap("");
+                    command = true;
+                    break;
+            }
+            if (input.length() > 6 && input.substring(0, 5).equals("-shde")) {
+                input = input.substring(6);
+                try {
+                    if (!Main.printTerritory(input, territories) && !Main.printTerritory(Integer.parseInt(input), territories))
+                        System.out.println(".Territory not found.");
+                } catch (NumberFormatException e) {
+                    System.out.println(".Territory not found.");
+                }
+                command = true;
+            }
+
+            //Try to parse the input string to a integer
+            //If the string can be parse successfully, then the player entered a territory index instead of territory name
+            try {
+                tIndex = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                //If the input string cannot be parse, then the player entered a territory name
+                tName = input;
+                assertEquals(tName, "Alaska");
+            }
+        }
+        assertEquals(command, false);
     }
 
     @Test
     public void askForUndo() {
+        boolean result = false;
+
+        //case 1
+        String input = "";
+        while (!input.toLowerCase().equals("n") || !input.toLowerCase().equals("y")) {
+            System.out.print("Do you want to undo (Y/N): ");
+            if (true) {
+                input = "n";
+                if (!input.toLowerCase().equals("y") && !input.toLowerCase().equals("n")) {
+                    System.out.println("You have to answer either Y or N.");
+                    continue;
+                } else if (input.toLowerCase().equals("n")) result = false;
+                else if (input.toLowerCase().equals("y")) result = true;
+            }
+        }
+        assertEquals(result, false);
+
+        //case 2
+        while (!input.toLowerCase().equals("n") || !input.toLowerCase().equals("y")) {
+            System.out.print("Do you want to undo (Y/N): ");
+            if (true) {
+                input = "y";
+                if (!input.toLowerCase().equals("y") && !input.toLowerCase().equals("n")) {
+                    System.out.println("You have to answer either Y or N.");
+                    continue;
+                } else if (input.toLowerCase().equals("n")) result = false;
+                else if (input.toLowerCase().equals("y")) result = true;
+            }
+        }
+        assertEquals(result, true);
     }
 
     @Test
@@ -795,6 +959,85 @@ public class MainTest {
 
     @Test
     public void setTerritory() {
+        Scanner userInput = null;
+        List<Player> players = new ArrayList<>();
+        players.add(new Player("Ton", 3));
+        players.add(new Player("AI", 3));
+        final String mapPath = System.getProperty("user.dir") + File.separator + "map.jpg";
+        final String territoriesDataFileName = "TerritoryList";
+        final String territoriesDataPath = System.getProperty("user.dir") + File.separator + "Data" + File.separator;
+        List<Territory> finalTerritories = Main.createTerritories(territoriesDataPath, territoriesDataFileName, userInput);
+        List<Territory> availableTerritories = new ArrayList<>();
+        availableTerritories.addAll(finalTerritories);
+
+        //Assign the number of army each player will have base on the number of player
+        int armiesEachPlayer = Main.getNumberOfArmyEachPlayer(players.size());
+        if (armiesEachPlayer <= 0) return;
+        players.forEach(player -> player.setNumOfAvailableArmy(armiesEachPlayer));
+
+        //Set territory stage
+        for (int i = 0; i < armiesEachPlayer; i++) {
+            for (int j = 0; j < players.size(); j++) {
+                Territory foundTerritory = null;
+
+                //The loop will continue to ask what move the player wants
+                //It will continue to ask for user input until the player has entered a valid territory (when foundTerritory != null)
+                while (foundTerritory == null) {
+                    String addOutput = "It's " + players.get(j).getPlayerName() + "'s turn to place armies.";
+                    Pair<String, Integer> stringIntegerPair = Main.userInputRequest(availableTerritories, finalTerritories,
+                            players, players.get(j), mapPath, addOutput, userInput);
+                    String tName = stringIntegerPair.getFirst();
+                    int tIndex = stringIntegerPair.getSecond();
+                    //If availableTerritories list size is still > 0, then there is at least 1 free territory available
+                    //If so, we add the territory the player entered to that player's owned availableTerritories list as a new territory
+                    //Then, that territory need to be removed from the available availableTerritories list
+                    if (availableTerritories.size() > 0) {
+                        foundTerritory = Main.findTerritory(tName, tIndex, availableTerritories);
+
+                        //When found a territory, add it to the player's owned availableTerritories list and remove it from available availableTerritories list
+                        //Otherwise, output error and ask that player again
+                        if (foundTerritory != null) {
+                            players.get(j).addOwnedTerritory(foundTerritory);
+                            availableTerritories.remove(foundTerritory);
+                            if (Main.askForUndo(userInput)) {
+                                Main.undo(players.get(j), foundTerritory);
+                                availableTerritories.add(foundTerritory);
+                                j--;
+                                i--;
+                            }
+                        } else System.out.println(".Territory not found");
+                    } else {
+                        //Occurred when there is no available territory but there are armies left that have not set
+                        //At this time, each player can place their armies any where within their owned availableTerritories
+
+                        if (tName != null) {
+                            //String territoryName = tName;
+                            //Find territory in the player's owned availableTerritories list by its name, then store in the foundTerritory variable
+                            foundTerritory = Main.findTerritory(tName, players.get(j).getOwnedTerritories());
+                        } else {
+                            //int territoryIndex = tIndex;
+                            //Find territory in the player's owned availableTerritories list by its index, then store in the foundTerritory variable
+                            foundTerritory = Main.findTerritory(tIndex, players.get(j).getOwnedTerritories());
+                        }
+
+                        //If territory is found, then call the function addOwnedTerritory from player object
+                        //If the territory is already owned, then just increase its number of army
+                        //Otherwise, output error
+                        if (foundTerritory != null) {
+                            Main.saveState(players.get(j), foundTerritory);
+                            players.get(j).addOwnedTerritory(foundTerritory);
+                            if (Main.askForUndo(userInput)) {
+                                Main.undo(players.get(j), foundTerritory);
+                                j--;
+                                i--;
+                            }
+                        }
+                        else if (tName != null) System.out.println(".Player " + players.get(j).getPlayerName() + " does not own " + tName);
+                        else if (tIndex >= 0) System.out.println(".Player " + players.get(j).getPlayerName() + " does not own territory has index of " + tIndex);
+                    }
+                }
+            }
+        }
     }
 
     @Test
