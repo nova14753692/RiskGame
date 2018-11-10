@@ -18,10 +18,7 @@ public class ArmyTest {
 
     @Test
     public void getNumbOfArmy() {
-        final int value = 1;
-        Army a = new Army(value);
-        long result = a.getNumbOfArmy();
-        assertEquals(value, result);
+        
     }
 
     @Test
