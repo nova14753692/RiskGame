@@ -100,7 +100,7 @@ public class Main {
             }*/
 
         //Telegram Bot
-        ApiContextInitializer.init();
+        /*ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         TelegramBot telegramBot = new TelegramBot();
         try {
@@ -108,11 +108,11 @@ public class Main {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-        telegramBot.sendMessage("Hi, let' start the game");
+        telegramBot.sendMessage("Hi, let' start the game");*/
 
             //Create player objects and store them in players list
-            //players = createPlayers(minPlayer, maxPlayer, maxNumbOfDie, userInput);
-            players = createPlayers(minPlayer, maxPlayer, maxNumbOfDie, telegramBot);
+            players = createPlayers(minPlayer, maxPlayer, maxNumbOfDie, userInput);
+            //players = createPlayers(minPlayer, maxPlayer, maxNumbOfDie, telegramBot);
             //recordPlayerNames(players);
 
             //Create territory objects and store them in territories list
@@ -160,11 +160,13 @@ public class Main {
         if (finalTerritories.size() > 0 && players != null)
         {
             if (!checkWinCondition(players)) {
-                battleStage(finalTerritories, players, mapPath, telegramBot);
+                //battleStage(finalTerritories, players, mapPath, telegramBot);
+                battleStage(finalTerritories, players, mapPath, userInput);
 
                 for (int i = 0; i < players.size(); i++) {
                     players.get(i).setBonusArmies(0);
-                    setTerritory(players.get(i), players, availableTerritories, finalTerritories, telegramBot, mapPath);
+                    //setTerritory(players.get(i), players, availableTerritories, finalTerritories, telegramBot, mapPath);
+                    setTerritory(players.get(i), players, availableTerritories, finalTerritories, userInput, mapPath);
                 }
 
                 /*players.forEach(player -> {

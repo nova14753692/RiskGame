@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cbe5616b-ae35-45b4-b703-aecd8d723d01" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RiskGame/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/RiskGame/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/RiskGame/MainTest.java" afterDir="false" />
     </list>
@@ -21,12 +20,12 @@
     <SUITE FILE_PATH="coverage/RiskGame$Main.ic" NAME="Main Coverage Results" MODIFIED="1539840281442" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/RiskGame$MainTest.ic" NAME="MainTest Coverage Results" MODIFIED="1541886416534" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/RiskGame$MainTest.ic" NAME="MainTest Coverage Results" MODIFIED="1541887784388" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>RiskGame.*</FILTER>
     </SUITE>
   </component>
   <component name="CoverageViewManager">
-    <option name="myElementSize" value="356" />
+    <option name="myElementSize" value="358" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-1134919838">
@@ -60,14 +59,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="9466" />
+          <entry key="java" value="9699" />
           <entry key="xml" value="53" />
           <entry key="yml" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="9466" />
+          <entry key="JAVA" value="9699" />
           <entry key="XML" value="53" />
           <entry key="YAML" value="6" />
         </counts>
@@ -150,14 +149,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="589">
-              <caret line="759" column="104" selection-start-line="759" selection-start-column="104" selection-end-line="759" selection-end-column="104" />
+            <state relative-caret-position="581">
+              <caret line="168" column="107" selection-start-line="168" selection-start-column="107" selection-end-line="168" selection-end-column="107" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#main#0;class#Main#0" />
                 <element signature="docComment;method#createPlayers#0;class#Main#0" />
                 <element signature="method#createPlayers#0;class#Main#0" />
                 <element signature="method#createPlayers#1;class#Main#0" />
@@ -225,11 +223,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/RiskGame/MainTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="174" column="19" lean-forward="true" selection-start-line="174" selection-start-column="19" selection-end-line="174" selection-end-column="19" />
+            <state relative-caret-position="232">
+              <caret line="139" column="36" selection-start-line="139" selection-start-column="36" selection-end-line="139" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#createPlayers#0;class#MainTest#0" />
@@ -309,8 +307,8 @@
         <option value="$PROJECT_DIR$/src/main/java/RiskGame/Battle.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/test/java/Tests.java" />
-        <option value="$PROJECT_DIR$/src/test/java/RiskGame/MainTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/RiskGame/Main.java" />
+        <option value="$PROJECT_DIR$/src/test/java/RiskGame/MainTest.java" />
       </list>
     </option>
   </component>
@@ -397,7 +395,7 @@
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541886414358" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541887782556" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../aws-java-sdk-1.11.431/lib/aws-java-sdk-1.11.431.jar!/" />
@@ -525,21 +523,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="MainTest - 2018.11.10 at 15h 11m 24s.xml">
-      <configuration name="MainTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.10 at 15h 11m 58s.xml">
-      <configuration name="All in RiskGame" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest - 2018.11.10 at 15h 31m 21s.xml">
-      <configuration name="MainTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest - 2018.11.10 at 15h 31m 56s.xml">
-      <configuration name="MainTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest - 2018.11.10 at 15h 32m 37s.xml">
-      <configuration name="MainTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="MainTest - 2018.11.10 at 15h 32m 45s.xml">
       <configuration name="MainTest" configurationId="JUnit" />
     </history-entry>
@@ -553,6 +536,21 @@
       <configuration name="MainTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="MainTest - 2018.11.10 at 15h 45m 44s.xml">
+      <configuration name="MainTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest - 2018.11.10 at 15h 47m 01s.xml">
+      <configuration name="MainTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest - 2018.11.10 at 16h 02m 45s.xml">
+      <configuration name="MainTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest - 2018.11.10 at 16h 04m 20s.xml">
+      <configuration name="MainTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest - 2018.11.10 at 16h 08m 50s.xml">
+      <configuration name="MainTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest - 2018.11.10 at 16h 09m 19s.xml">
       <configuration name="MainTest" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -890,29 +888,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/RiskGame/MainTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="174" column="19" lean-forward="true" selection-start-line="174" selection-start-column="19" selection-end-line="174" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#createPlayers#0;class#MainTest#0" />
-            <element signature="method#createPlayers1#0;class#MainTest#0" />
-            <element signature="method#createPlayers2#0;class#MainTest#0" />
-            <element signature="method#createTerritories#0;class#MainTest#0" />
-            <element signature="method#getNumberOfArmyEachPlayer#0;class#MainTest#0" />
-            <element signature="method#userInputRequest#0;class#MainTest#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="759" column="104" selection-start-line="759" selection-start-column="104" selection-end-line="759" selection-end-column="104" />
+        <state relative-caret-position="581">
+          <caret line="168" column="107" selection-start-line="168" selection-start-column="107" selection-end-line="168" selection-end-column="107" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#main#0;class#Main#0" />
             <element signature="docComment;method#createPlayers#0;class#Main#0" />
             <element signature="method#createPlayers#0;class#Main#0" />
             <element signature="method#createPlayers#1;class#Main#0" />
@@ -975,6 +956,22 @@
             <element signature="method#readPlayerName#0;class#Main#0" />
             <element signature="method#readToTerritory#0;class#Main#0" />
             <element signature="method#readToTerritoryArmy#0;class#Main#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/RiskGame/MainTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="139" column="36" selection-start-line="139" selection-start-column="36" selection-end-line="139" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#createPlayers#0;class#MainTest#0" />
+            <element signature="method#createPlayers1#0;class#MainTest#0" />
+            <element signature="method#createPlayers2#0;class#MainTest#0" />
+            <element signature="method#createTerritories#0;class#MainTest#0" />
+            <element signature="method#getNumberOfArmyEachPlayer#0;class#MainTest#0" />
+            <element signature="method#userInputRequest#0;class#MainTest#0" />
           </folding>
         </state>
       </provider>

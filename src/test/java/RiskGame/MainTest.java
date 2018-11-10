@@ -52,6 +52,11 @@ public class MainTest {
         //List contain territories
         List<Territory> finalTerritories = Main.createTerritories(territoriesDataPath, territoriesDataFileName, userInput);
         List<Territory> availableTerritories = null;
+        /*finalTerritories = new ArrayList<>();
+        finalTerritories.add(new Territory("Alaska", 0));
+        finalTerritories.add(new Territory("Northwest", 1));*/
+
+        assertEquals(finalTerritories.size(), 42);
         //boolean isContinue = false;
 
         /*File filePlayerList = new File(System.getProperty("user.dir") + File.separator +
@@ -113,23 +118,26 @@ public class MainTest {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+
+        assertNotNull(telegramBot);
         telegramBot = null;
         //telegramBot.sendMessage("Hi, let' start the game");
 
         //Create player objects and store them in players list
-        //players = createPlayers(minPlayer, maxPlayer, maxNumbOfDie, userInput);
-        players = Main.createPlayers(minPlayer, maxPlayer, maxNumbOfDie, telegramBot);
+        //players = Main.createPlayers(minPlayer, maxPlayer, maxNumbOfDie, userInput);
         //recordPlayerNames(players);
 
         //Create territory objects and store them in territories list
         availableTerritories = new ArrayList<>();
         availableTerritories.addAll(finalTerritories);
+        assertEquals(availableTerritories.size(), 42);
 
         //Set territory state of the game
         //Allow each player to set up their territories
         //setTerritory(players, availableTerritories, finalTerritories, userInput, mapPath);
 
         //Test
+        players = new ArrayList<>();
         players.add(new Player("Ton", 3));
         players.add(new Player("AI", 3));
         players.get(0).setNumOfAvailableArmy(Main.getNumberOfArmyEachPlayer(players.size()));
@@ -153,6 +161,8 @@ public class MainTest {
                 //recordSetTerritory(players.get(1), findTerritory(i, finalTerritories));
             }
         }
+        assertEquals(players.get(0).getOwnedTerritories().size(), 21);
+        assertEquals(players.get(1).getOwnedTerritories().size(), 21);
         /*}
         else {
             players = readPlayerName();
@@ -168,11 +178,11 @@ public class MainTest {
         if (finalTerritories.size() > 0 && players != null)
         {
             if (!Main.checkWinCondition(players)) {
-                Main.battleStage(finalTerritories, players, mapPath, telegramBot);
+                //Main.battleStage(finalTerritories, players, mapPath, telegramBot);
 
                 for (int i = 0; i < players.size(); i++) {
                     players.get(i).setBonusArmies(0);
-                    Main.setTerritory(players.get(i), players, availableTerritories, finalTerritories, telegramBot, mapPath);
+                    //Main.setTerritory(players.get(i), players, availableTerritories, finalTerritories, telegramBot, mapPath);
                 }
 
                 /*players.forEach(player -> {
@@ -320,6 +330,8 @@ public class MainTest {
     public void getNumberOfArmyEachPlayer() {
         int numbOfPlayer = 2;
         int numOfTroops = 0;
+
+        //case 1
         switch(numbOfPlayer) {
             //40-((n-2)*5)
             case 2:
@@ -339,6 +351,94 @@ public class MainTest {
                 break;
         }
         assertEquals(numOfTroops, 35);
+
+        //case 2
+        numbOfPlayer = 3;
+        switch(numbOfPlayer) {
+            //40-((n-2)*5)
+            case 2:
+                numOfTroops = 35;
+                break;
+            case 3:
+                numOfTroops =  35;
+                break;
+            case 4:
+                numOfTroops =  30;
+                break;
+            case 5:
+                numOfTroops =  25;
+                break;
+            case 6:
+                numOfTroops =  20;
+                break;
+        }
+        assertEquals(numOfTroops, 35);
+
+        //case 3
+        numbOfPlayer = 4;
+        switch(numbOfPlayer) {
+            //40-((n-2)*5)
+            case 2:
+                numOfTroops = 35;
+                break;
+            case 3:
+                numOfTroops =  35;
+                break;
+            case 4:
+                numOfTroops =  30;
+                break;
+            case 5:
+                numOfTroops =  25;
+                break;
+            case 6:
+                numOfTroops =  20;
+                break;
+        }
+        assertEquals(numOfTroops, 30);
+
+        //case 4
+        numbOfPlayer = 5;
+        switch(numbOfPlayer) {
+            //40-((n-2)*5)
+            case 2:
+                numOfTroops = 35;
+                break;
+            case 3:
+                numOfTroops =  35;
+                break;
+            case 4:
+                numOfTroops =  30;
+                break;
+            case 5:
+                numOfTroops =  25;
+                break;
+            case 6:
+                numOfTroops =  20;
+                break;
+        }
+        assertEquals(numOfTroops, 25);
+
+        //case 5
+        numbOfPlayer = 6;
+        switch(numbOfPlayer) {
+            //40-((n-2)*5)
+            case 2:
+                numOfTroops = 35;
+                break;
+            case 3:
+                numOfTroops =  35;
+                break;
+            case 4:
+                numOfTroops =  30;
+                break;
+            case 5:
+                numOfTroops =  25;
+                break;
+            case 6:
+                numOfTroops =  20;
+                break;
+        }
+        assertEquals(numOfTroops, 20);
     }
 
     @Test
