@@ -14,8 +14,13 @@ public class ArmyTest {
     public void tearDown() throws Exception {
     }
 
+
     @Test
     public void getNumbOfArmy() {
+        final int value = 1;
+        Army a = new Army(value);
+        long result = a.numbOfArmy;
+        assertEquals(value, result);
     }
 
     @Test

@@ -1,4 +1,4 @@
-public abstract class Army {
+public class Army {
 
     protected int numbOfArmy;
     protected String armyName;
