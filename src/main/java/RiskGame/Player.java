@@ -19,6 +19,7 @@ public class Player {
     private int minBonusArmies; //Minimum number of bonus armies the player will get each turn
     private List<Card> ownedCards; //The list of card the player owns
     private Player lastPlayer;
+    private Timer timer;
 
     /**
      * <p style="color:blue;">.Player constructor, create player</p>
@@ -38,6 +39,7 @@ public class Player {
                 add(new Die(1, 6));
             }
         };
+        this.timer = new Timer();
     }
 
     /**
@@ -57,6 +59,7 @@ public class Player {
         for (int i = 0; i < numbOfDie; i++) {
             this.dice.add((new Die(1, 6)));
         }
+        this.timer = new Timer();
     }
 
     /**
@@ -80,6 +83,7 @@ public class Player {
         for (int i = 0; i < numbOfDie; i++) {
             this.dice.add((new Die(minRollValue, maxRollValue)));
         }
+        this.timer = new Timer();
     }
 
     /**
@@ -159,6 +163,19 @@ public class Player {
         System.out.println("\n====================================================================");
     }
 
+    public void printRolledDice(TelegramBot bot) {
+        bot.sendMessage(getPlayerName() + "'s roll result:");
+        bot.sendMessage("====> ");
+        dice.forEach(die -> {
+            if (die.getCurrentValue() > 0) {
+                if (dice.indexOf(die) > 0 && dice.indexOf(die) < dice.size() - 1) ;
+                bot.sendMessage(String.valueOf(die.getCurrentValue()));
+                bot.sendMessage(" ");
+            }
+        });
+        bot.sendMessage("\n====================================================================");
+    }
+
     public void printRolledDice(PrintWriter printWriter) {
         dice.forEach(die -> {
             if (die.getCurrentValue() > 0) {
@@ -214,6 +231,10 @@ public class Player {
 
     public List<Card> getOwnedCards() {
         return ownedCards;
+    }
+
+    public Timer getTimer() {
+        return timer;
     }
 
     public void Revoke() {

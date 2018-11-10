@@ -1,29 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cc8fa6f6-b639-4a46-89d6-699811dbea94" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_amazonaws_aws_java_sdk_core_1_11_431.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_amazonaws_aws_java_sdk_kms_1_11_431.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_amazonaws_aws_java_sdk_s3_1_11_431.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_amazonaws_jmespath_java_1_11_431.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_6_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_6_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_6_7_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_cbor_2_6_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_10.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__joda_time_joda_time_2_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_twitter4j_twitter4j_core_4_0_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__software_amazon_ion_ion_java_1_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="cbe5616b-ae35-45b4-b703-aecd8d723d01" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Timer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Replay/ReplayPlayerList.re" beforeDir="false" afterPath="$PROJECT_DIR$/Replay/ReplayPlayerList.re" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Replay/ReplayTerritory.re" beforeDir="false" afterPath="$PROJECT_DIR$/Replay/ReplayTerritory.re" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RiskGame/Attack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Attack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RiskGame/Battle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Battle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RiskGame/Defend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Defend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RiskGame/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RiskGame/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RiskGame/Territory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Territory.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,55 +22,259 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/RiskGame$Main.ic" NAME="Main Coverage Results" MODIFIED="1539840281442" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>.*</FILTER>
+    </SUITE>
+  </component>
   <component name="FUSProjectUsageTrigger">
-    <session id="-1167407477">
+    <session id="-1134919838">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.closed" value="11" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.7" value="7" />
+          <entry key="project.open.time.8" value="3" />
+          <entry key="project.opened" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="iml" value="1" />
-          <entry key="xml" value="1" />
+          <entry key="class" value="1" />
+          <entry key="java" value="56" />
+          <entry key="xml" value="5" />
+          <entry key="yml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="IDEA_MODULE" value="1" />
-          <entry key="XML" value="1" />
+          <entry key="CLASS" value="1" />
+          <entry key="JAVA" value="56" />
+          <entry key="XML" value="5" />
+          <entry key="YAML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="xml" value="8" />
+          <entry key="java" value="8009" />
+          <entry key="xml" value="52" />
+          <entry key="yml" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="XML" value="8" />
+          <entry key="JAVA" value="8009" />
+          <entry key="XML" value="52" />
+          <entry key="YAML" value="6" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="699">
-              <caret line="62" column="46" selection-start-line="62" selection-start-column="46" selection-end-line="62" selection-end-column="46" />
+            <state relative-caret-position="423">
+              <caret line="177" column="5" lean-forward="true" selection-start-line="177" selection-start-column="5" selection-end-line="177" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#main#0;class#Main#0" />
+                <element signature="docComment;method#createPlayers#0;class#Main#0" />
+                <element signature="method#createPlayers#0;class#Main#0" />
+                <element signature="method#createPlayers#1;class#Main#0" />
+                <element signature="method#createPlayers#1;class#Main#0" />
+                <element signature="docComment;method#readTerritoriesData#0;class#Main#0" />
+                <element signature="method#readTerritoriesData#0;class#Main#0" />
+                <element signature="docComment;method#createTerritories#0;class#Main#0" />
+                <element signature="method#createTerritories#0;class#Main#0" />
+                <element signature="docComment;method#getNumberOfArmyEachPlayer#0;class#Main#0" />
+                <element signature="method#getNumberOfArmyEachPlayer#0;class#Main#0" />
+                <element signature="docComment;method#userInputRequest#0;class#Main#0" />
+                <element signature="method#userInputRequest#0;class#Main#0" />
+                <element signature="method#userInputRequest#1;class#Main#0" />
+                <element signature="method#askForUndo#0;class#Main#0" />
+                <element signature="method#askForUndo#1;class#Main#0" />
+                <element signature="method#undo#0;class#Main#0" />
+                <element signature="method#saveState#0;class#Main#0" />
+                <element signature="docComment;method#setTerritory#0;class#Main#0" />
+                <element signature="method#setTerritory#0;class#Main#0" />
+                <element signature="docComment;method#setTerritory#1;class#Main#0" />
+                <element signature="method#setTerritory#1;class#Main#0" />
+                <element signature="method#setTerritory#2;class#Main#0" />
+                <element signature="method#setTerritory#3;class#Main#0" />
+                <element signature="docComment;method#battleStage#0;class#Main#0" />
+                <element signature="method#battleStage#0;class#Main#0" />
+                <element signature="method#battleStage#1;class#Main#0" />
+                <element signature="docComment;method#play#0;class#Main#0" />
+                <element signature="method#play#0;class#Main#0" />
+                <element signature="method#play#1;class#Main#0" />
+                <element signature="docComment;method#checkWinCondition#0;class#Main#0" />
+                <element signature="method#checkWinCondition#0;class#Main#0" />
+                <element signature="docComment;method#printTerritory#0;class#Main#0" />
+                <element signature="method#printTerritory#0;class#Main#0" />
+                <element signature="docComment;method#printTerritory#1;class#Main#0" />
+                <element signature="method#printTerritory#1;class#Main#0" />
+                <element signature="docComment;method#printTerritory#2;class#Main#0" />
+                <element signature="method#printTerritory#2;class#Main#0" />
+                <element signature="docComment;method#printTerritory#3;class#Main#0" />
+                <element signature="method#printTerritory#3;class#Main#0" />
+                <element signature="docComment;method#printTerritory#4;class#Main#0" />
+                <element signature="method#printTerritory#4;class#Main#0" />
+                <element signature="method#printTerritory#5;class#Main#0" />
+                <element signature="method#printTerritory#6;class#Main#0" />
+                <element signature="method#printTerritory#7;class#Main#0" />
+                <element signature="method#printTerritory#8;class#Main#0" />
+                <element signature="method#printTerritory#9;class#Main#0" />
+                <element signature="docComment;method#findTerritory#0;class#Main#0" />
+                <element signature="method#findTerritory#0;class#Main#0" />
+                <element signature="docComment;method#findTerritory#1;class#Main#0" />
+                <element signature="method#findTerritory#1;class#Main#0" />
+                <element signature="docComment;method#findTerritory#2;class#Main#0" />
+                <element signature="method#findTerritory#2;class#Main#0" />
+                <element signature="docComment;method#displayMap#0;class#Main#0" />
+                <element signature="method#displayMap#0;class#Main#0" />
+                <element signature="docComment;method#buildFrame#0;class#Main#0" />
+                <element signature="method#buildFrame#0;class#Main#0" />
+                <element signature="method#recordPlayerNames#0;class#Main#0" />
+                <element signature="method#recordSetTerritory#0;class#Main#0" />
+                <element signature="method#recordBattle#0;class#Main#0" />
+                <element signature="method#readPlayerName#0;class#Main#0" />
+                <element signature="method#readToTerritory#0;class#Main#0" />
+                <element signature="method#readToTerritoryArmy#0;class#Main#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RiskGame.iml">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Player.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="433">
+              <caret line="152" column="25" lean-forward="true" selection-start-line="152" selection-start-column="25" selection-end-line="152" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Battle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="454">
+              <caret line="73" column="12" lean-forward="true" selection-start-line="73" selection-start-column="12" selection-end-line="79" selection-end-column="13" />
+              <folding>
+                <element signature="method#getBattleResult#0;class#Battle#0" />
+                <element signature="method#askUserNumberOfDice#0;class#Battle#0" />
+                <element signature="e#3755#3756#0" expanded="true" />
+                <element signature="e#3790#3791#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Defend.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/DownloadSave.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="294">
+              <caret line="14" column="39" lean-forward="true" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Territory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1777">
+              <caret line="141" column="28" lean-forward="true" selection-start-line="141" selection-start-column="28" selection-end-line="141" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#setArmy#0;class#Territory#0" />
+                <element signature="method#Revoke#0;class#Territory#0" />
+                <element signature="method#saveState#0;class#Territory#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Attack.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-197">
+              <caret line="27" column="57" lean-forward="true" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
+              <folding>
+                <element signature="method#afterBattle#0;class#Attack#0" />
+                <element signature="method#afterBattle#1;class#Attack#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Die.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/Tests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="38" column="31" selection-start-line="38" selection-start-column="31" selection-end-line="38" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Card.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>RiskGame</find>
+      <find>fileWriter</find>
+      <find>bufferedWriter.append</find>
+      <find>userInput</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>printWriter.println</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -88,23 +282,36 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/Pair.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/Die.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/Calvary.java" />
+        <option value="$PROJECT_DIR$/.travis.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/DownloadSave.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/UploadSave.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/Timer.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/TelegramBot.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/Player.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/Territory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/Attack.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/Defend.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/Battle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/Main.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-1539" />
-    <option name="y" value="13" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="width" value="960" />
+    <option name="height" value="520" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -112,16 +319,67 @@
               <item name="RiskGame" type="b2602c69:ProjectViewProjectNode" />
               <item name="RiskGame" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="RiskGame" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RiskGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RiskGame" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RiskGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RiskGame" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RiskGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RiskGame" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RiskGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="RiskGame" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RiskGame" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RiskGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RiskGame" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RiskGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541822425211" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541878329763" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../aws-java-sdk-1.11.431/lib/aws-java-sdk-1.11.431.jar!/" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+      <recent name="RiskGame" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -135,70 +393,537 @@
       </list>
     </option>
   </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="All in RiskGame" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="RiskGame" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="RiskGame.Main" />
+      <module name="RiskGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value=".*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in RiskGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="RiskGame" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="RiskGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value=".*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="Tests" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Android JUnit.All in RiskGame" />
+      <item itemvalue="JUnit.All in RiskGame" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.Tests" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.Tests" />
+        <item itemvalue="JUnit.All in RiskGame" />
+        <item itemvalue="Android JUnit.All in RiskGame" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cc8fa6f6-b639-4a46-89d6-699811dbea94" name="Default Changelist" comment="" />
-      <created>1541822180469</created>
+      <changelist id="cbe5616b-ae35-45b4-b703-aecd8d723d01" name="Default Changelist" comment="" />
+      <created>1538635873003</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1541822180469</updated>
+      <updated>1538635873003</updated>
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="All_in_RiskGame - 2018.10.04 at 01h 54m 47s.xml">
+      <configuration name="All in RiskGame" configurationId="AndroidJUnit" />
+    </history-entry>
+    <history-entry file="All_in_RiskGame - 2018.10.04 at 01h 54m 55s.xml">
+      <configuration name="All in RiskGame" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Tests - 2018.10.04 at 02h 00m 34s.xml">
+      <configuration name="Tests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Tests - 2018.10.04 at 02h 36m 39s.xml">
+      <configuration name="Tests" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="-1539" y="13" width="1400" height="1000" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="UI Designer" />
-      <window_info id="Capture Tool" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13539445" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.6691974" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="right" id="Maven Projects" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.6691974" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" weight="0.329718" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.329718" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.329718" />
+      <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.329718" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Maven Projects" order="7" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="bot.getMessage()" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>input.toLowerCase().equals(&quot;n&quot;)</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>bot.getMessage()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>line.substring(line.indexOf(&quot; has &quot;) + &quot; has &quot;.length(), line.length() -                             line.substring(0, line.indexOf(&quot; has &quot;) + &quot; has &quot;.length()).length() -                             line.substring(line.indexOf(&quot; on &quot;)).length())</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>line.length() -                             line.substring(0, line.indexOf(&quot; has &quot;) + &quot; has &quot;.length()).length() -                             line.substring(line.indexOf(&quot; on &quot;)).length())</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>line.substring(line.indexOf(&quot; on &quot;)).length()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>line.indexOf(&quot; has &quot;) + &quot; has &quot;.length()line.indexOf(&quot; has &quot;) + &quot; has &quot;.length()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>line.substring(0, line.indexOf(&quot; has &quot;) + &quot; has &quot;.length()).length()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>line.substring(0, line.indexOf(&quot; has &quot;) + &quot; has &quot;.length() - 1).length()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>line.length() -                             line.substring(0, line.indexOf(&quot; has &quot;) + &quot; has &quot;.length() - 1).length()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>line.indexOf(&quot; has &quot;) + &quot; has &quot;.length()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/RiskGame.iml">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1176" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="1872" selection-start-line="1872" selection-end-line="1872" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../aws-java-sdk-1.11.431/lib/aws-java-sdk-1.11.431-sources.jar!/com/amazonaws/regions/AwsRegionProviderChain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/FootSoldierArmy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/UploadSave.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="699">
-          <caret line="62" column="46" selection-start-line="62" selection-start-column="46" selection-end-line="62" selection-end-column="46" />
+        <state relative-caret-position="315">
+          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/System.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="88" column="19" selection-start-line="88" selection-start-column="19" selection-end-line="88" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Pair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/telegram/telegrambots-meta/4.1/telegrambots-meta-4.1.jar!/org/telegram/telegrambots/meta/api/methods/send/SendMessage.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="83" selection-start-line="83" selection-end-line="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Timer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+          <folding>
+            <element signature="e#421#422#0" expanded="true" />
+            <element signature="e#449#450#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/TelegramBot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="39" column="35" lean-forward="true" selection-start-line="39" selection-start-column="35" selection-end-line="39" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#328#329#0" expanded="true" />
+            <element signature="e#355#356#0" expanded="true" />
+            <element signature="e#413#414#0" expanded="true" />
+            <element signature="e#482#483#0" expanded="true" />
+            <element signature="e#1319#1320#0" expanded="true" />
+            <element signature="e#1349#1350#0" expanded="true" />
+            <element signature="e#1491#1492#0" expanded="true" />
+            <element signature="e#1521#1522#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Army.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Calvary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Card.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/DownloadSave.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="39" lean-forward="true" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/Tests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="38" column="31" selection-start-line="38" selection-start-column="31" selection-end-line="38" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Territory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1777">
+          <caret line="141" column="28" lean-forward="true" selection-start-line="141" selection-start-column="28" selection-end-line="141" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#setArmy#0;class#Territory#0" />
+            <element signature="method#Revoke#0;class#Territory#0" />
+            <element signature="method#saveState#0;class#Territory#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Die.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="152" column="25" lean-forward="true" selection-start-line="152" selection-start-column="25" selection-end-line="152" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Attack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-197">
+          <caret line="27" column="57" lean-forward="true" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
+          <folding>
+            <element signature="method#afterBattle#0;class#Attack#0" />
+            <element signature="method#afterBattle#1;class#Attack#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Defend.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Battle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="454">
+          <caret line="73" column="12" lean-forward="true" selection-start-line="73" selection-start-column="12" selection-end-line="79" selection-end-column="13" />
+          <folding>
+            <element signature="method#getBattleResult#0;class#Battle#0" />
+            <element signature="method#askUserNumberOfDice#0;class#Battle#0" />
+            <element signature="e#3755#3756#0" expanded="true" />
+            <element signature="e#3790#3791#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="177" column="5" lean-forward="true" selection-start-line="177" selection-start-column="5" selection-end-line="177" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#main#0;class#Main#0" />
+            <element signature="docComment;method#createPlayers#0;class#Main#0" />
+            <element signature="method#createPlayers#0;class#Main#0" />
+            <element signature="method#createPlayers#1;class#Main#0" />
+            <element signature="method#createPlayers#1;class#Main#0" />
+            <element signature="docComment;method#readTerritoriesData#0;class#Main#0" />
+            <element signature="method#readTerritoriesData#0;class#Main#0" />
+            <element signature="docComment;method#createTerritories#0;class#Main#0" />
+            <element signature="method#createTerritories#0;class#Main#0" />
+            <element signature="docComment;method#getNumberOfArmyEachPlayer#0;class#Main#0" />
+            <element signature="method#getNumberOfArmyEachPlayer#0;class#Main#0" />
+            <element signature="docComment;method#userInputRequest#0;class#Main#0" />
+            <element signature="method#userInputRequest#0;class#Main#0" />
+            <element signature="method#userInputRequest#1;class#Main#0" />
+            <element signature="method#askForUndo#0;class#Main#0" />
+            <element signature="method#askForUndo#1;class#Main#0" />
+            <element signature="method#undo#0;class#Main#0" />
+            <element signature="method#saveState#0;class#Main#0" />
+            <element signature="docComment;method#setTerritory#0;class#Main#0" />
+            <element signature="method#setTerritory#0;class#Main#0" />
+            <element signature="docComment;method#setTerritory#1;class#Main#0" />
+            <element signature="method#setTerritory#1;class#Main#0" />
+            <element signature="method#setTerritory#2;class#Main#0" />
+            <element signature="method#setTerritory#3;class#Main#0" />
+            <element signature="docComment;method#battleStage#0;class#Main#0" />
+            <element signature="method#battleStage#0;class#Main#0" />
+            <element signature="method#battleStage#1;class#Main#0" />
+            <element signature="docComment;method#play#0;class#Main#0" />
+            <element signature="method#play#0;class#Main#0" />
+            <element signature="method#play#1;class#Main#0" />
+            <element signature="docComment;method#checkWinCondition#0;class#Main#0" />
+            <element signature="method#checkWinCondition#0;class#Main#0" />
+            <element signature="docComment;method#printTerritory#0;class#Main#0" />
+            <element signature="method#printTerritory#0;class#Main#0" />
+            <element signature="docComment;method#printTerritory#1;class#Main#0" />
+            <element signature="method#printTerritory#1;class#Main#0" />
+            <element signature="docComment;method#printTerritory#2;class#Main#0" />
+            <element signature="method#printTerritory#2;class#Main#0" />
+            <element signature="docComment;method#printTerritory#3;class#Main#0" />
+            <element signature="method#printTerritory#3;class#Main#0" />
+            <element signature="docComment;method#printTerritory#4;class#Main#0" />
+            <element signature="method#printTerritory#4;class#Main#0" />
+            <element signature="method#printTerritory#5;class#Main#0" />
+            <element signature="method#printTerritory#6;class#Main#0" />
+            <element signature="method#printTerritory#7;class#Main#0" />
+            <element signature="method#printTerritory#8;class#Main#0" />
+            <element signature="method#printTerritory#9;class#Main#0" />
+            <element signature="docComment;method#findTerritory#0;class#Main#0" />
+            <element signature="method#findTerritory#0;class#Main#0" />
+            <element signature="docComment;method#findTerritory#1;class#Main#0" />
+            <element signature="method#findTerritory#1;class#Main#0" />
+            <element signature="docComment;method#findTerritory#2;class#Main#0" />
+            <element signature="method#findTerritory#2;class#Main#0" />
+            <element signature="docComment;method#displayMap#0;class#Main#0" />
+            <element signature="method#displayMap#0;class#Main#0" />
+            <element signature="docComment;method#buildFrame#0;class#Main#0" />
+            <element signature="method#buildFrame#0;class#Main#0" />
+            <element signature="method#recordPlayerNames#0;class#Main#0" />
+            <element signature="method#recordSetTerritory#0;class#Main#0" />
+            <element signature="method#recordBattle#0;class#Main#0" />
+            <element signature="method#readPlayerName#0;class#Main#0" />
+            <element signature="method#readToTerritory#0;class#Main#0" />
+            <element signature="method#readToTerritoryArmy#0;class#Main#0" />
+          </folding>
         </state>
       </provider>
     </entry>
   </component>
   <component name="masterDetails">
     <states>
-      <state key="ProjectJDKs.UI">
+      <state key="ArtifactsStructureConfigurable.UI">
         <settings>
-          <last-edited>1.8</last-edited>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>10</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>RiskGame</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>lib</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

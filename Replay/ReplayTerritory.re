@@ -68,3 +68,14 @@ Player: Ton acquired South Africa
 Player: AI acquired Madagascar
 Player: Ton acquired Middle East
 Player: AI acquired Afghanistan
+Player: Ton acquired Alaska
+Player: AI acquired Northwest
+Player: Ton acquired Alberta
+Player: AI acquired Ontario
+Player: Ton acquired Quebec
+Player: AI acquired Westernuuee
+Player: Ton acquired Easternuuee
+Player: AI acquired Central America
+Player: Ton acquired Venezuela
+Player: AI acquired Peru
+Player: Ton acquired Brazil
