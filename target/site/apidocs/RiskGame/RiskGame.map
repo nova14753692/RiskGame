@@ -1,0 +1,16 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./UploadSave.html" title="RiskGame.UploadSave" alt="" coords="16,17,104,42"/>
+<area shape="rect" id="node2_1" href="./Territory.html" title="RiskGame.Territory" alt="" coords="149,17,216,42"/>
+<area shape="rect" id="node3_2" href="./Player.html" title="RiskGame.Player" alt="" coords="261,17,317,42"/>
+<area shape="rect" id="node4_3" href="./Pair.html" title="RiskGame.Pair" alt="" coords="363,17,442,42"/>
+<area shape="rect" id="node5_4" href="./Main.html" title="RiskGame.Main" alt="" coords="489,17,537,42"/>
+<area shape="rect" id="node6_5" href="./FootSoldierArmy.html" title="RiskGame.FootSoldierArmy" alt="" coords="483,113,599,138"/>
+<area shape="rect" id="node7_6" href="./DownloadSave.html" title="RiskGame.DownloadSave" alt="" coords="680,17,784,42"/>
+<area shape="rect" id="node8_7" href="./Die.html" title="RiskGame.Die" alt="" coords="835,17,874,42"/>
+<area shape="rect" id="node9_8" href="./Defend.html" title="RiskGame.Defend" alt="" coords="870,113,930,138"/>
+<area shape="rect" id="node10_9" href="./Card.html" title="RiskGame.Card" alt="" coords="1026,17,1073,42"/>
+<area shape="rect" id="node11_10" href="./Calvary.html" title="RiskGame.Calvary" alt="" coords="645,113,707,138"/>
+<area shape="rect" id="node12_11" href="./Battle.html" title="RiskGame.Battle" alt="" coords="926,17,978,42"/>
+<area shape="rect" id="node13_12" href="./Attack.html" title="RiskGame.Attack" alt="" coords="975,113,1033,138"/>
+<area shape="rect" id="node14_13" href="./Army.html" title="RiskGame.Army" alt="" coords="585,17,634,42"/>
+</map>

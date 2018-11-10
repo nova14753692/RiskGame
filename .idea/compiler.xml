@@ -9,5 +9,8 @@
         <module name="RiskGame" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="RiskGame" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
