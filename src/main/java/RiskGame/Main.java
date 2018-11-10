@@ -1104,8 +1104,7 @@ public class Main {
         for (Player player : players) {
             if (player.isLost()) playerLostCounter++;
         }
-        if (playerLostCounter < players.size() - 1) return false;
-        return true;
+        return playerLostCounter >= players.size() - 1;
     }
 
     /**
@@ -1422,26 +1421,28 @@ public class Main {
      * @param mapPath The path to the map image to draw
      */
     public static void displayMap(String mapPath) {
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File(mapPath));
-        } catch (IOException e) {
-        }
+        if (mapPath != "") {
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(new File(mapPath));
+            } catch (IOException e) {
+            }
 
-        if (img != null) {
-            //Store the img variable in another variable to pass to inner class
-            BufferedImage image = img; //Effectively final image variable
-            //Create new panel to draw on
-            JPanel jPanel = new JPanel() {
-                @Override
-                protected void paintComponent(Graphics graphic) {
-                    super.paintComponent(graphic);
-                    graphic.drawImage(image, 0, 0, null); //Draw the image
-                }
-            };
+            if (img != null) {
+                //Store the img variable in another variable to pass to inner class
+                BufferedImage image = img; //Effectively final image variable
+                //Create new panel to draw on
+                JPanel jPanel = new JPanel() {
+                    @Override
+                    protected void paintComponent(Graphics graphic) {
+                        super.paintComponent(graphic);
+                        graphic.drawImage(image, 0, 0, null); //Draw the image
+                    }
+                };
 
-            JFrame jFrame = buildFrame(); //Build the frame
-            jFrame.add(jPanel); //Add the drawn panel to frame and display it
+                JFrame jFrame = buildFrame(); //Build the frame
+                jFrame.add(jPanel); //Add the drawn panel to frame and display it
+            }
         }
     }
 
@@ -1558,11 +1559,11 @@ public class Main {
             BufferedReader bf = new BufferedReader(new InputStreamReader(DownloadSave.GetInputStream(fileName)));
             while ((line = bf.readLine()) != null) {
                 if (!line.equals("")) {
-                    line = line.substring("Player: ".length(), line.length());
+                    line = line.substring("Player: ".length());
                     String playerName = line.substring(0, line.length() - line.substring(line.indexOf(" acquired ")).length());
                     Player thePlayer = players.stream().filter(player -> player.getPlayerName().equals(playerName))
                             .findFirst().orElse(null);
-                    String territoryName = line.substring((playerName + " acquired ").length(), line.length());
+                    String territoryName = line.substring((playerName + " acquired ").length());
                     Territory theTerritory = findTerritory(territoryName, finalTerritories);
                     thePlayer.addOwnedTerritory(theTerritory);
                     //saveState(thePlayer, theTerritory);
@@ -1593,12 +1594,12 @@ public class Main {
                     line = bf.readLine();
                     line = bf.readLine();
 
-                    String territoryName = line.substring(0, line.length() - line.substring(line.indexOf(" has "), line.length()).length());
+                    String territoryName = line.substring(0, line.length() - line.substring(line.indexOf(" has ")).length());
                     int numOfTroops = Integer.parseInt(line.substring(line.indexOf(" has ") + " has ".length(),
                             line.indexOf(" has ") + " has ".length() + (line.length() -
                             line.substring(0, line.indexOf(" has ") + " has ".length()).length() -
                             line.substring(line.indexOf(" on ")).length())));
-                    String playerName = line.substring(line.substring(0, line.indexOf("by ") + 3).length(), line.length());
+                    String playerName = line.substring(line.substring(0, line.indexOf("by ") + 3).length());
                     Territory theTerritory = finalTerritories.stream().filter(territory -> territory.getTerritoryName()
                             .equals(territoryName)).findFirst().orElse(null);
                     if (theTerritory != null) theTerritory.setArmy(numOfTroops);
@@ -1608,12 +1609,12 @@ public class Main {
                     //saveState(thePlayer, theTerritory);
 
                     line = bf.readLine();
-                    String territoryName2 = line.substring(0, line.length() - line.substring(line.indexOf(" has "), line.length()).length());
+                    String territoryName2 = line.substring(0, line.length() - line.substring(line.indexOf(" has ")).length());
                     int numOfTroops2 = Integer.parseInt(line.substring(line.indexOf(" has ") + " has ".length(),
                             line.indexOf(" has ") + " has ".length() + (line.length() -
                                     line.substring(0, line.indexOf(" has ") + " has ".length()).length() -
                                     line.substring(line.indexOf(" on ")).length())));
-                    String playerName2 = line.substring(line.substring(0, line.indexOf("by ") + 3).length(), line.length());
+                    String playerName2 = line.substring(line.substring(0, line.indexOf("by ") + 3).length());
                     Territory theTerritory2 = finalTerritories.stream().filter(territory -> territory.getTerritoryName()
                             .equals(territoryName2)).findFirst().orElse(null);
                     if (theTerritory2 != null) theTerritory2.setArmy(numOfTroops2);

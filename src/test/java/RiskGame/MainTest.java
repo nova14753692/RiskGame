@@ -1,5 +1,7 @@
 package RiskGame;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -9,6 +11,16 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class MainTest {
+
+    @Before
+    public void setUp() {
+        System.out.println("StartTest");
+    }
+
+    @After
+    public void tearDown() {
+        System.out.println("Test Ended");
+    }
 
     @Test
     public void createPlayers() {
@@ -166,38 +178,57 @@ public class MainTest {
         int tIndex = -1; //.Territory index temporary variable, because no variable is allowed inside java lambda expression
         String tName = null; //.Territory name temporary variable, because no variable is allowed inside java lambda expression
         boolean command = true;
+        //The questions program will ask each player each move
+        //Need refactor
+        System.out.println("======================================================================");
+        //System.out.println("It's " + player.getPlayerName() + "'s turn to place armies.");
+        System.out.println("");
+        System.out.println("Enter -la to list all territories of all player and available territories.");
+        System.out.println("Enter -lm to list all territories of your possession.");
+        System.out.println("Enter -lav to list all available territories.");
+        System.out.println("Enter -map to the map.");
+        System.out.println("Enter -shde [.Territory name] or -shde [.Territory index] (eg: -shde Alaska or -shde 1)\n" +
+                " to list detail about that territory and its adjacent territories.");
+        System.out.print("Enter .Territory name, or index, or command: ");
+
+        List<Player> players = new ArrayList<>();
+        List<Territory> territories = new ArrayList<>();
+        players.add(new Player("Ton"));
+        players.add(new Player("AI"));
+        territories.add(new Territory("Alaska", 0));
+        territories.add(new Territory("Northwest", 1));
         //Execute special command
         if (true) {
             command = false;
-            String input = "-lm";
+            String input = "-la";
 
             switch (input) {
                 case "-la":
-                    //printTerritory(players, territories);
+                    Main.printTerritory(players, territories);
                     command = true;
                     break;
                 case "-lm":
-                    //printTerritory(player, players, territories);
-                    //System.out.println(player.getPlayerName() + " has: " + player.getNumOfAvailableArmy() + " armies.");
+                    Main.printTerritory(players.get(0), players, territories);
+                    System.out.println(players.get(0).getPlayerName() + " has: " + players.get(0).getNumOfAvailableArmy() + " armies.");
                     command = true;
                     break;
                 case "-lav":
-                    //printTerritory(players, territories, true);
+                    Main.printTerritory(players, territories, true);
                     command = true;
                     break;
                 case "-map":
-                    //displayMap(mapPath);
+                    Main.displayMap("");
                     command = true;
                     break;
             }
             if (input.length() > 6 && input.substring(0, 5).equals("-shde")) {
                 input = input.substring(6);
-                    /*try {
-                        if (!printTerritory(input, finalTerritories) && !printTerritory(Integer.parseInt(input), finalTerritories))
-                            System.out.println(".Territory not found.");
-                    } catch (NumberFormatException e) {
+                try {
+                    if (!Main.printTerritory(input, territories) && !Main.printTerritory(Integer.parseInt(input), territories))
                         System.out.println(".Territory not found.");
-                    }*/
+                } catch (NumberFormatException e) {
+                    System.out.println(".Territory not found.");
+                }
                 command = true;
             }
 
@@ -211,13 +242,27 @@ public class MainTest {
             }
         }
         assertEquals(command, true);
-    }
 
-    @Test
-    public void userInputRequest_1() {
-        int tIndex = -1; //.Territory index temporary variable, because no variable is allowed inside java lambda expression
-        String tName = null; //.Territory name temporary variable, because no variable is allowed inside java lambda expression
-        boolean command = true;
+        //Case 2
+        //The questions program will ask each player each move
+        //Need refactor
+        System.out.println("======================================================================");
+        //System.out.println("It's " + player.getPlayerName() + "'s turn to place armies.");
+        System.out.println("");
+        System.out.println("Enter -la to list all territories of all player and available territories.");
+        System.out.println("Enter -lm to list all territories of your possession.");
+        System.out.println("Enter -lav to list all available territories.");
+        System.out.println("Enter -map to the map.");
+        System.out.println("Enter -shde [.Territory name] or -shde [.Territory index] (eg: -shde Alaska or -shde 1)\n" +
+                " to list detail about that territory and its adjacent territories.");
+        System.out.print("Enter .Territory name, or index, or command: ");
+
+        players.clear();
+        territories.clear();
+        players.add(new Player("Ton"));
+        players.add(new Player("AI"));
+        territories.add(new Territory("Alaska", 0));
+        territories.add(new Territory("Northwest", 1));
         //Execute special command
         if (true) {
             command = false;
@@ -225,31 +270,31 @@ public class MainTest {
 
             switch (input) {
                 case "-la":
-                    //printTerritory(players, territories);
+                    Main.printTerritory(players, territories);
                     command = true;
                     break;
                 case "-lm":
-                    //printTerritory(player, players, territories);
-                    //System.out.println(player.getPlayerName() + " has: " + player.getNumOfAvailableArmy() + " armies.");
+                    Main.printTerritory(players.get(0), players, territories);
+                    System.out.println(players.get(0).getPlayerName() + " has: " + players.get(0).getNumOfAvailableArmy() + " armies.");
                     command = true;
                     break;
                 case "-lav":
-                    //printTerritory(players, territories, true);
+                    Main.printTerritory(players, territories, true);
                     command = true;
                     break;
                 case "-map":
-                    //displayMap(mapPath);
+                    Main.displayMap("");
                     command = true;
                     break;
             }
             if (input.length() > 6 && input.substring(0, 5).equals("-shde")) {
                 input = input.substring(6);
-                    /*try {
-                        if (!printTerritory(input, finalTerritories) && !printTerritory(Integer.parseInt(input), finalTerritories))
-                            System.out.println(".Territory not found.");
-                    } catch (NumberFormatException e) {
+                try {
+                    if (!Main.printTerritory(input, territories) && !Main.printTerritory(Integer.parseInt(input), territories))
                         System.out.println(".Territory not found.");
-                    }*/
+                } catch (NumberFormatException e) {
+                    System.out.println(".Territory not found.");
+                }
                 command = true;
             }
 
@@ -263,13 +308,27 @@ public class MainTest {
             }
         }
         assertEquals(command, true);
-    }
 
-    @Test
-    public void userInputRequest_2() {
-        int tIndex = -1; //.Territory index temporary variable, because no variable is allowed inside java lambda expression
-        String tName = null; //.Territory name temporary variable, because no variable is allowed inside java lambda expression
-        boolean command = true;
+        //Case 3
+        //The questions program will ask each player each move
+        //Need refactor
+        System.out.println("======================================================================");
+        //System.out.println("It's " + player.getPlayerName() + "'s turn to place armies.");
+        System.out.println("");
+        System.out.println("Enter -la to list all territories of all player and available territories.");
+        System.out.println("Enter -lm to list all territories of your possession.");
+        System.out.println("Enter -lav to list all available territories.");
+        System.out.println("Enter -map to the map.");
+        System.out.println("Enter -shde [.Territory name] or -shde [.Territory index] (eg: -shde Alaska or -shde 1)\n" +
+                " to list detail about that territory and its adjacent territories.");
+        System.out.print("Enter .Territory name, or index, or command: ");
+
+        players.clear();
+        territories.clear();
+        players.add(new Player("Ton"));
+        players.add(new Player("AI"));
+        territories.add(new Territory("Alaska", 0));
+        territories.add(new Territory("Northwest", 1));
         //Execute special command
         if (true) {
             command = false;
@@ -277,31 +336,31 @@ public class MainTest {
 
             switch (input) {
                 case "-la":
-                    //printTerritory(players, territories);
+                    Main.printTerritory(players, territories);
                     command = true;
                     break;
                 case "-lm":
-                    //printTerritory(player, players, territories);
-                    //System.out.println(player.getPlayerName() + " has: " + player.getNumOfAvailableArmy() + " armies.");
+                    Main.printTerritory(players.get(0), players, territories);
+                    System.out.println(players.get(0).getPlayerName() + " has: " + players.get(0).getNumOfAvailableArmy() + " armies.");
                     command = true;
                     break;
                 case "-lav":
-                    //printTerritory(players, territories, true);
+                    Main.printTerritory(players, territories, true);
                     command = true;
                     break;
                 case "-map":
-                    //displayMap(mapPath);
+                    Main.displayMap("");
                     command = true;
                     break;
             }
             if (input.length() > 6 && input.substring(0, 5).equals("-shde")) {
                 input = input.substring(6);
-                    /*try {
-                        if (!printTerritory(input, finalTerritories) && !printTerritory(Integer.parseInt(input), finalTerritories))
-                            System.out.println(".Territory not found.");
-                    } catch (NumberFormatException e) {
+                try {
+                    if (!Main.printTerritory(input, territories) && !Main.printTerritory(Integer.parseInt(input), territories))
                         System.out.println(".Territory not found.");
-                    }*/
+                } catch (NumberFormatException e) {
+                    System.out.println(".Territory not found.");
+                }
                 command = true;
             }
 
@@ -315,13 +374,27 @@ public class MainTest {
             }
         }
         assertEquals(command, true);
-    }
 
-    @Test
-    public void userInputRequest_3() {
-        int tIndex = -1; //.Territory index temporary variable, because no variable is allowed inside java lambda expression
-        String tName = null; //.Territory name temporary variable, because no variable is allowed inside java lambda expression
-        boolean command = true;
+        //Case 4
+        //The questions program will ask each player each move
+        //Need refactor
+        System.out.println("======================================================================");
+        //System.out.println("It's " + player.getPlayerName() + "'s turn to place armies.");
+        System.out.println("");
+        System.out.println("Enter -la to list all territories of all player and available territories.");
+        System.out.println("Enter -lm to list all territories of your possession.");
+        System.out.println("Enter -lav to list all available territories.");
+        System.out.println("Enter -map to the map.");
+        System.out.println("Enter -shde [.Territory name] or -shde [.Territory index] (eg: -shde Alaska or -shde 1)\n" +
+                " to list detail about that territory and its adjacent territories.");
+        System.out.print("Enter .Territory name, or index, or command: ");
+
+        players.clear();
+        territories.clear();
+        players.add(new Player("Ton"));
+        players.add(new Player("AI"));
+        territories.add(new Territory("Alaska", 0));
+        territories.add(new Territory("Northwest", 1));
         //Execute special command
         if (true) {
             command = false;
@@ -329,31 +402,31 @@ public class MainTest {
 
             switch (input) {
                 case "-la":
-                    //printTerritory(players, territories);
+                    Main.printTerritory(players, territories);
                     command = true;
                     break;
                 case "-lm":
-                    //printTerritory(player, players, territories);
-                    //System.out.println(player.getPlayerName() + " has: " + player.getNumOfAvailableArmy() + " armies.");
+                    Main.printTerritory(players.get(0), players, territories);
+                    System.out.println(players.get(0).getPlayerName() + " has: " + players.get(0).getNumOfAvailableArmy() + " armies.");
                     command = true;
                     break;
                 case "-lav":
-                    //printTerritory(players, territories, true);
+                    Main.printTerritory(players, territories, true);
                     command = true;
                     break;
                 case "-map":
-                    //displayMap(mapPath);
+                    Main.displayMap("");
                     command = true;
                     break;
             }
             if (input.length() > 6 && input.substring(0, 5).equals("-shde")) {
                 input = input.substring(6);
-                    /*try {
-                        if (!printTerritory(input, finalTerritories) && !printTerritory(Integer.parseInt(input), finalTerritories))
-                            System.out.println(".Territory not found.");
-                    } catch (NumberFormatException e) {
+                try {
+                    if (!Main.printTerritory(input, territories) && !Main.printTerritory(Integer.parseInt(input), territories))
                         System.out.println(".Territory not found.");
-                    }*/
+                } catch (NumberFormatException e) {
+                    System.out.println(".Territory not found.");
+                }
                 command = true;
             }
 
@@ -367,13 +440,27 @@ public class MainTest {
             }
         }
         assertEquals(command, true);
-    }
 
-    @Test
-    public void userInputRequest_4() {
-        int tIndex = -1; //.Territory index temporary variable, because no variable is allowed inside java lambda expression
-        String tName = null; //.Territory name temporary variable, because no variable is allowed inside java lambda expression
-        boolean command = true;
+        //Case 5
+        //The questions program will ask each player each move
+        //Need refactor
+        System.out.println("======================================================================");
+        //System.out.println("It's " + player.getPlayerName() + "'s turn to place armies.");
+        System.out.println("");
+        System.out.println("Enter -la to list all territories of all player and available territories.");
+        System.out.println("Enter -lm to list all territories of your possession.");
+        System.out.println("Enter -lav to list all available territories.");
+        System.out.println("Enter -map to the map.");
+        System.out.println("Enter -shde [.Territory name] or -shde [.Territory index] (eg: -shde Alaska or -shde 1)\n" +
+                " to list detail about that territory and its adjacent territories.");
+        System.out.print("Enter .Territory name, or index, or command: ");
+
+        players.clear();
+        territories.clear();
+        players.add(new Player("Ton"));
+        players.add(new Player("AI"));
+        territories.add(new Territory("Alaska", 0));
+        territories.add(new Territory("Northwest", 1));
         //Execute special command
         if (true) {
             command = false;
@@ -381,31 +468,31 @@ public class MainTest {
 
             switch (input) {
                 case "-la":
-                    //printTerritory(players, territories);
+                    Main.printTerritory(players, territories);
                     command = true;
                     break;
                 case "-lm":
-                    //printTerritory(player, players, territories);
-                    //System.out.println(player.getPlayerName() + " has: " + player.getNumOfAvailableArmy() + " armies.");
+                    Main.printTerritory(players.get(0), players, territories);
+                    System.out.println(players.get(0).getPlayerName() + " has: " + players.get(0).getNumOfAvailableArmy() + " armies.");
                     command = true;
                     break;
                 case "-lav":
-                    //printTerritory(players, territories, true);
+                    Main.printTerritory(players, territories, true);
                     command = true;
                     break;
                 case "-map":
-                    //displayMap(mapPath);
+                    Main.displayMap("");
                     command = true;
                     break;
             }
             if (input.length() > 6 && input.substring(0, 5).equals("-shde")) {
                 input = input.substring(6);
-                    /*try {
-                        if (!printTerritory(input, finalTerritories) && !printTerritory(Integer.parseInt(input), finalTerritories))
-                            System.out.println(".Territory not found.");
-                    } catch (NumberFormatException e) {
+                try {
+                    if (!Main.printTerritory(input, territories) && !Main.printTerritory(Integer.parseInt(input), territories))
                         System.out.println(".Territory not found.");
-                    }*/
+                } catch (NumberFormatException e) {
+                    System.out.println(".Territory not found.");
+                }
                 command = true;
             }
 

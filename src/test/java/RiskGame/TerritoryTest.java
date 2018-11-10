@@ -11,12 +11,12 @@ import static org.junit.Assert.*;
 public class TerritoryTest {
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         System.out.println("Starting Test");
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         System.out.println("Test Ended\n");
     }
 
