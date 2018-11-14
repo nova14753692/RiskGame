@@ -27,11 +27,7 @@ public abstract class Battle {
 
     public abstract boolean startBattle(int numbOfDie);
 
-    public abstract boolean startBattle(int numbOfDie, TelegramBot bot);
-
     public abstract void afterBattle(int result, Scanner userInput);
-
-    public abstract void afterBattle(int result, TelegramBot bot);
 
     public static final int getBattleResult( Battle attacker,  Battle defender) {
         if (attacker != null && defender != null && attacker.numbOfMaxDie > 0 && defender.numbOfMaxDie > 0) {
@@ -66,33 +62,11 @@ public abstract class Battle {
         return numbOfDie;
     }
 
-    public int askUserNumberOfDice(TelegramBot bot) {
-        int numbOfDie = 0;
-        bot.clearMessage();
-        while (numbOfDie <= 0 || numbOfDie > this.getNumbOfMaxDie()) {
-            bot.sendMessage("Enter the number of dice you want to roll (Max = " + this.getNumbOfMaxDie() + "): ");
-            while (bot.getMessage() == null) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-
-                }
-            }
-            if (bot.getMessage() != null) {
-                try {
-                    numbOfDie = Integer.parseInt(bot.getMessage());
-                }
-                catch (NumberFormatException e) {
-                    bot.sendMessage("You need to enter a number.");
-                }
-                if (numbOfDie <= 0 || numbOfDie > this.getNumbOfMaxDie())
-                    bot.sendMessage("The number of dice must be > 0 and <= " + this.getNumbOfMaxDie() + ".");
-            }
-        }
-        return numbOfDie;
-    }
-
     public int getNumbOfMaxDie() {
         return numbOfMaxDie;
+    }
+
+    public Player getThisPlayer() {
+        return thisPlayer;
     }
 }
