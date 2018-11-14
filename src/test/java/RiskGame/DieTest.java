@@ -9,12 +9,12 @@ import static org.junit.Assert.*;
 public class DieTest {
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         System.out.println("Starting Test");
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws Exception {
         System.out.println("Test Ended\n");
     }
 
@@ -30,6 +30,9 @@ public class DieTest {
 
     @Test
     public void reset() {
+        Die die2 = new Die(1,6);
+        die2.reset();
+        assertEquals(0, die2.getCurrentValue());
     }
 
     @Test
