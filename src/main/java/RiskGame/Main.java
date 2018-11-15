@@ -1148,7 +1148,7 @@ public class Main {
 
         for(int i = 0; i < numPlayers; i++){
             territories = players.getOwnedTerritories().size();
-            message += (players.getPlayerName()+ " has "+territories+ "countries.\n");
+            message += (players.getPlayerName()+ " conquered "+territories+ " territories.\n");
         }
         return message;
     }
