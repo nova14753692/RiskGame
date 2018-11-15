@@ -1,5 +1,7 @@
 package RiskGame;
 
+import twitter4j.TwitterException;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -19,11 +21,10 @@ public class Main {
     public static void main(String[] args) {
         TwitterPosting twitterPosting = new TwitterPosting();
         Scanner userInput = new Scanner(System.in);
-
         final int minPlayer = 2;    //Minimum number of player
         final int maxPlayer = 6;    //Maximum number of player
         final int maxNumbOfDie = 3; //Maximum number of die each player can have
-
+        //Player player = new Player("Kevin Do");
         //Name of the file contains list of all territories
         final String territoriesDataFileName = "TerritoryList";
 
@@ -145,6 +146,7 @@ public class Main {
         {
             if (!checkWinCondition(players)) {
                 battleStage(finalTerritories, players, mapPath, userInput);
+                
 
                 for (int i = 0; i < players.size(); i++) {
                     players.get(i).setBonusArmies(0);
@@ -159,6 +161,21 @@ public class Main {
             else System.out.println(players.stream().filter(player -> !player.isLost()).findFirst().get().getPlayerName() + " wins.");
         }
         else System.out.println("Error when import territories data.\nExit.");
+        Player player = new Player("Kevin Do");
+        boolean bPlayerTurn = false;
+        int nTurn =0;
+        int numberOfTurns =0;
+        int numberPlayers =0;
+
+        while(isContinue){
+            bPlayerTurn = true;
+
+            numberOfTurns++;
+            twitterPosting.tweetOut(postMessage(1,numberOfTurns,player ,numberPlayers,twitterPosting));
+        }
+
+        twitterPosting.tweetOut(postMessage(2,numberOfTurns,player ,numberPlayers,twitterPosting));
+
     }
 
     /**
@@ -1119,4 +1136,21 @@ public class Main {
         }
         return new Pair<>(players, finalTerritories);
     }
+
+    public static String postMessage(int beginTurn, int numberOfTurns,Player players,int numPlayers, TwitterPosting postTwitter){
+        int territories = 0;
+        String message ="";
+        if(beginTurn == 1){
+            message += ("Beginning of turn "+ numberOfTurns+"\n");
+        }else{
+            message += ("End of Turn "+ numberOfTurns+"\n");
+        }
+
+        for(int i = 0; i < numPlayers; i++){
+            territories = players.getOwnedTerritories().size();
+            message += (players.getPlayerName()+ " has "+territories+ "countries.\n");
+        }
+        return message;
+    }
+
 }
