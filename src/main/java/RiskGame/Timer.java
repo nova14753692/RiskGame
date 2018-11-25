@@ -3,13 +3,14 @@ package RiskGame;
 public class Timer extends Thread {
 
     private int time;
-    private final int timeOut = 5;
+    private int timeOut = 5;
 
-    public Timer() {
+    public Timer(int timeOut) {
         time = 0;
+        this.timeOut = timeOut;
     }
 
-    private boolean startTimer() {
+    public boolean startTimer() {
         while (time < timeOut) {
             try {
                 sleep(1000);
@@ -19,13 +20,17 @@ public class Timer extends Thread {
         return true;
     }
 
-    public void run() {
-        startTimer();
-    }
-
     public void resetTime() { time = 0; }
 
     public boolean isTimeOut() {
         return time >= timeOut;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public int getTimeOut() {
+        return timeOut;
     }
 }

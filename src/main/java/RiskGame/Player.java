@@ -17,8 +17,6 @@ public class Player {
     private int numOfDice; //Number of die the player can at the same time in a roll
     private List<Die> dice; //List contains the number of die that player can roll at the same time
     private int minBonusArmies; //Minimum number of bonus armies the player will get each turn
-    private List<Card> ownedCards; //The list of card the player owns
-    private Player lastPlayer;
     private Timer timer;
 
     /**
@@ -26,11 +24,10 @@ public class Player {
      * <p>Assign only 1 die for the player to roll at the same time</p>
      * @param playerName The name which the player will be created with
      */
-    public Player( String playerName) {
+    public Player(String playerName) {
         this.playerName = playerName;
         this.numOfAvailableArmy = 0;
         this.ownedTerritories = new ArrayList<Territory>();
-        this.ownedCards = new ArrayList<Card>();
         this.isLost = false;
         this.numOfDice = 1;
         this.minBonusArmies = 3;
@@ -39,7 +36,7 @@ public class Player {
                 add(new Die(1, 6));
             }
         };
-        this.timer = new Timer();
+        this.timer = new Timer(5);
     }
 
     /**
@@ -52,14 +49,14 @@ public class Player {
         this.playerName = playerName;
         this.numOfAvailableArmy = 0;
         this.ownedTerritories = new ArrayList<Territory>();
-        this.ownedCards = new ArrayList<Card>();
         this.isLost = false;
         this.numOfDice = 1;
+        this.minBonusArmies = 3;
         this.dice = new ArrayList<Die>();
         for (int i = 0; i < numbOfDie; i++) {
             this.dice.add((new Die(1, 6)));
         }
-        this.timer = new Timer();
+        this.timer = new Timer(5);
     }
 
     /**
@@ -72,18 +69,18 @@ public class Player {
      * @param minRollValue The smallest face value
      * @param maxRollValue The largest face value
      */
-    public Player( String playerName, int numbOfDie, int minRollValue, int maxRollValue) {
+    public Player(String playerName, int numbOfDie, int minRollValue, int maxRollValue) {
         this.playerName = playerName;
         this.numOfAvailableArmy = 0;
         this.ownedTerritories = new ArrayList<Territory>();
         this.isLost = false;
         this.numOfDice = 1;
+        this.minBonusArmies = 3;
         this.dice = new ArrayList<Die>();
-        this.ownedCards = new ArrayList<Card>();
         for (int i = 0; i < numbOfDie; i++) {
             this.dice.add((new Die(minRollValue, maxRollValue)));
         }
-        this.timer = new Timer();
+        this.timer = new Timer(5);
     }
 
     /**
@@ -150,41 +147,16 @@ public class Player {
         setNumOfAvailableArmy(getNumOfAvailableArmy() + bonusArmies);
     }
 
-    public void printRolledDice() {
-        System.out.println(getPlayerName() + "'s roll result:");
-        System.out.print("====> ");
-        dice.forEach(die -> {
-            if (die.getCurrentValue() > 0) {
-                if (dice.indexOf(die) > 0 && dice.indexOf(die) < dice.size() - 1) ;
-                System.out.print(die.getCurrentValue());
-                System.out.print(" ");
-            }
-        });
-        System.out.println("\n====================================================================");
-    }
-
     public void printRolledDice(TelegramBot bot) {
         bot.sendMessage(getPlayerName() + "'s roll result:");
         bot.sendMessage("====> ");
         dice.forEach(die -> {
             if (die.getCurrentValue() > 0) {
-                if (dice.indexOf(die) > 0 && dice.indexOf(die) < dice.size() - 1) ;
-                bot.sendMessage(String.valueOf(die.getCurrentValue()));
-                bot.sendMessage(" ");
+                //if (dice.indexOf(die) > 0 && dice.indexOf(die) < dice.size() - 1) {
+                    bot.sendMessage(String.valueOf(die.getCurrentValue()));
+                //}
             }
         });
-        bot.sendMessage("\n====================================================================");
-    }
-
-    public void printRolledDice(PrintWriter printWriter) {
-        dice.forEach(die -> {
-            if (die.getCurrentValue() > 0) {
-                if (dice.indexOf(die) > 0 && dice.indexOf(die) < dice.size() - 1) ;
-                printWriter.print(die.getCurrentValue());
-                printWriter.print(" ");
-            }
-        });
-        printWriter.println();
     }
 
     /**
@@ -212,13 +184,12 @@ public class Player {
         return numOfDice;
     }
 
-    /**
-     * <p style="color:blue;">Set the number of dice that player can roll at the same time in a roll</p>
-     * @param numOfDice The new number of dice player will now have
-     */
-    public void setNumOfDice(int numOfDice) {
-        //lastPlayer.setNumOfDice(this.numOfDice);
-        this.numOfDice = numOfDice;
+    public void setNumOfDice(int numbOfDice) {
+        dice.clear();
+        for (int i = 0; i < numbOfDice; i++) {
+            this.dice.add((new Die(1, 6)));
+        }
+        this.numOfDice = dice.size();
     }
 
     /**
@@ -229,45 +200,8 @@ public class Player {
         return dice;
     }
 
-    public List<Card> getOwnedCards() {
-        return ownedCards;
-    }
-
     public Timer getTimer() {
         return timer;
-    }
-
-    public void Revoke() {
-        numOfAvailableArmy = lastPlayer.getNumOfAvailableArmy();
-        ownedTerritories.clear();
-        ownedTerritories.addAll(lastPlayer.getOwnedTerritories());
-        playerName = lastPlayer.getPlayerName();
-        isLost = lastPlayer.isLost();
-        numOfDice = lastPlayer.getNumOfDice();
-        dice.clear();
-        dice.addAll(lastPlayer.getDice());
-
-        //ownedTerritories.stream().forEach(item -> item.setOccupiedBy(this));
-    }
-
-    public void saveState() {
-        lastPlayer.setNumOfDice(this.numOfDice);
-        lastPlayer.setLost(this.isLost);
-        lastPlayer.setNumOfAvailableArmy(this.numOfAvailableArmy);
-        lastPlayer.getOwnedTerritories().clear();
-        lastPlayer.getOwnedTerritories().addAll(this.getOwnedTerritories());
-        lastPlayer.getDice().clear();
-        lastPlayer.getDice().addAll(this.getDice());
-        lastPlayer.ownedCards.clear();
-        lastPlayer.getOwnedCards().addAll(this.getOwnedCards());
-    }
-
-    public Player getLastPlayer() {
-        return lastPlayer;
-    }
-
-    public void setLastPlayer(Player lastPlayer) {
-        this.lastPlayer = lastPlayer;
     }
 
 }

@@ -14,8 +14,6 @@ public class Territory {
     private int numbOfArmy; //Number of army currently are on this territory
     private Army army;  //The army on this territory
 
-    private Territory lastTerritory;
-
     private List<Territory> adjTerritories; //The list contains all adjacent territories with this territory
 
     /**
@@ -29,7 +27,7 @@ public class Territory {
         this.occupiedBy = null;
         this.numbOfArmy = 0;
         this.territoryIndex = territoryIndex;
-        adjTerritories = new ArrayList<Territory>();
+        adjTerritories = new ArrayList<>();
         this.army = null;
     }
 
@@ -107,14 +105,6 @@ public class Territory {
         this.numbOfArmy = numbOfArmy;
     }
 
-    public Territory getLastTerritory() {
-        return lastTerritory;
-    }
-
-    public void setLastTerritory(Territory lastTerritory) {
-        this.lastTerritory = lastTerritory;
-    }
-
     public Army getArmy() {
         return army;
     }
@@ -136,28 +126,6 @@ public class Territory {
         this.numbOfArmy = numbOfArmy;
     }
 
-    /**
-     * <p style="color:blue;">Print the list of all adjacent territories with this territory</p>
-     */
-    public void printAdjTerritories() {
-        System.out.print(territoryName); //Print this territory name first
-
-        //If the territory is owned by any player, print the name of that player
-        if (occupiedBy != null) System.out.print(" - " + occupiedBy.getPlayerName());
-        System.out.println(" has Adjacent territories: ");
-        System.out.print("====> ");
-
-        //Print every adjacent territories this territory has
-        adjTerritories.forEach(t -> {
-            System.out.print(t.getTerritoryName());
-            if (t.getOccupiedBy() != null) System.out.print(" - " + t.getOccupiedBy().getPlayerName());
-            System.out.print(" - index: " + t.getTerritoryIndex());
-            System.out.print(" : " + t.getNumbOfArmy());
-            if (adjTerritories.indexOf(t) < adjTerritories.size() - 1) System.out.print(", ");
-        });
-        System.out.println();
-    }
-
     public void printAdjTerritories(TelegramBot bot) {
         bot.sendMessage(territoryName); //Print this territory name first
 
@@ -169,28 +137,10 @@ public class Territory {
         //Print every adjacent territories this territory has
         adjTerritories.forEach(t -> {
             bot.sendMessage(t.getTerritoryName());
-            if (t.getOccupiedBy() != null) bot.sendMessage(" - " + t.getOccupiedBy().getPlayerName());
-            bot.sendMessage(" - index: " + t.getTerritoryIndex());
-            bot.sendMessage(" : " + t.getNumbOfArmy());
-            if (adjTerritories.indexOf(t) < adjTerritories.size() - 1) bot.sendMessage(", ");
+            if (t.getOccupiedBy() != null)
+                bot.sendMessage(" - " + t.getOccupiedBy().getPlayerName() +
+                        " - index: " + t.getTerritoryIndex() + " : " + t.getNumbOfArmy());
+            bot.sendMessage(" - index: " + t.getTerritoryIndex() + " : " + t.getNumbOfArmy());
         });
-        bot.sendMessage("\n");
-    }
-
-    public void Revoke()
-    {
-        this.territoryName = lastTerritory.getTerritoryName();
-        this.territoryIndex = lastTerritory.getTerritoryIndex();
-        this.isOccupied = lastTerritory.isOccupied();
-        this.occupiedBy = lastTerritory.getOccupiedBy();
-        this.numbOfArmy = lastTerritory.getNumbOfArmy();
-        this.army = lastTerritory.getArmy();
-    }
-
-    public void saveState() {
-        lastTerritory.setOccupiedBy(this.getOccupiedBy());
-        lastTerritory.setOccupied(this.isOccupied());
-        lastTerritory.setNumbOfArmy(this.getNumbOfArmy());
-        lastTerritory.setArmy(this.getArmy().numbOfArmy);
     }
 }

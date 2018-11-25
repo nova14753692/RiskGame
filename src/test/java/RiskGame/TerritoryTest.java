@@ -1,53 +1,89 @@
 package RiskGame;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class TerritoryTest {
 
-    @Before
-    public void setUp() {
-        System.out.println("Starting Test");
-    }
+    Territory territory = new Territory("Alaska", 0);
 
-    @After
-    public void tearDown() {
-        System.out.println("Test Ended\n");
+    private List<Territory> getAdjTerritory() {
+        if (territory.getAdjTerritories().size() == 0) {
+            territory.getAdjTerritories().add(new Territory("Northwest", 1));
+            territory.getAdjTerritories().add(new Territory("Alberta", 2));
+            territory.getAdjTerritories().add(new Territory("Kamchatka", 3));
+        }
+        return territory.getAdjTerritories();
     }
-
-    Territory territory = new Territory("Alaska", 1);
-    //List<String> adjTer = Arrays.asList("Northwest", "Alberta", "Kamchatka");
 
     @Test
     public void getTerritoryName() {
-        System.out.println("getTerritoryName test in progress...");
-        String result = territory.getTerritoryName();
-        assertEquals("Alaska", result);
+        assertEquals(territory.getTerritoryName(), "Alaska");
     }
 
     @Test
     public void getTerritoryIndex() {
-        System.out.println("getTerritoryIndex test in progress...");
-        int result = territory.getTerritoryIndex();
-        assertEquals(1, result);
+        assertEquals(territory.getTerritoryIndex(), 0);
     }
 
     @Test
     public void getAdjTerritories() {
-        System.out.println("getAdjTerritories test in progress...");
-        List<Territory> result = territory.getAdjTerritories();
-        assertEquals(territory.getAdjTerritories(), result);
+        assertEquals(getAdjTerritory().size(), 3);
+    }
+
+    @Test
+    public void isOccupied() {
+        assertFalse(territory.isOccupied());
+    }
+
+    @Test
+    public void setOccupied() {
+        territory.setOccupied(false);
+        assertFalse(territory.isOccupied());
     }
 
     @Test
     public void getOccupiedBy() {
-        System.out.println("getOccupiedBy test in progress...");
-        Player result = territory.getOccupiedBy();
-        assertEquals(territory.getOccupiedBy(), result);
+        Player player = new Player("Ton");
+        territory.setOccupiedBy(player);
+        assertTrue(territory.isOccupied());
+        assertEquals(territory.getOccupiedBy().getPlayerName(),"Ton");
+    }
+
+    @Test
+    public void setOccupiedBy() {
+        Player player = new Player("Ton");
+        territory.setOccupiedBy(player);
+        assertTrue(territory.isOccupied());
+        assertEquals(territory.getOccupiedBy().getPlayerName(), "Ton");
+    }
+
+    @Test
+    public void getNumbOfArmy() {
+        assertEquals(territory.getNumbOfArmy(), 0);
+    }
+
+    @Test
+    public void setNumbOfArmy() {
+        territory.setNumbOfArmy(3);
+        assertEquals(territory.getNumbOfArmy(), 3);
+    }
+
+    @Test
+    public void getArmy() {
+        territory.setArmy(3);
+        assertEquals(territory.getNumbOfArmy(), 3);
+        assertEquals(territory.getArmy().getArmyName(), "Calvary");
+    }
+
+    @Test
+    public void setArmy() {
+        territory.setArmy(3);
+        assertEquals(territory.getNumbOfArmy(), 3);
+        assertEquals(territory.getArmy().getArmyName(), "Calvary");
     }
 }

@@ -1,46 +1,37 @@
 package RiskGame;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 public class DieTest {
 
-    @Before
-    public void setUp() {
-        System.out.println("Starting Test");
-    }
-
-    @After
-    public void tearDown() {
-        System.out.println("Test Ended\n");
-    }
-
-    Die die1 = new Die(1,6);
+    private Die die = new Die(1,6);
 
     @Test
     public void roll() {
-        System.out.println("roll test in progress");
-        for (int i = 0, rollResult = die1.roll(); i < 12;i++, rollResult = die1.roll()){
+        for (int i = 0, rollResult = die.roll(); i < 12; i++, rollResult = die.roll()){
             assertTrue(rollResult <= 6 && rollResult >= 1);
         }
     }
 
     @Test
     public void reset() {
+        die.reset();
+        assertEquals(die.getCurrentValue(), 0);
     }
 
     @Test
     public void getCurrentValue() {
+        assertEquals(die.getCurrentValue(), 0);
     }
 
     @Test
     public void getMinValue() {
+        assertEquals(die.getMinValue(), 1);
     }
 
     @Test
     public void getMaxValue() {
+        assertEquals(die.getMaxValue(), 6);
     }
 }

@@ -26,6 +26,7 @@
             <artifactId>telegrambots</artifactId>
             <version>4.1</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -51,6 +52,7 @@
                     <check />
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>

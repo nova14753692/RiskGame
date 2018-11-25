@@ -27,13 +27,9 @@ public abstract class Battle {
 
     public abstract boolean startBattle(int numbOfDie);
 
-    public abstract boolean startBattle(int numbOfDie, TelegramBot bot);
-
-    public abstract void afterBattle(int result, Scanner userInput);
-
     public abstract void afterBattle(int result, TelegramBot bot);
 
-    public static final int getBattleResult( Battle attacker,  Battle defender) {
+    public static int getBattleResult(Battle attacker,  Battle defender) {
         if (attacker != null && defender != null && attacker.numbOfMaxDie > 0 && defender.numbOfMaxDie > 0) {
             Die attackerMaxFaceValueDie = attacker.thisPlayer.getDice().stream()
                     .max(Comparator.comparing(die -> die.getCurrentValue())).get();
@@ -48,37 +44,12 @@ public abstract class Battle {
         return  -2;
     }
 
-    public int askUserNumberOfDice(Scanner userInput) {
-        int numbOfDie = 0;
-        while (numbOfDie <= 0 || numbOfDie > this.getNumbOfMaxDie()) {
-            System.out.println("Enter the number of dice you want to roll (Max = " + this.getNumbOfMaxDie() + "): ");
-            if (userInput.hasNextLine()) {
-                try {
-                    numbOfDie = Integer.parseInt(userInput.nextLine());
-                }
-                catch (NumberFormatException e) {
-                    System.out.println("You need to enter a number.");
-                }
-                if (numbOfDie <= 0 || numbOfDie > this.getNumbOfMaxDie())
-                    System.out.println("The number of dice must be > 0 and <= " + this.getNumbOfMaxDie() + ".");
-            }
-        }
-        return numbOfDie;
-    }
-
     public int askUserNumberOfDice(TelegramBot bot) {
         int numbOfDie = 0;
         bot.clearMessage();
         while (numbOfDie <= 0 || numbOfDie > this.getNumbOfMaxDie()) {
             bot.sendMessage("Enter the number of dice you want to roll (Max = " + this.getNumbOfMaxDie() + "): ");
-            while (bot.getMessage() == null) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-
-                }
-            }
-            if (bot.getMessage() != null) {
+            if (bot.waitForInput() && bot.getMessage() != null) {
                 try {
                     numbOfDie = Integer.parseInt(bot.getMessage());
                 }

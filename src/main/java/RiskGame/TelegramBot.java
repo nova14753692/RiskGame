@@ -7,7 +7,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class TelegramBot extends TelegramLongPollingBot {
 
-    private String message;
+    private String message = null;
     private long chatID = 0;
 
     @Override
@@ -34,25 +34,48 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     public void sendMessage(String messageToSend) {
-        while (chatID == 0)
-        {
+        if (waitForConnection()) {
+            SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
+                    .setChatId(chatID)
+                    .setText(messageToSend);
             try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
+                execute(message); // Call method to send the message
+            } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
-        }
-        SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
-                .setChatId(chatID)
-                .setText(messageToSend);
-        try {
-            execute(message); // Call method to send the message
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
         }
     }
 
     public void clearMessage() {
         message = null;
     }
+
+    private boolean waitForConnection() {
+
+        while (chatID == 0)
+        {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted connection.");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean waitForInput() {
+
+        while (getMessage() == null) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted connection.");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void setMessage(String message) { this.message = message; }
 }
