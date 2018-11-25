@@ -66,4 +66,7 @@ public abstract class Battle {
     public int getNumbOfMaxDie() {
         return numbOfMaxDie;
     }
+    
+    public Player getThisPlayer(){
+        return thisPlayer;
 }
