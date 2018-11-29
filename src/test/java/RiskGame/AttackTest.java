@@ -19,10 +19,13 @@ public class AttackTest {
             int numbOfDefenderPenaltyArmy = 1;
 
             Player attacker = new Player("Ton", 3);
+            Player defender = new Player("AI", 3);
             Territory attackerTerritory = new Territory("Alaska", 0);
             attackerTerritory.setNumbOfArmy(3);
+            attackerTerritory.setOccupiedBy(attacker);
             Territory defenderTerritory = new Territory("Northwest", 1);
             defenderTerritory.setNumbOfArmy(3);
+            defenderTerritory.setOccupiedBy(defender);
             atk = new Attack(attacker, attackerTerritory, defenderTerritory, attackerTerritory.getNumbOfArmy(),
                     numbOfAttackerSpareArmy, numbOfAttackerPenaltyArmy, numbOfDefenderPenaltyArmy);
         }
@@ -33,11 +36,14 @@ public class AttackTest {
         if (def == null) {
             int numbOfDefenderSpareArmy = 0;
 
+            Player attacker = new Player("Ton", 3);
             Player defender = new Player("AI", 3);
             Territory attackerTerritory = new Territory("Northwest", 1);
             attackerTerritory.setNumbOfArmy(3);
+            attackerTerritory.setOccupiedBy(attacker);
             Territory defenderTerritory = new Territory("Alaska", 0);
             defenderTerritory.setNumbOfArmy(3);
+            defenderTerritory.setOccupiedBy(defender);
             def = new Defend(defender, defenderTerritory, attackerTerritory, defenderTerritory.getNumbOfArmy(),
                     numbOfDefenderSpareArmy);
         }
@@ -118,5 +124,9 @@ public class AttackTest {
     public void afterBattle1() {
         getDefender().afterBattle(-1, null);
         getDefender().afterBattle(0, null);
+
+        Attack atk = getAttacker();
+        atk.setArmyPenaltyToDefender(3);
+        atk.afterBattle(1, null);
     }
 }
