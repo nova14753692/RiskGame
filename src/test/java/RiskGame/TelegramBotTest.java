@@ -41,4 +41,14 @@ public class TelegramBotTest {
         bot.setMessage("message");
         assertEquals(bot.getMessage(), "message");
     }
+
+    @Test
+    public void waitForConnection() {
+        bot.waitForConnection();
+    }
+
+    @Test
+    public void sendMessage() {
+        bot.sendMessage("msg");
+    }
 }

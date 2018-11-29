@@ -55,6 +55,7 @@ public class GameEngineTest {
                 .readTerritoriesData(territoriesDataPath, territoriesDataFileName, ".list");
 
         assertFalse(getGameEngine().checkDuplicationsInTerritoryNames(territoryNames));
+        assertFalse(getGameEngine().checkDuplicationsInTerritoryNames(null));
     }
 
     @Test
@@ -63,6 +64,7 @@ public class GameEngineTest {
                 .readTerritoriesData(territoriesDataPath, territoriesDataFileName, ".list");
 
         assertEquals(getGameEngine().filterOutTerritoryNamesDuplications(territoryNames).size(), 42);
+        assertNull(getGameEngine().filterOutTerritoryNamesDuplications(null));
     }
 
     @Test

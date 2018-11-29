@@ -50,12 +50,14 @@ public class TelegramBot extends TelegramLongPollingBot {
         message = null;
     }
 
-    private boolean waitForConnection() {
-
-        while (chatID == 0)
+    public boolean waitForConnection() {
+        int timeOut = 5;
+        int time = 0;
+        while (chatID == 0 && time < timeOut)
         {
             try {
-                Thread.sleep(500);
+                time++;
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.out.println("Interrupted connection.");
                 return false;
@@ -68,13 +70,18 @@ public class TelegramBot extends TelegramLongPollingBot {
         boolean timerOut = false;
         Timer timer = new Timer(30, this);
         timer.start();
-        while (getMessage() == null) {
+
+        int timeOut = timer.getTimeOut();
+        int time = 0;
+
+        while (getMessage() == null && time < timeOut) {
             try {
                 if (timer.isTimeOut()) {
                     timerOut = true;
                     break;
                 }
-                Thread.sleep(500);
+                time++;
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.out.println("Interrupted connection.");
                 return false;

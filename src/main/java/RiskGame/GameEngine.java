@@ -171,11 +171,11 @@ public class GameEngine {
             bufferedReader.close();
         }
         catch(FileNotFoundException ex) {
-            System.out.println("Unable to open file '" + fileName + "'");
+            //System.out.println("Unable to open file '" + fileName + "'");
             return null;
         }
         catch(IOException ex) {
-            System.out.println("Error reading file '" + fileName + "'");
+            //System.out.println("Error reading file '" + fileName + "'");
             return null;
         }
 
