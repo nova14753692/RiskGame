@@ -296,7 +296,7 @@ public class GameEngineTest {
 
     @Test
     public void DisplayMap() {
-        getGameEngine().displayMap(mapPath);
+        getGameEngine().displayMap();
     }
 
     @Test
@@ -351,11 +351,11 @@ public class GameEngineTest {
         atkTerritory.setOccupiedBy(atk);
         defTerritory.setOccupiedBy(def);
 
-        getGameEngine().battleStage(territories, players, mapPath, null);
+        getGameEngine().battleStage(territories, players, null);
     }
 
     @Test
-    public void setAllTerritory2() {
+    public void setAllTerritory() {
         Player player = new Player("Ton");
         List<Player> players = new ArrayList<>();
         players.add(player);
@@ -367,7 +367,7 @@ public class GameEngineTest {
         finalTerritories.add(new Territory("Alaska", 0));
         finalTerritories.add(new Territory("Northwest", 1));
 
-        getGameEngine().setAllTerritory(player, players, territories, finalTerritories, null, mapPath);
+        getGameEngine().setAllTerritory(player, players, territories, finalTerritories, null);
     }
 
     @Test
@@ -377,6 +377,27 @@ public class GameEngineTest {
 
     @Test
     public void createPlayer2() {
-        getGameEngine().createPlayers(2, 6, 1, null);
+        getGameEngine().createPlayers(1, null);
+    }
+
+    @Test
+    public void executeSpecialCommand() {
+        Player player = new Player("Ton");
+        List<Player> players = new ArrayList<>();
+        players.add(player);
+        player.setNumOfAvailableArmy(3);
+        List<Territory> territories = new ArrayList<>();
+        List<Territory> finalTerritories = new ArrayList<>();
+        territories.add(new Territory("Alaska", 0));
+        territories.add(new Territory("Northwest", 1));
+        finalTerritories.add(new Territory("Alaska", 0));
+        finalTerritories.add(new Territory("Northwest", 1));
+
+        getGameEngine().executeSpecialCommand("-la", players, player, territories, territories, null);
+    }
+
+    @Test
+    public void startGame() {
+        getGameEngine().startGame(null);
     }
 }
