@@ -51,7 +51,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     public boolean waitForConnection() {
-        int timeOut = 5;
+        int timeOut = 30;
         int time = 0;
         while (chatID == 0 && time < timeOut)
         {
