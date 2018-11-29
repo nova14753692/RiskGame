@@ -45,21 +45,22 @@ public abstract class Battle {
     }
 
     public int askUserNumberOfDice(TelegramBot bot) {
-        int numbOfDie = 0;
-        bot.clearMessage();
-        while (numbOfDie <= 0 || numbOfDie > this.getNumbOfMaxDie()) {
-            bot.sendMessage("Enter the number of dice you want to roll (Max = " + this.getNumbOfMaxDie() + "): ");
-            if (bot.waitForInput() && bot.getMessage() != null) {
-                try {
-                    numbOfDie = Integer.parseInt(bot.getMessage());
-                }
-                catch (NumberFormatException e) {
-                    bot.sendMessage("You need to enter a number.");
-                }
-                if (numbOfDie <= 0 || numbOfDie > this.getNumbOfMaxDie())
-                    bot.sendMessage("The number of dice must be > 0 and <= " + this.getNumbOfMaxDie() + ".");
+        int numbOfDie = -1;
+        if (bot != null) {
+            bot.clearMessage();
+            while (numbOfDie <= 0 || numbOfDie > this.getNumbOfMaxDie()) {
+                bot.sendMessage("Enter the number of dice you want to roll (Max = " + this.getNumbOfMaxDie() + "): ");
+                if (bot.waitForInput() && bot.getMessage() != null) {
+                    try {
+                        numbOfDie = Integer.parseInt(bot.getMessage());
+                    } catch (NumberFormatException e) {
+                        bot.sendMessage("You need to enter a number.");
+                    }
+                    if (numbOfDie <= 0 || numbOfDie > this.getNumbOfMaxDie())
+                        bot.sendMessage("The number of dice must be > 0 and <= " + this.getNumbOfMaxDie() + ".");
+                } else break;
             }
-        }
+        } else numbOfDie = numbOfMaxDie;
         return numbOfDie;
     }
 

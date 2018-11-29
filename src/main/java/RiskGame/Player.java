@@ -17,7 +17,6 @@ public class Player {
     private int numOfDice; //Number of die the player can at the same time in a roll
     private List<Die> dice; //List contains the number of die that player can roll at the same time
     private int minBonusArmies; //Minimum number of bonus armies the player will get each turn
-    private Timer timer;
 
     /**
      * <p style="color:blue;">.Player constructor, create player</p>
@@ -36,7 +35,6 @@ public class Player {
                 add(new Die(1, 6));
             }
         };
-        this.timer = new Timer(5);
     }
 
     /**
@@ -56,7 +54,6 @@ public class Player {
         for (int i = 0; i < numbOfDie; i++) {
             this.dice.add((new Die(1, 6)));
         }
-        this.timer = new Timer(5);
     }
 
     /**
@@ -80,7 +77,6 @@ public class Player {
         for (int i = 0; i < numbOfDie; i++) {
             this.dice.add((new Die(minRollValue, maxRollValue)));
         }
-        this.timer = new Timer(5);
     }
 
     /**
@@ -148,13 +144,13 @@ public class Player {
     }
 
     public void printRolledDice(TelegramBot bot) {
-        bot.sendMessage(getPlayerName() + "'s roll result:");
-        bot.sendMessage("====> ");
+        if (bot != null) {
+            bot.sendMessage(getPlayerName() + "'s roll result:");
+            bot.sendMessage("====> ");
+        }
         dice.forEach(die -> {
             if (die.getCurrentValue() > 0) {
-                //if (dice.indexOf(die) > 0 && dice.indexOf(die) < dice.size() - 1) {
-                    bot.sendMessage(String.valueOf(die.getCurrentValue()));
-                //}
+                if (bot != null) bot.sendMessage(String.valueOf(die.getCurrentValue()));
             }
         });
     }
@@ -198,10 +194,6 @@ public class Player {
      */
     public List<Die> getDice() {
         return dice;
-    }
-
-    public Timer getTimer() {
-        return timer;
     }
 
 }

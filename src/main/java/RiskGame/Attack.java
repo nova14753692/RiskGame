@@ -14,8 +14,8 @@ public class Attack extends Battle {
 
     public boolean startBattle(int numbOfDie) {
         thisPlayer.getDice().forEach(die -> die.reset());
-        if (numbOfMaxDie > 0 && numbOfMaxDie <= thisPlayer.getDice().size()) {
-            for (int i = 0; i < numbOfMaxDie; i++) thisPlayer.getDice().get(i).roll();
+        if (numbOfDie > 0 && numbOfDie <= numbOfMaxDie && numbOfDie <= thisPlayer.getDice().size()) {
+            for (int i = 0; i < numbOfDie; i++) thisPlayer.getDice().get(i).roll();
             //thisPlayer.printRolledDice(bot);
             return true;
         }
@@ -43,11 +43,19 @@ public class Attack extends Battle {
                                     " to " + otherTerritory.getTerritoryName() + ": ");
                             if (bot.waitForInput() && bot.getMessage() != null)
                                 numbOfWinArmy = Integer.parseInt(bot.getMessage());
+                            else {
+                                otherTerritory.setNumbOfArmy(otherTerritory.getNumbOfArmy() + armyPenaltyToDefender);
+                                break;
+                            }
                         }
                     } else numbOfWinArmy = numbOfInvolvedArmy;
-                    otherTerritory.getOccupiedBy().getOwnedTerritories().remove(otherTerritory);
-                    thisPlayer.addOwnedTerritory(otherTerritory);
-                    otherTerritory.setNumbOfArmy(numbOfWinArmy);
+
+                    if (bot == null) numbOfWinArmy = 1;
+                    if(numbOfWinArmy > 0) {
+                        otherTerritory.getOccupiedBy().getOwnedTerritories().remove(otherTerritory);
+                        thisPlayer.addOwnedTerritory(otherTerritory);
+                        otherTerritory.setNumbOfArmy(numbOfWinArmy);
+                    }
                 }
             }
         }

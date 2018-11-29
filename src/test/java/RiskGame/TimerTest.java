@@ -6,14 +6,11 @@ import static org.junit.Assert.*;
 
 public class TimerTest {
 
-    Timer time = new Timer(0);
+    Timer time = new Timer(0, null);
 
     @Test
-    public void startTimer() {
-        assertTrue(time.startTimer());
-
-        Timer time2 = new Timer(3);
-        assertTrue(time2.startTimer());
+    public void run() {
+        time.start();
     }
 
     @Test

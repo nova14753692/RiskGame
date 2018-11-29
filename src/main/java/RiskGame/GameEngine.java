@@ -104,10 +104,15 @@ public class GameEngine {
     public List<String> askForPlayerName(int numbOfPlayer, TelegramBot bot) {
         List<String> playerNames = new ArrayList<>();
 
+        String playerName = "";
         for (int i = 0; i < numbOfPlayer; i++) {
-            bot.clearMessage();
-            bot.sendMessage("What is the name of player " + i + ": ");
-            if (bot.waitForInput() && bot.getMessage() != null) playerNames.add(bot.getMessage());
+            if (bot != null) {
+                bot.clearMessage();
+                bot.sendMessage("What is the name of player " + i + ": ");
+            } else playerName = "Player " + i;
+            if (bot != null && bot.waitForInput() && bot.getMessage() != null) playerName = bot.getMessage();
+
+            playerNames.add(playerName);
         }
         return playerNames;
     }
@@ -115,10 +120,10 @@ public class GameEngine {
     public int askForNumberOfPlayer(int minPlayer, int maxPlayer, TelegramBot bot) {
 
         int numbOfPlayer = 0;
-        if (bot != null) {
-            //Asking input number of player
-            //Number of player must be >= minPlayer
-            do {
+        //Asking input number of player
+        //Number of player must be >= minPlayer
+        do {
+            if (bot != null) {
                 bot.sendMessage("How many players: ");
                 bot.clearMessage();
                 if (bot.waitForInput() && bot.getMessage() != null) {
@@ -129,8 +134,8 @@ public class GameEngine {
                         numbOfPlayer = 0;
                     }
                 }
-            } while (numbOfPlayer < minPlayer || numbOfPlayer > maxPlayer);
-        }
+            } else numbOfPlayer = minPlayer;
+        } while (numbOfPlayer < minPlayer || numbOfPlayer > maxPlayer);
         return numbOfPlayer;
     }
 
@@ -218,37 +223,35 @@ public class GameEngine {
 
     public  List<Territory> createTerritories(String filePath, String fileName,  TelegramBot bot) {
         List<Territory> territories = new ArrayList<>();
-        if (bot != null) {
-            List<String> territoryNames = readTerritoriesData(filePath, fileName, ".list");
-            if (territoryNames == null) return null;
+        List<String> territoryNames = readTerritoriesData(filePath, fileName, ".list");
+        if (territoryNames == null) return null;
 
-            String answer = ""; //Store the user input if there are duplications whether if they want to continue
+        String answer = ""; //Store the user input if there are duplications whether if they want to continue
 
-            //If the territory name list without duplications is less in size then territory names list
-            //Means the territoryDuplicatedPair returns 1 as the second value
-            //It means that there are duplications
-            //If user answers no, then quit the program
-            if (checkDuplicationsInTerritoryNames(territoryNames)) {
-                bot.sendMessage("There are duplications in TerritoryData!");
-                while (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
-                    bot.clearMessage();
-                    bot.sendMessage("Match territory list and continue? (Y/N): ");
-                    if (bot.waitForInput()) answer = bot.getMessage();
-                }
-                if (answer.toLowerCase().equals("y")) {
-                    bot.sendMessage("Territory list is updated and without duplication.");
-                } else return null;
+        //If the territory name list without duplications is less in size then territory names list
+        //Means the territoryDuplicatedPair returns 1 as the second value
+        //It means that there are duplications
+        //If user answers no, then quit the program
+        if (checkDuplicationsInTerritoryNames(territoryNames) && bot != null) {
+            bot.sendMessage("There are duplications in TerritoryData!");
+            while (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
+                bot.clearMessage();
+                bot.sendMessage("Match territory list and continue? (Y/N): ");
+                if (bot.waitForInput()) answer = bot.getMessage();
             }
+            if (answer.toLowerCase().equals("y")) {
+                bot.sendMessage("Territory list is updated and without duplication.");
+            } else return null;
+        }
 
-            territoryNames = filterOutTerritoryNamesDuplications(territoryNames);
-            //Create each territory base on each territory name in the territoryName list
-            territories = createTerritoriesFromNames(territoryNames);
+        territoryNames = filterOutTerritoryNamesDuplications(territoryNames);
+        //Create each territory base on each territory name in the territoryName list
+        territories = createTerritoriesFromNames(territoryNames);
 
-            //Search and open file which contains adjacent territories for each territory in territories list
-            for (Territory territory : territories) {
-                List<String> adjacentNames = findAdjacentTerritoryNames(filePath, ".adj", territory.getTerritoryName());
-                createTerritoryAdjacents(territory, adjacentNames, territories);
-            }
+        //Search and open file which contains adjacent territories for each territory in territories list
+        for (Territory territory : territories) {
+            List<String> adjacentNames = findAdjacentTerritoryNames(filePath, ".adj", territory.getTerritoryName());
+            createTerritoryAdjacents(territory, adjacentNames, territories);
         }
 
         return territories;
@@ -342,6 +345,9 @@ public class GameEngine {
                         bot.clearMessage();
                         break;
                     }
+                } else {
+                    tIndex = -2;
+                    break;
                 }
             }
         }
@@ -406,20 +412,21 @@ public class GameEngine {
                     else if (bot != null)
                         bot.sendMessage("Player " + player.getPlayerName() + " does not own territory has index of " + tIndex);
                 }
+
+                if(bot == null) break;
             }
         }
     }
 
     public int askToAttack(Player player, List<Player> players, List<Territory> finalTerritories, String mapPath, TelegramBot bot) {
-        //Timer timer = players.get(i).getTimer();
         String input;
-        //timer.start();
         String addOutput = "It's " + player.getPlayerName() + " to attack.\nDo you want to attack (Y/N): ";
-        input = userInputRequest(finalTerritories, finalTerritories, players, player, mapPath, addOutput, bot).getFirst();
+        Pair<String, Integer> userInput = userInputRequest(finalTerritories, finalTerritories, players, player, mapPath, addOutput, bot);
+        input = userInput.getFirst();
+        if (userInput.getSecond() == -2 || bot == null) input = "N";
         if (input == null) input = "";
-        if (!input.toLowerCase().equals("y") && !input.toLowerCase().equals("n")) {
+        if (!input.toLowerCase().equals("y") && !input.toLowerCase().equals("n") && bot != null) {
             bot.sendMessage("You have to answer either Y or N.");
-            //timer.resetTime();
             return -1;
         } else if (input.toLowerCase().equals("n")) return 0;
         return 1;
@@ -430,7 +437,6 @@ public class GameEngine {
                 "First choose the territory to attack from.";
         Territory attackerTerritory = null;
 
-        //while (attackerTerritory == null && !timer.isTimeOut()) {
         while (attackerTerritory == null) {
             Pair<String, Integer> stringIntegerPair = userInputRequest(finalTerritories, finalTerritories, players, player,
                     mapPath, addOutput, bot);
@@ -438,8 +444,12 @@ public class GameEngine {
             String tName = stringIntegerPair.getFirst();
             int tIndex = stringIntegerPair.getSecond();
 
+            if(tIndex == -2) break;
+
             attackerTerritory = findTerritory(tName, tIndex, player.getOwnedTerritories());
-            if (attackerTerritory == null) bot.sendMessage(".Territory not found.");
+            if (attackerTerritory == null && bot != null) bot.sendMessage(".Territory not found.");
+
+            if(bot == null) break;
         }
         return attackerTerritory;
     }
@@ -448,47 +458,58 @@ public class GameEngine {
         String addOutput = "Now choose the territory you wish to attack.";
         Territory defenderTerritory = null;
 
-        //while (defenderTerritory == null && !timer.isTimeOut()) {
         while (defenderTerritory == null) {
             Pair<String, Integer> stringIntegerPair = userInputRequest(finalTerritories, finalTerritories, players, player,
                     mapPath, addOutput, bot);
 
             String tName = stringIntegerPair.getFirst();
             int tIndex = stringIntegerPair.getSecond();
+            if(tIndex == -2) break;
 
             List<Territory> otherPlayerTerritories = finalTerritories.stream()
                     .filter(territory -> !player.getOwnedTerritories().contains(territory))
                     .collect(Collectors.toList());
 
             defenderTerritory = findTerritory(tName, tIndex, otherPlayerTerritories);
-            if (defenderTerritory == null) {
+            if (defenderTerritory == null && bot != null) {
                 bot.sendMessage(".Territory not found." +
                         "\nCheck if the territory you enter is valid and not one of your owned territories.");
             }
+
+            if (bot == null) break;
         }
         return defenderTerritory;
     }
 
     public void battleStage(List<Territory> finalTerritories, List<Player> players, String mapPath, TelegramBot bot) {
-        if (bot != null) {
-            for (int i = 0; i < players.size(); i++) {
-                while (!players.get(i).isLost()) {
-                    Player currentPlayer = players.get(i);
+        for (int i = 0; i < players.size(); i++) {
+            while (!players.get(i).isLost()) {
+                Player currentPlayer = players.get(i);
 
-                    //wantToAttack == -1 -> user fail to answer either Y or N
-                    //wantToAttack == 0 -> user answers N
-                    //wantToAttack == 1 -> user answers Y
-                    int wantToAttack = askToAttack(currentPlayer, players, finalTerritories, mapPath, bot);
+                //wantToAttack == -1 -> user fail to answer either Y or N
+                //wantToAttack == 0 -> user answers N
+                //wantToAttack == 1 -> user answers Y
+                int wantToAttack = askToAttack(currentPlayer, players, finalTerritories, mapPath, bot);
+                if (bot != null) {
                     if (wantToAttack == 0) break;
                     else if (wantToAttack == -1) continue;
-
-                    Territory attackerTerritory = askTerritoryToAttackFrom(currentPlayer, players, finalTerritories, mapPath, bot);
-                    Territory defenderTerritory = askTerritoryToAttackTo(currentPlayer, players, finalTerritories, mapPath, bot);
-
-                    play(currentPlayer, attackerTerritory, defenderTerritory.getOccupiedBy(), defenderTerritory, bot);
                 }
-                if (i == players.size() - 1 && !checkWinCondition(players)) i = -1;
+
+                Territory attackerTerritory = askTerritoryToAttackFrom(currentPlayer, players, finalTerritories, mapPath, bot);
+                if (attackerTerritory == null && bot != null) break;
+
+                Territory defenderTerritory = askTerritoryToAttackTo(currentPlayer, players, finalTerritories, mapPath, bot);
+                if (defenderTerritory == null && bot != null) break;
+
+                int result = -1;
+                if (attackerTerritory != null && defenderTerritory != null)
+                    result = play(currentPlayer, attackerTerritory, defenderTerritory.getOccupiedBy(), defenderTerritory, bot);
+                if (result == -1)
+                    break;
             }
+            if (i == players.size() - 1 && !checkWinCondition(players)) i = -1;
+
+            if (bot == null) break;
         }
     }
 
@@ -497,12 +518,12 @@ public class GameEngine {
         int numbOfDefenderSpareArmy = 0;
         int numbOfAttackerPenaltyArmy = 1;
         int numbOfDefenderPenaltyArmy = 1;
-        int result = -2;
-        if (bot != null) {
+        int result = -1;
+        if (attacker != null && defender != null) {
             Battle atk = new Attack(attacker, attackerTerritory, defenderTerritory, attackerTerritory.getNumbOfArmy(),
                     numbOfAttackerSpareArmy, numbOfAttackerPenaltyArmy, numbOfDefenderPenaltyArmy);
 
-            if (attackerTerritory.getNumbOfArmy() == 1)
+            if (attackerTerritory.getNumbOfArmy() == 1 && bot != null)
                 bot.sendMessage("You cannot launch attack from " + attackerTerritory.getTerritoryName() +
                         ". Because it has only 1 army.");
             else if (atk.startBattle(atk.askUserNumberOfDice(bot))) {
@@ -518,7 +539,7 @@ public class GameEngine {
                 }
                 //recordBattle((Attack)atk, (Defend)def, result);
             }
-            bot.clearMessage();
+            if (bot != null) bot.clearMessage();
         }
         return result;
     }
@@ -576,18 +597,16 @@ public class GameEngine {
     }
 
     public void printTerritory(List<Player> players,  List<Territory> territories, TelegramBot bot) {
-        if (bot != null) {
             //Print out each player's owned territories
             players.forEach(player -> {
-                bot.sendMessage(player.getPlayerName() + "'s owned territories:");
+                if (bot != null) bot.sendMessage(player.getPlayerName() + "'s owned territories:");
                 player.getOwnedTerritories().forEach(territory -> {
-                    bot.sendMessage(territory.getTerritoryName() + ": " + territory.getNumbOfArmy());
+                    if (bot != null) bot.sendMessage(territory.getTerritoryName() + ": " + territory.getNumbOfArmy());
                 });
             });
 
             //Print out the available territories
             printTerritory(players, territories, true, bot);
-        }
     }
 
     public void printTerritory(Player player,  List<Player> players,  List<Territory> territories, TelegramBot bot) {
@@ -602,21 +621,19 @@ public class GameEngine {
     }
 
     public void printTerritory(List<Player> players,  List<Territory> territories, boolean unoccupied, TelegramBot bot) {
-        if (bot != null) {
-            bot.sendMessage("Unoccupied territories: ");
-            for (Territory t : territories) {
-                //Check whether the territory is already in any player's owned territory
-                boolean isExist = false;
-                for (Player p : players) {
-                    if (p.getOwnedTerritories().contains(t)) {
-                        isExist = true;
-                        break;
-                    }
+        if (bot != null) bot.sendMessage("Unoccupied territories: ");
+        for (Territory t : territories) {
+            //Check whether the territory is already in any player's owned territory
+            boolean isExist = false;
+            for (Player p : players) {
+                if (p.getOwnedTerritories().contains(t)) {
+                    isExist = true;
+                    break;
                 }
-                //If there the territory t is not in any of the player's owned territories, then print it out
-                if (!isExist) {
-                    bot.sendMessage(t.getTerritoryName());
-                }
+            }
+            //If there the territory t is not in any of the player's owned territories, then print it out
+            if (!isExist && bot != null) {
+                bot.sendMessage(t.getTerritoryName());
             }
         }
     }

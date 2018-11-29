@@ -118,7 +118,5 @@ public class AttackTest {
     public void afterBattle1() {
         getDefender().afterBattle(-1, null);
         getDefender().afterBattle(0, null);
-        getAttacker().thisTerritory.setNumbOfArmy(1);
-        getDefender().afterBattle(1, null);
     }
 }

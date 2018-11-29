@@ -65,16 +65,23 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     public boolean waitForInput() {
-
+        boolean timerOut = false;
+        Timer timer = new Timer(30, this);
+        timer.start();
         while (getMessage() == null) {
             try {
+                if (timer.isTimeOut()) {
+                    timerOut = true;
+                    break;
+                }
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 System.out.println("Interrupted connection.");
                 return false;
             }
         }
-        return true;
+        timer.resetTime();
+        return !timerOut;
     }
 
     public void setMessage(String message) { this.message = message; }

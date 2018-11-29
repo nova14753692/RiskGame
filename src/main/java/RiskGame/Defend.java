@@ -9,8 +9,8 @@ public class Defend extends Battle {
 
     public boolean startBattle(int numbOfDie) {
         thisPlayer.getDice().forEach(die -> die.reset());
-        if (numbOfMaxDie > 0 && numbOfMaxDie <= thisPlayer.getDice().size()) {
-            for (int i = 0; i < numbOfMaxDie; i++) thisPlayer.getDice().get(i).roll();
+        if (numbOfDie > 0 && numbOfDie <= numbOfMaxDie && numbOfDie <= thisPlayer.getDice().size()) {
+            for (int i = 0; i < numbOfDie; i++) thisPlayer.getDice().get(i).roll();
             //thisPlayer.printRolledDice(bot);
             return true;
         }

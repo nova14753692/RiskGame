@@ -3,6 +3,7 @@ package RiskGame;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.Test;
 
 import javax.swing.*;
@@ -234,6 +235,66 @@ public class GameEngineTest {
     }
 
     @Test
+    public void printTerritory1() {
+        List<Territory> territories = new ArrayList<>();
+        territories.add(new Territory("Alaska", 0));
+        territories.add(new Territory("Northwest", 1));
+        territories.add(new Territory("Alberta", 2));
+        territories.add(new Territory("Kamchatka", 3));
+
+        List<Player> players = new ArrayList<>();
+        players.add(new Player("Ton"));
+        players.add(new Player("AI"));
+
+        getGameEngine().printTerritory(players, territories, null);
+    }
+
+    @Test
+    public void printTerritory2() {
+        List<Territory> territories = new ArrayList<>();
+        territories.add(new Territory("Alaska", 0));
+        territories.add(new Territory("Northwest", 1));
+        territories.add(new Territory("Alberta", 2));
+        territories.add(new Territory("Kamchatka", 3));
+
+        List<Player> players = new ArrayList<>();
+        Player player = new Player("Ton");
+        players.add(player);
+        player.getOwnedTerritories().addAll(territories);
+        players.add(new Player("AI"));
+
+        getGameEngine().printTerritory(player, players, territories, null);
+    }
+
+    @Test
+    public void printTerritory3() {
+        List<Territory> territories = new ArrayList<>();
+        Territory territory = new Territory("Alaska", 0);
+        territories.add(new Territory("Northwest", 1));
+        territories.add(new Territory("Alberta", 2));
+        territories.add(new Territory("Kamchatka", 3));
+        territory.getAdjTerritories().addAll(territories);
+        territories.add(territory);
+
+        getGameEngine().printTerritory(0, territories, null);
+        getGameEngine().printTerritory(4, territories, null);
+    }
+
+    @Test
+    public void printTerritory4() {
+        List<Territory> territories = new ArrayList<>();
+        Territory territory = new Territory("Alaska", 0);
+        territories.add(new Territory("Northwest", 1));
+        territories.add(new Territory("Alberta", 2));
+        territories.add(new Territory("Kamchatka", 3));
+        territory.getAdjTerritories().addAll(territories);
+        territories.add(territory);
+
+        getGameEngine().printTerritory("Alaska", territories, null);
+        getGameEngine().printTerritory("something", territories, null);
+    }
+
+    @Test
     public void DisplayMap() {
         getGameEngine().displayMap(mapPath);
     }
@@ -244,25 +305,78 @@ public class GameEngineTest {
     }
 
     @Test
-    public void setAllTerritory() {
+    public void play() {
+        Player atk = new Player("Ton");
+        Player def = new Player("Ton");
+
+        Territory atkTerritory = new Territory("Alaska", 0);
+        Territory defTerritory = new Territory("Northwest", 1);
+
+        atk.getOwnedTerritories().add(atkTerritory);
+        def.getOwnedTerritories().add(defTerritory);
+
+        atkTerritory.setNumbOfArmy(2);
+        defTerritory.setNumbOfArmy(2);
+
+        atkTerritory.setOccupiedBy(atk);
+        defTerritory.setOccupiedBy(def);
+
+        getGameEngine().play(atk, atkTerritory, def, defTerritory, null);
+
+        //Case 2
+        defTerritory.setNumbOfArmy(1);
+        getGameEngine().play(atk, atkTerritory, def, defTerritory, null);
+    }
+
+    @Test
+    public void battleStage() {
+        Player atk = new Player("Ton");
+        Player def = new Player("Ton");
+        List<Player> players = new ArrayList<>();
+        players.add(atk);
+        players.add(def);
+
+        Territory atkTerritory = new Territory("Alaska", 0);
+        Territory defTerritory = new Territory("Northwest", 1);
         List<Territory> territories = new ArrayList<>();
-        territories.add(new Territory("Alaska", 0));
-        territories.add(new Territory("Northwest", 1));
-        territories.add(new Territory("Alberta", 2));
-        territories.add(new Territory("Kamchatka", 3));
+        territories.add(atkTerritory);
+        territories.add(defTerritory);
 
-        List<Territory> finalTerritories = new ArrayList<>();
-        finalTerritories.add(new Territory("Alaska", 0));
-        finalTerritories.add(new Territory("Northwest", 1));
-        finalTerritories.add(new Territory("Alberta", 2));
-        finalTerritories.add(new Territory("Kamchatka", 3));
+        atk.getOwnedTerritories().add(atkTerritory);
+        def.getOwnedTerritories().add(defTerritory);
 
-        Player player = new Player("Ton", 3);
+        atkTerritory.setNumbOfArmy(2);
+        defTerritory.setNumbOfArmy(2);
+
+        atkTerritory.setOccupiedBy(atk);
+        defTerritory.setOccupiedBy(def);
+
+        getGameEngine().battleStage(territories, players, mapPath, null);
+    }
+
+    @Test
+    public void setAllTerritory2() {
+        Player player = new Player("Ton");
         List<Player> players = new ArrayList<>();
         players.add(player);
-        String tName = "Alaska";
-        int tIndex = 0;
+        player.setNumOfAvailableArmy(3);
+        List<Territory> territories = new ArrayList<>();
+        List<Territory> finalTerritories = new ArrayList<>();
+        territories.add(new Territory("Alaska", 0));
+        territories.add(new Territory("Northwest", 1));
+        finalTerritories.add(new Territory("Alaska", 0));
+        finalTerritories.add(new Territory("Northwest", 1));
 
         getGameEngine().setAllTerritory(player, players, territories, finalTerritories, null, mapPath);
+    }
+
+    @Test
+    public void createTerritory() {
+        getGameEngine().createTerritories(territoriesDataPath, territoriesDataFileName, null);
+    }
+
+    @Test
+    public void createPlayer2() {
+        getGameEngine().createPlayers(2, 6, 1, null);
     }
 }

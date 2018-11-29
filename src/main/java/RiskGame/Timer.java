@@ -4,26 +4,38 @@ public class Timer extends Thread {
 
     private int time;
     private int timeOut = 5;
+    private volatile boolean isStop;
+    private TelegramBot bot;
 
-    public Timer(int timeOut) {
-        time = 0;
+    public Timer(int timeOut, TelegramBot bot) {
         this.timeOut = timeOut;
+        time = timeOut;
+        isStop = false;
+        this.bot = bot;
     }
 
-    public boolean startTimer() {
-        while (time < timeOut) {
+    public void run() {
+        resetTime();
+        isStop = false;
+        while (!isStop && time > 0) {
             try {
+                if (bot != null && time <= 10) bot.sendMessage(Integer.toString(time));
                 sleep(1000);
-                time++;
-            } catch (InterruptedException e) { return false;}
+                time--;
+            } catch (InterruptedException e) {
+
+            }
+            yield();
         }
-        return true;
     }
 
-    public void resetTime() { time = 0; }
+    public void resetTime() {
+        time = timeOut;
+        isStop = true;
+    }
 
     public boolean isTimeOut() {
-        return time >= timeOut;
+        return time <= 0;
     }
 
     public int getTime() {

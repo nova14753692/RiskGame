@@ -76,10 +76,4 @@ public class PlayerTest {
     public void getDice() {
         assertEquals(player.getDice().size(), 1);
     }
-
-    @Test
-    public void getTimer() {
-        assertEquals(player.getTimer().getTime(), 0);
-        assertEquals(player.getTimer().getTimeOut(), 5);
-    }
 }
