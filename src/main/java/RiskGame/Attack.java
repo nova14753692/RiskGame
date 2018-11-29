@@ -37,8 +37,9 @@ public class Attack extends Battle {
                 if (otherTerritory.getNumbOfArmy() == 0) {
                     int numbOfWinArmy = -1;
                     if (bot != null) {
-                        while (numbOfWinArmy > numbOfInvolvedArmy || numbOfWinArmy < numbOfMaxDie) {
+                        while (numbOfWinArmy >= numbOfInvolvedArmy || numbOfWinArmy < numbOfMaxDie) {
                             numbOfWinArmy = -1;
+                            bot.clearMessage();
                             bot.sendMessage("Enter number of army will move from " + thisTerritory.getTerritoryName() +
                                     " to " + otherTerritory.getTerritoryName() + ": ");
                             if (bot.waitForInput() && bot.getMessage() != null)

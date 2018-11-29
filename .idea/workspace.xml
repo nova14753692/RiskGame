@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="cbe5616b-ae35-45b4-b703-aecd8d723d01" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RiskGame/Attack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Attack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RiskGame/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/GameEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RiskGame/TelegramBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/TelegramBot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RiskGame/Timer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RiskGame/Timer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/RiskGame/GameEngineTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/RiskGame/GameEngineTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,7 +17,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/RiskGame$All_in_RiskGame.ic" NAME="All in RiskGame Coverage Results" MODIFIED="1543482943077" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/RiskGame$All_in_RiskGame.ic" NAME="All in RiskGame Coverage Results" MODIFIED="1543516867985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/RiskGame$RiskGame_in_RiskGame.ic" NAME="RiskGame in RiskGame Coverage Results" MODIFIED="1543116781512" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>RiskGame.*</FILTER>
     </SUITE>
@@ -34,15 +37,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Pair.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Attack.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="504">
@@ -50,28 +44,6 @@
               <folding>
                 <element signature="method#afterBattle#0;class#Attack#0" />
                 <element signature="method#setArmyPenaltyToDefender#0;class#Attack#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Defend.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="19" column="57" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Die.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
-              <folding>
-                <element signature="method#Die#0;class#Die#0" />
-                <element signature="docComment;method#roll#0;class#Die#0" />
               </folding>
             </state>
           </provider>
@@ -98,8 +70,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Timer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
+            <state relative-caret-position="714">
+              <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
               <folding>
                 <element signature="e#875#876#0" expanded="true" />
                 <element signature="e#902#903#0" expanded="true" />
@@ -111,10 +83,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Battle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="14" column="66" selection-start-line="14" selection-start-column="66" selection-end-line="14" selection-end-column="66" />
+              <folding>
+                <element signature="method#Battle#0;class#Battle#0" />
+                <element signature="method#getBattleResult#0;class#Battle#0" />
+                <element signature="method#askUserNumberOfDice#0;class#Battle#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/TelegramBot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="68" column="34" selection-start-line="68" selection-start-column="34" selection-end-line="68" selection-end-column="34" />
+            <state relative-caret-position="392">
+              <caret line="78" column="40" lean-forward="true" selection-start-line="78" selection-start-column="40" selection-end-line="78" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#onUpdateReceived#0;class#TelegramBot#0" />
@@ -122,7 +108,39 @@
                 <element signature="e#1004#1005#0" expanded="true" />
                 <element signature="method#sendMessage#0;class#TelegramBot#0" />
                 <element signature="method#waitForConnection#0;class#TelegramBot#0" />
-                <element signature="method#waitForInput#0;class#TelegramBot#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/RiskGame/GameEngineTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="169">
+              <caret line="386" selection-start-line="386" selection-end-line="386" />
+              <folding>
+                <element signature="method#createPlayers#0;class#GameEngineTest#0" />
+                <element signature="method#readTerritoriesData#0;class#GameEngineTest#0" />
+                <element signature="method#checkDuplicationsInTerritoryNames#0;class#GameEngineTest#0" />
+                <element signature="method#filterOutTerritoryNamesDuplications#0;class#GameEngineTest#0" />
+                <element signature="method#createTerritoriesFromNames#0;class#GameEngineTest#0" />
+                <element signature="method#findAdjacentTerritoryNames#0;class#GameEngineTest#0" />
+                <element signature="method#createTerritoryAdjacents#0;class#GameEngineTest#0" />
+                <element signature="method#getNumberOfArmyEachPlayer#0;class#GameEngineTest#0" />
+                <element signature="method#checkWinCondition#0;class#GameEngineTest#0" />
+                <element signature="method#setTerritory#0;class#GameEngineTest#0" />
+                <element signature="method#addTroopsToOwnedTerritory#0;class#GameEngineTest#0" />
+                <element signature="method#findTerritory#0;class#GameEngineTest#0" />
+                <element signature="method#findTerritory1#0;class#GameEngineTest#0" />
+                <element signature="method#findTerritory2#0;class#GameEngineTest#0" />
+                <element signature="method#printTerritory1#0;class#GameEngineTest#0" />
+                <element signature="method#printTerritory2#0;class#GameEngineTest#0" />
+                <element signature="method#printTerritory3#0;class#GameEngineTest#0" />
+                <element signature="method#printTerritory4#0;class#GameEngineTest#0" />
+                <element signature="method#play#0;class#GameEngineTest#0" />
+                <element signature="method#setAllTerritory#0;class#GameEngineTest#0" />
+                <element signature="method#createTerritory#0;class#GameEngineTest#0" />
+                <element signature="method#executeSpecialCommand#0;class#GameEngineTest#0" />
               </folding>
             </state>
           </provider>
@@ -131,8 +149,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Territory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="128" column="53" lean-forward="true" selection-start-line="128" selection-start-column="53" selection-end-line="128" selection-end-column="53" />
+            <state relative-caret-position="1092">
+              <caret line="128" column="53" selection-start-line="128" selection-start-column="53" selection-end-line="128" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;method#Territory#0;class#Territory#0" />
@@ -157,8 +175,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/GameEngine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="86">
-              <caret line="336" column="41" selection-start-line="336" selection-start-column="41" selection-end-line="336" selection-end-column="41" />
+            <state relative-caret-position="442">
+              <caret line="484" selection-start-line="484" selection-end-line="484" />
               <folding>
                 <element signature="e#1376#1430#0" />
                 <element signature="e#1581#1610#0" />
@@ -170,19 +188,11 @@
                 <element signature="e#2531#2632#1" />
                 <element signature="e#2650#2751#1" />
                 <element signature="e#2812#3336#1" />
-                <element signature="e#2859#3191#1" />
                 <element signature="e#2988#3176#1" />
                 <element signature="method#createPlayers#0;class#GameEngine#0" />
-                <element signature="e#3742#3861#0" />
+                <element signature="method#askForPlayerName#0;class#GameEngine#0" />
                 <element signature="method#askForNumberOfPlayer#0;class#GameEngine#0" />
-                <element signature="e#4590#4621#0" />
-                <element signature="e#4681#5240#1" />
-                <element signature="e#4712#5199#1" />
-                <element signature="e#4873#5185#1" />
-                <element signature="e#4899#4997#0" />
-                <element signature="e#5030#5167#0" />
                 <element signature="method#createPlayers#1;class#GameEngine#0" />
-                <element signature="e#5541#5676#1" />
                 <element signature="docComment;method#readTerritoriesData#0;class#GameEngine#0" />
                 <element signature="method#readTerritoriesData#0;class#GameEngine#0" />
                 <element signature="method#checkDuplicationsInTerritoryNames#0;class#GameEngine#0" />
@@ -194,13 +204,12 @@
                 <element signature="docComment;method#getNumberOfArmyEachPlayer#0;class#GameEngine#0" />
                 <element signature="method#getNumberOfArmyEachPlayer#0;class#GameEngine#0" />
                 <element signature="method#executeSpecialCommand#0;class#GameEngine#0" />
+                <element signature="method#userInputRequest#0;class#GameEngine#0" />
                 <element signature="method#setTerritory#0;class#GameEngine#0" />
                 <element signature="method#addTroopsToOwnedTerritory#0;class#GameEngine#0" />
                 <element signature="method#setAllTerritory#0;class#GameEngine#0" />
                 <element signature="method#askToAttack#0;class#GameEngine#0" />
                 <element signature="method#askTerritoryToAttackFrom#0;class#GameEngine#0" />
-                <element signature="method#askTerritoryToAttackTo#0;class#GameEngine#0" />
-                <element signature="method#battleStage#0;class#GameEngine#0" />
                 <element signature="method#play#0;class#GameEngine#0" />
                 <element signature="docComment;method#checkWinCondition#0;class#GameEngine#0" />
                 <element signature="method#checkWinCondition#0;class#GameEngine#0" />
@@ -284,19 +293,19 @@
         <option value="$PROJECT_DIR$/src/test/java/RiskGame/TerritoryTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/RiskGame/PlayerTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/RiskGame/Defend.java" />
-        <option value="$PROJECT_DIR$/src/main/java/RiskGame/Timer.java" />
         <option value="$PROJECT_DIR$/src/main/java/RiskGame/Territory.java" />
         <option value="$PROJECT_DIR$/src/main/java/RiskGame/Player.java" />
         <option value="$PROJECT_DIR$/src/main/java/RiskGame/Battle.java" />
         <option value="$PROJECT_DIR$/src/test/java/RiskGame/TimerTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/RiskGame/Attack.java" />
-        <option value="$PROJECT_DIR$/src/test/java/RiskGame/GameEngineTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/RiskGame/TelegramBotTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/RiskGame/MainTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/RiskGame/Main.java" />
         <option value="$PROJECT_DIR$/src/test/java/RiskGame/AttackTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/RiskGame/TelegramBot.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/Timer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/RiskGame/Attack.java" />
         <option value="$PROJECT_DIR$/src/main/java/RiskGame/GameEngine.java" />
+        <option value="$PROJECT_DIR$/src/test/java/RiskGame/GameEngineTest.java" />
       </list>
     </option>
   </component>
@@ -327,6 +336,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -385,8 +396,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -394,7 +403,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/OneDrive/Software Design/RiskGame/src/main/java/RiskGame/TelegramBot.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543485410720" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543516976559" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../aws-java-sdk-1.11.431/lib/aws-java-sdk-1.11.431.jar!/" />
@@ -428,7 +437,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.All in RiskGame">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="RiskGame.Main" />
       <module name="RiskGame" />
@@ -501,8 +510,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.All in RiskGame" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.GameEngineTest" />
         <item itemvalue="JUnit.RiskGame in RiskGame" />
         <item itemvalue="JUnit.MainTest" />
@@ -523,34 +532,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_RiskGame - 2018.11.29 at 02h 45m 10s.xml">
+    <history-entry file="All_in_RiskGame - 2018.11.29 at 12h 23m 56s.xml">
       <configuration name="All in RiskGame" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.29 at 02h 47m 07s.xml">
+    <history-entry file="All_in_RiskGame - 2018.11.29 at 12h 24m 48s.xml">
       <configuration name="All in RiskGame" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.29 at 02h 47m 20s.xml">
+    <history-entry file="All_in_RiskGame - 2018.11.29 at 12h 26m 20s.xml">
       <configuration name="All in RiskGame" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.29 at 03h 00m 37s.xml">
+    <history-entry file="All_in_RiskGame - 2018.11.29 at 12h 28m 51s.xml">
       <configuration name="All in RiskGame" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.29 at 03h 01m 52s.xml">
+    <history-entry file="All_in_RiskGame - 2018.11.29 at 12h 33m 53s.xml">
       <configuration name="All in RiskGame" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.29 at 03h 04m 30s.xml">
+    <history-entry file="All_in_RiskGame - 2018.11.29 at 12h 36m 23s.xml">
       <configuration name="All in RiskGame" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.29 at 03h 05m 57s.xml">
+    <history-entry file="All_in_RiskGame - 2018.11.29 at 12h 37m 34s.xml">
       <configuration name="All in RiskGame" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.29 at 03h 08m 13s.xml">
+    <history-entry file="All_in_RiskGame - 2018.11.29 at 12h 40m 45s.xml">
       <configuration name="All in RiskGame" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.29 at 03h 13m 52s.xml">
+    <history-entry file="All_in_RiskGame - 2018.11.29 at 12h 41m 35s.xml">
       <configuration name="All in RiskGame" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.29 at 03h 16m 01s.xml">
+    <history-entry file="All_in_RiskGame - 2018.11.29 at 12h 42m 47s.xml">
       <configuration name="All in RiskGame" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -566,7 +575,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17004265" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1716418" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -597,6 +606,18 @@
       <window_info anchor="right" id="Coverage" order="8" side_tool="true" weight="0.32995737" />
       <window_info anchor="right" id="Maven" order="9" weight="0.32995737" />
     </layout>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/RiskGame/GameEngineTest.java</url>
+          <line>386</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -714,13 +735,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.9/junit-4.9.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="9" column="62" selection-start-line="9" selection-start-column="62" selection-end-line="9" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/reflect/Method.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="93">
@@ -825,43 +839,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/RiskGame/GameEngineTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="61" column="54" selection-start-line="61" selection-start-column="54" selection-end-line="61" selection-end-column="54" />
-          <folding>
-            <element signature="method#getGameEngine#0;class#GameEngineTest#0" />
-            <element signature="method#createPlayers#0;class#GameEngineTest#0" />
-            <element signature="method#readTerritoriesData#0;class#GameEngineTest#0" />
-            <element signature="method#checkDuplicationsInTerritoryNames#0;class#GameEngineTest#0" />
-            <element signature="method#filterOutTerritoryNamesDuplications#0;class#GameEngineTest#0" />
-            <element signature="method#createTerritoriesFromNames#0;class#GameEngineTest#0" />
-            <element signature="method#findAdjacentTerritoryNames#0;class#GameEngineTest#0" />
-            <element signature="method#createTerritoryAdjacents#0;class#GameEngineTest#0" />
-            <element signature="method#getNumberOfArmyEachPlayer#0;class#GameEngineTest#0" />
-            <element signature="method#checkWinCondition#0;class#GameEngineTest#0" />
-            <element signature="method#setTerritory#0;class#GameEngineTest#0" />
-            <element signature="e#4995#5223#1" />
-            <element signature="e#5410#5638#1" />
-            <element signature="method#addTroopsToOwnedTerritory#0;class#GameEngineTest#0" />
-            <element signature="e#6237#6526#1" />
-            <element signature="e#6713#7002#1" />
-            <element signature="method#findTerritory#0;class#GameEngineTest#0" />
-            <element signature="method#findTerritory1#0;class#GameEngineTest#0" />
-            <element signature="method#findTerritory2#0;class#GameEngineTest#0" />
-            <element signature="method#printTerritory1#0;class#GameEngineTest#0" />
-            <element signature="method#printTerritory2#0;class#GameEngineTest#0" />
-            <element signature="method#printTerritory3#0;class#GameEngineTest#0" />
-            <element signature="method#printTerritory4#0;class#GameEngineTest#0" />
-            <element signature="method#play#0;class#GameEngineTest#0" />
-            <element signature="method#battleStage#0;class#GameEngineTest#0" />
-            <element signature="method#setAllTerritory#0;class#GameEngineTest#0" />
-            <element signature="method#createTerritory#0;class#GameEngineTest#0" />
-            <element signature="method#executeSpecialCommand#0;class#GameEngineTest#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/RiskGame/TelegramBotTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
@@ -917,18 +894,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Battle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="14" column="66" selection-start-line="14" selection-start-column="66" selection-end-line="14" selection-end-column="66" />
-          <folding>
-            <element signature="method#Battle#0;class#Battle#0" />
-            <element signature="method#getBattleResult#0;class#Battle#0" />
-            <element signature="method#askUserNumberOfDice#0;class#Battle#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Player.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1344">
@@ -972,17 +937,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Attack.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="24" column="57" selection-start-line="24" selection-start-column="57" selection-end-line="24" selection-end-column="57" />
-          <folding>
-            <element signature="method#afterBattle#0;class#Attack#0" />
-            <element signature="method#setArmyPenaltyToDefender#0;class#Attack#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Defend.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
@@ -1015,23 +969,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Timer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-          <folding>
-            <element signature="e#875#876#0" expanded="true" />
-            <element signature="e#902#903#0" expanded="true" />
-            <element signature="e#933#934#0" expanded="true" />
-            <element signature="e#963#964#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Territory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="128" column="53" lean-forward="true" selection-start-line="128" selection-start-column="53" selection-end-line="128" selection-end-column="53" />
+        <state relative-caret-position="1092">
+          <caret line="128" column="53" selection-start-line="128" selection-start-column="53" selection-end-line="128" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#Territory#0;class#Territory#0" />
@@ -1054,8 +995,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/TelegramBot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="68" column="34" selection-start-line="68" selection-start-column="34" selection-end-line="68" selection-end-column="34" />
+        <state relative-caret-position="392">
+          <caret line="78" column="40" lean-forward="true" selection-start-line="78" selection-start-column="40" selection-end-line="78" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#onUpdateReceived#0;class#TelegramBot#0" />
@@ -1063,15 +1004,88 @@
             <element signature="e#1004#1005#0" expanded="true" />
             <element signature="method#sendMessage#0;class#TelegramBot#0" />
             <element signature="method#waitForConnection#0;class#TelegramBot#0" />
-            <element signature="method#waitForInput#0;class#TelegramBot#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Timer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
+          <folding>
+            <element signature="e#875#876#0" expanded="true" />
+            <element signature="e#902#903#0" expanded="true" />
+            <element signature="e#933#934#0" expanded="true" />
+            <element signature="e#963#964#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Battle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="14" column="66" selection-start-line="14" selection-start-column="66" selection-end-line="14" selection-end-column="66" />
+          <folding>
+            <element signature="method#Battle#0;class#Battle#0" />
+            <element signature="method#getBattleResult#0;class#Battle#0" />
+            <element signature="method#askUserNumberOfDice#0;class#Battle#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Attack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="24" column="57" selection-start-line="24" selection-start-column="57" selection-end-line="24" selection-end-column="57" />
+          <folding>
+            <element signature="method#afterBattle#0;class#Attack#0" />
+            <element signature="method#setArmyPenaltyToDefender#0;class#Attack#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.9/junit-4.9.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="9" column="62" selection-start-line="9" selection-start-column="62" selection-end-line="9" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/RiskGame/GameEngineTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="386" selection-start-line="386" selection-end-line="386" />
+          <folding>
+            <element signature="method#createPlayers#0;class#GameEngineTest#0" />
+            <element signature="method#readTerritoriesData#0;class#GameEngineTest#0" />
+            <element signature="method#checkDuplicationsInTerritoryNames#0;class#GameEngineTest#0" />
+            <element signature="method#filterOutTerritoryNamesDuplications#0;class#GameEngineTest#0" />
+            <element signature="method#createTerritoriesFromNames#0;class#GameEngineTest#0" />
+            <element signature="method#findAdjacentTerritoryNames#0;class#GameEngineTest#0" />
+            <element signature="method#createTerritoryAdjacents#0;class#GameEngineTest#0" />
+            <element signature="method#getNumberOfArmyEachPlayer#0;class#GameEngineTest#0" />
+            <element signature="method#checkWinCondition#0;class#GameEngineTest#0" />
+            <element signature="method#setTerritory#0;class#GameEngineTest#0" />
+            <element signature="method#addTroopsToOwnedTerritory#0;class#GameEngineTest#0" />
+            <element signature="method#findTerritory#0;class#GameEngineTest#0" />
+            <element signature="method#findTerritory1#0;class#GameEngineTest#0" />
+            <element signature="method#findTerritory2#0;class#GameEngineTest#0" />
+            <element signature="method#printTerritory1#0;class#GameEngineTest#0" />
+            <element signature="method#printTerritory2#0;class#GameEngineTest#0" />
+            <element signature="method#printTerritory3#0;class#GameEngineTest#0" />
+            <element signature="method#printTerritory4#0;class#GameEngineTest#0" />
+            <element signature="method#play#0;class#GameEngineTest#0" />
+            <element signature="method#setAllTerritory#0;class#GameEngineTest#0" />
+            <element signature="method#createTerritory#0;class#GameEngineTest#0" />
+            <element signature="method#executeSpecialCommand#0;class#GameEngineTest#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/GameEngine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="336" column="41" selection-start-line="336" selection-start-column="41" selection-end-line="336" selection-end-column="41" />
+        <state relative-caret-position="442">
+          <caret line="484" selection-start-line="484" selection-end-line="484" />
           <folding>
             <element signature="e#1376#1430#0" />
             <element signature="e#1581#1610#0" />
@@ -1083,19 +1097,11 @@
             <element signature="e#2531#2632#1" />
             <element signature="e#2650#2751#1" />
             <element signature="e#2812#3336#1" />
-            <element signature="e#2859#3191#1" />
             <element signature="e#2988#3176#1" />
             <element signature="method#createPlayers#0;class#GameEngine#0" />
-            <element signature="e#3742#3861#0" />
+            <element signature="method#askForPlayerName#0;class#GameEngine#0" />
             <element signature="method#askForNumberOfPlayer#0;class#GameEngine#0" />
-            <element signature="e#4590#4621#0" />
-            <element signature="e#4681#5240#1" />
-            <element signature="e#4712#5199#1" />
-            <element signature="e#4873#5185#1" />
-            <element signature="e#4899#4997#0" />
-            <element signature="e#5030#5167#0" />
             <element signature="method#createPlayers#1;class#GameEngine#0" />
-            <element signature="e#5541#5676#1" />
             <element signature="docComment;method#readTerritoriesData#0;class#GameEngine#0" />
             <element signature="method#readTerritoriesData#0;class#GameEngine#0" />
             <element signature="method#checkDuplicationsInTerritoryNames#0;class#GameEngine#0" />
@@ -1107,13 +1113,12 @@
             <element signature="docComment;method#getNumberOfArmyEachPlayer#0;class#GameEngine#0" />
             <element signature="method#getNumberOfArmyEachPlayer#0;class#GameEngine#0" />
             <element signature="method#executeSpecialCommand#0;class#GameEngine#0" />
+            <element signature="method#userInputRequest#0;class#GameEngine#0" />
             <element signature="method#setTerritory#0;class#GameEngine#0" />
             <element signature="method#addTroopsToOwnedTerritory#0;class#GameEngine#0" />
             <element signature="method#setAllTerritory#0;class#GameEngine#0" />
             <element signature="method#askToAttack#0;class#GameEngine#0" />
             <element signature="method#askTerritoryToAttackFrom#0;class#GameEngine#0" />
-            <element signature="method#askTerritoryToAttackTo#0;class#GameEngine#0" />
-            <element signature="method#battleStage#0;class#GameEngine#0" />
             <element signature="method#play#0;class#GameEngine#0" />
             <element signature="docComment;method#checkWinCondition#0;class#GameEngine#0" />
             <element signature="method#checkWinCondition#0;class#GameEngine#0" />

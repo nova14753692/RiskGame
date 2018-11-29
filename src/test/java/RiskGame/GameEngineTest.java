@@ -313,6 +313,8 @@ public class GameEngineTest {
 
         Territory atkTerritory = new Territory("Alaska", 0);
         Territory defTerritory = new Territory("Northwest", 1);
+        atkTerritory.getAdjTerritories().add(defTerritory);
+        defTerritory.getAdjTerritories().add(atkTerritory);
 
         atk.getOwnedTerritories().add(atkTerritory);
         def.getOwnedTerritories().add(defTerritory);
@@ -340,6 +342,8 @@ public class GameEngineTest {
 
         Territory atkTerritory = new Territory("Alaska", 0);
         Territory defTerritory = new Territory("Northwest", 1);
+        atkTerritory.getAdjTerritories().add(defTerritory);
+        defTerritory.getAdjTerritories().add(atkTerritory);
         List<Territory> territories = new ArrayList<>();
         territories.add(atkTerritory);
         territories.add(defTerritory);
@@ -354,6 +358,33 @@ public class GameEngineTest {
         defTerritory.setOccupiedBy(def);
 
         getGameEngine().battleStage(territories, players, null);
+    }
+
+    @Test
+    public void askTerritoryToAttackTo() {
+        Player atk = new Player("Ton");
+        Player def = new Player("Ton");
+        List<Player> players = new ArrayList<>();
+        players.add(atk);
+        players.add(def);
+
+        Territory atkTerritory = new Territory("Alaska", 0);
+        Territory defTerritory = new Territory("Northwest", 1);
+        defTerritory.getAdjTerritories().add(atkTerritory);
+        List<Territory> territories = new ArrayList<>();
+        territories.add(atkTerritory);
+        territories.add(defTerritory);
+
+        atk.getOwnedTerritories().add(atkTerritory);
+        def.getOwnedTerritories().add(defTerritory);
+
+        atkTerritory.setNumbOfArmy(2);
+        defTerritory.setNumbOfArmy(2);
+
+        atkTerritory.setOccupiedBy(atk);
+        defTerritory.setOccupiedBy(def);
+
+        getGameEngine().askTerritoryToAttackTo(atk, atkTerritory, players, territories, null);
     }
 
     @Test

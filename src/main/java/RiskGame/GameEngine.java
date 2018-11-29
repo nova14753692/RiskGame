@@ -109,7 +109,7 @@ public class GameEngine {
                 bot.sendMessage("What is the name of player " + (i + 1) + ": ");
             } else playerName = "Player " + i;
             if (bot != null && bot.waitForInput() && bot.getMessage() != null) playerName = bot.getMessage();
-            else {
+            else if (bot != null){
                 i--;
                 continue;
             }
@@ -460,11 +460,11 @@ public class GameEngine {
         return attackerTerritory;
     }
 
-    public Territory askTerritoryToAttackTo(Player player, List<Player> players, List<Territory> finalTerritories,  TelegramBot bot) {
+    public Territory askTerritoryToAttackTo(Player player, Territory attackerTerritory, List<Player> players, List<Territory> finalTerritories,  TelegramBot bot) {
         String addOutput = "Now choose the territory you wish to attack.";
         Territory defenderTerritory = null;
 
-        while (defenderTerritory == null) {
+        while (defenderTerritory == null && attackerTerritory != null) {
             Pair<String, Integer> stringIntegerPair = userInputRequest(finalTerritories, finalTerritories, players, player, addOutput, bot);
 
             String tName = stringIntegerPair.getFirst();
@@ -476,9 +476,10 @@ public class GameEngine {
                     .collect(Collectors.toList());
 
             defenderTerritory = findTerritory(tName, tIndex, otherPlayerTerritories);
-            if (defenderTerritory == null && bot != null) {
+            if ((defenderTerritory == null || !attackerTerritory.getAdjTerritories().contains(defenderTerritory)) && bot != null) {
                 bot.sendMessage(".Territory not found." +
                         "\nCheck if the territory you enter is valid and not one of your owned territories.");
+                defenderTerritory = null;
             }
 
             if (bot == null) break;
@@ -503,13 +504,13 @@ public class GameEngine {
                 Territory attackerTerritory = askTerritoryToAttackFrom(currentPlayer, players, finalTerritories, bot);
                 if (attackerTerritory == null && bot != null) break;
 
-                Territory defenderTerritory = askTerritoryToAttackTo(currentPlayer, players, finalTerritories, bot);
+                Territory defenderTerritory = askTerritoryToAttackTo(currentPlayer, attackerTerritory, players, finalTerritories, bot);
                 if (defenderTerritory == null && bot != null) break;
 
-                int result = -1;
+                int result = -2;
                 if (attackerTerritory != null && defenderTerritory != null)
                     result = play(currentPlayer, attackerTerritory, defenderTerritory.getOccupiedBy(), defenderTerritory, bot);
-                if (result == -1)
+                if (result == -2)
                     break;
             }
             if (i == players.size() - 1 && !checkWinCondition(players)) i = -1;
@@ -523,7 +524,7 @@ public class GameEngine {
         int numbOfDefenderSpareArmy = 0;
         int numbOfAttackerPenaltyArmy = 1;
         int numbOfDefenderPenaltyArmy = 1;
-        int result = -1;
+        int result = -2;
         if (attacker != null && defender != null) {
             Battle atk = new Attack(attacker, attackerTerritory, defenderTerritory, attackerTerritory.getNumbOfArmy(),
                     numbOfAttackerSpareArmy, numbOfAttackerPenaltyArmy, numbOfDefenderPenaltyArmy);

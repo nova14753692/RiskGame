@@ -32,6 +32,7 @@ public class Timer extends Thread {
     public void resetTime() {
         time = timeOut;
         isStop = true;
+        this.stop();
     }
 
     public boolean isTimeOut() {
