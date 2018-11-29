@@ -19,6 +19,7 @@ public class Main {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+        if (args == null) telegramBot = null;
         GameEngine gameEngine = new GameEngine();
         gameEngine.startGame(telegramBot);
     }

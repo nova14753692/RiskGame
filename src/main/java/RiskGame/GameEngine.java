@@ -318,14 +318,14 @@ public class GameEngine {
         while (true) {
             //The questions program will ask each player each move
             if (bot != null) {
-                bot.sendMessage(addOutput);
+                /*bot.sendMessage(addOutput);
                 bot.sendMessage("Enter -la to list all territories of all player and available territories.");
                 bot.sendMessage("Enter -lm to list all territories of your possession.");
                 bot.sendMessage("Enter -lav to list all available territories.");
                 bot.sendMessage("Enter -map to the map.");
                 bot.sendMessage("Enter -shde [Territory name] or -shde [Territory index] (eg: -shde Alaska or -shde 1)\n" +
                         " to list detail about that territory and its adjacent territories.");
-                bot.sendMessage("Enter Territory name, or index, or command: ");
+                bot.sendMessage("Enter Territory name, or index, or command: ");*/
             }
 
             //Execute special command
