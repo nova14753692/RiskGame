@@ -310,16 +310,14 @@ public class GameEngine {
     }
 
     public Pair<String, Integer> userInputRequest(List<Territory> territories, List<Territory> finalTerritories,
-                                                   List<Player> players, Player player, 
+                                                   List<Player> players, Player player,
                                                    String addOutput, TelegramBot bot) {
 
         int tIndex = -1; //.Territory index temporary variable, because no variable is allowed inside java lambda expression
         String tName = null; //.Territory name temporary variable, because no variable is allowed inside java lambda expression
-        if (bot != null) {
-            while (true) {
-                //The questions program will ask each player each move
-                //Need refactor
-                //System.out.println("It's " + player.getPlayerName() + "'s turn to place armies.");
+        while (true) {
+            //The questions program will ask each player each move
+            if (bot != null) {
                 bot.sendMessage(addOutput);
                 bot.sendMessage("Enter -la to list all territories of all player and available territories.");
                 bot.sendMessage("Enter -lm to list all territories of your possession.");
@@ -328,29 +326,32 @@ public class GameEngine {
                 bot.sendMessage("Enter -shde [Territory name] or -shde [Territory index] (eg: -shde Alaska or -shde 1)\n" +
                         " to list detail about that territory and its adjacent territories.");
                 bot.sendMessage("Enter Territory name, or index, or command: ");
-
-                //Execute special command
-                bot.clearMessage();
-                if (bot.waitForInput() && bot.getMessage() != null) {
-                    String input = bot.getMessage();
-
-                    if (!executeSpecialCommand(input, players, player, territories, finalTerritories, bot)) {
-                        //Try to parse the input string to a integer
-                        //If the string can be parse successfully, then the player entered a territory index instead of territory name
-                        try {
-                            tIndex = Integer.parseInt(input);
-                        } catch (NumberFormatException e) {
-                            //If the input string cannot be parse, then the player entered a territory name
-                            tName = input;
-                        }
-                        bot.clearMessage();
-                        break;
-                    }
-                } else {
-                    tIndex = -2;
-                    break;
-                }
             }
+
+            //Execute special command
+            String input = "1";
+            if (bot != null) {
+                bot.clearMessage();
+                if (bot.waitForInput() && bot.getMessage() != null) input = bot.getMessage();
+            }
+
+            if (!executeSpecialCommand(input, players, player, territories, finalTerritories, bot)) {
+                //Try to parse the input string to a integer
+                //If the string can be parse successfully, then the player entered a territory index instead of territory name
+                try {
+                    tIndex = Integer.parseInt(input);
+                } catch (NumberFormatException e) {
+                    //If the input string cannot be parse, then the player entered a territory name
+                    tName = input;
+                }
+                if (bot != null) bot.clearMessage();
+                break;
+            } else if (bot != null){
+                tIndex = -2;
+                break;
+            }
+
+            if(bot == null) break;
         }
         return new Pair<>(tName, tIndex);
     }
