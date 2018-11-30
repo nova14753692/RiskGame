@@ -112,6 +112,8 @@ public class AttackTest {
         assertTrue(getDefender().startBattle(getDefender().getNumbOfMaxDie()));
         assertFalse(getAttacker().startBattle(0));
         assertFalse(getDefender().startBattle(0));
+        assertFalse(getAttacker().startBattle(4));
+        assertFalse(getDefender().startBattle(4));
     }
 
     @Test
