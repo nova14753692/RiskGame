@@ -19,7 +19,7 @@ public class Timer extends Thread {
         isStop = false;
         while (!isStop && time > 0) {
             try {
-                if (bot != null && time <= 10) bot.sendMessage(Integer.toString(time));
+                if (bot != null && time <= 5) bot.sendMessage(Integer.toString(time));
                 sleep(1000);
                 time--;
             } catch (InterruptedException e) {

@@ -128,8 +128,9 @@ public class GameEngine {
                 bot.sendMessage("What is the name of player " + (i + 1) + ": ");
             } else playerName = "Player " + (i + 1);
             if (bot != null && bot.waitForInput() && bot.getMessage() != null) playerName = bot.getMessage();
-            else if (bot != null && !bot.isTest()) {
+            else if (bot != null) {
                 i--;
+                if (bot.isTest()) break;
                 continue;
             }
 
@@ -144,7 +145,7 @@ public class GameEngine {
         //Asking input number of player
         //Number of player must be >= minPlayer
         do {
-            if (bot != null && !bot.isTest()) {
+            if (bot != null) {
                 bot.sendMessage("How many players: ");
                 bot.clearMessage();
                 if (bot.waitForInput() && bot.getMessage() != null) {
@@ -155,6 +156,7 @@ public class GameEngine {
                         numbOfPlayer = 0;
                     }
                 }
+                if (bot.isTest()) break;
             } else numbOfPlayer = minPlayer;
         } while (numbOfPlayer < minPlayer || numbOfPlayer > maxPlayer);
         return numbOfPlayer;

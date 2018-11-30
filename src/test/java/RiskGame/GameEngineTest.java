@@ -108,6 +108,7 @@ public class GameEngineTest {
 
     @Test
     public void getNumberOfArmyEachPlayer() {
+        assertEquals(getGameEngine().getNumberOfArmyEachPlayer(1), -1);
         assertEquals(getGameEngine().getNumberOfArmyEachPlayer(2), 35);
         assertEquals(getGameEngine().getNumberOfArmyEachPlayer(3), 35);
         assertEquals(getGameEngine().getNumberOfArmyEachPlayer(4), 30);
@@ -322,6 +323,10 @@ public class GameEngineTest {
 
         getGameEngine().setAllTerritory(player, territories, null);
         getGameEngine().setAllTerritory(player, territories, getBot());
+
+        territories.clear();
+        getGameEngine().setAllTerritory(player, territories, null);
+        getGameEngine().setAllTerritory(player, territories, getBot());
     }
 
     @Test
@@ -336,6 +341,15 @@ public class GameEngineTest {
 
         gameEngine.executeSpecialCommand("-la", gameEngine.players.get(0), gameEngine.finalTerritories, null);
         gameEngine.executeSpecialCommand("-la", gameEngine.players.get(0), gameEngine.finalTerritories, getBot());
+
+        gameEngine.executeSpecialCommand("-lm", gameEngine.players.get(0), gameEngine.finalTerritories, null);
+        gameEngine.executeSpecialCommand("-lm", gameEngine.players.get(0), gameEngine.finalTerritories, getBot());
+
+        gameEngine.executeSpecialCommand("-lav", gameEngine.players.get(0), gameEngine.finalTerritories, null);
+        gameEngine.executeSpecialCommand("-lav", gameEngine.players.get(0), gameEngine.finalTerritories, getBot());
+
+        gameEngine.executeSpecialCommand("1", gameEngine.players.get(0), gameEngine.finalTerritories, null);
+        gameEngine.executeSpecialCommand("1", gameEngine.players.get(0), gameEngine.finalTerritories, getBot());
     }
 
     @Test
