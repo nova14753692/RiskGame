@@ -35,24 +35,9 @@ public class Attack extends Battle {
                 if (bot != null) bot.sendMessage(thisPlayer.getPlayerName() + " won.");
                 otherTerritory.setNumbOfArmy(otherTerritory.getNumbOfArmy() - armyPenaltyToDefender);
                 if (otherTerritory.getNumbOfArmy() == 0) {
-                    int numbOfWinArmy = -1;
-                    if (bot != null) {
-                        while (numbOfWinArmy >= numbOfInvolvedArmy || numbOfWinArmy < numbOfMaxDie) {
-                            numbOfWinArmy = -1;
-                            bot.clearMessage();
-                            bot.sendMessage("Enter number of army will move from " + thisTerritory.getTerritoryName() +
-                                    " to " + otherTerritory.getTerritoryName() + ": ");
-                            if (bot.waitForInput() && bot.getMessage() != null)
-                                numbOfWinArmy = Integer.parseInt(bot.getMessage());
-                            else {
-                                otherTerritory.setNumbOfArmy(otherTerritory.getNumbOfArmy() + armyPenaltyToDefender);
-                                break;
-                            }
-                        }
-                    } else numbOfWinArmy = numbOfInvolvedArmy;
 
-                    if (bot == null) numbOfWinArmy = 1;
-                    if(numbOfWinArmy > 0) {
+                    int numbOfWinArmy = askForTroopWillMove(bot);
+                    if (numbOfWinArmy > 0) {
                         otherTerritory.getOccupiedBy().getOwnedTerritories().remove(otherTerritory);
                         thisPlayer.addOwnedTerritory(otherTerritory);
                         otherTerritory.setNumbOfArmy(numbOfWinArmy);
@@ -60,6 +45,24 @@ public class Attack extends Battle {
                 }
             }
         }
+    }
+
+    public int askForTroopWillMove(TelegramBot bot) {
+        int numbOfWinArmy = -1;
+        while (numbOfWinArmy >= numbOfInvolvedArmy || numbOfWinArmy < numbOfMaxDie) {
+            if (bot != null) {
+                bot.clearMessage();
+                bot.sendMessage("Enter number of army will move from " + thisTerritory.getTerritoryName() +
+                        " to " + otherTerritory.getTerritoryName() + ": ");
+                if (bot.waitForInput() && bot.getMessage() != null)
+                    numbOfWinArmy = Integer.parseInt(bot.getMessage());
+                else {
+                    otherTerritory.setNumbOfArmy(otherTerritory.getNumbOfArmy() + armyPenaltyToDefender);
+                    break;
+                }
+            } else numbOfWinArmy = numbOfInvolvedArmy - 1;
+        }
+        return numbOfWinArmy;
     }
 
     public int getArmyPenalty() {

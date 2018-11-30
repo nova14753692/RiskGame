@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import javax.swing.*;
-
 import static org.junit.Assert.*;
 
 public class GameEngineTest {
@@ -252,44 +250,6 @@ public class GameEngineTest {
     }
 
     @Test
-    public void printTerritory3() {
-        List<Territory> territories = new ArrayList<>();
-        Territory territory = new Territory("Alaska", 0);
-        territories.add(new Territory("Northwest", 1));
-        territories.add(new Territory("Alberta", 2));
-        territories.add(new Territory("Kamchatka", 3));
-        territory.getAdjTerritories().addAll(territories);
-        territories.add(territory);
-
-        getGameEngine().printTerritory(0, territories, null);
-        getGameEngine().printTerritory(4, territories, null);
-    }
-
-    @Test
-    public void printTerritory4() {
-        List<Territory> territories = new ArrayList<>();
-        Territory territory = new Territory("Alaska", 0);
-        territories.add(new Territory("Northwest", 1));
-        territories.add(new Territory("Alberta", 2));
-        territories.add(new Territory("Kamchatka", 3));
-        territory.getAdjTerritories().addAll(territories);
-        territories.add(territory);
-
-        getGameEngine().printTerritory("Alaska", territories, null);
-        getGameEngine().printTerritory("something", territories, null);
-    }
-
-    @Test
-    public void DisplayMap() {
-        getGameEngine().displayMap();
-    }
-
-    @Test
-    public void buildFrame() {
-        assertNotNull(getGameEngine().buildFrame());
-    }
-
-    @Test
     public void play() {
         Player atk = new Player("Ton");
         Player def = new Player("Ton");
@@ -311,8 +271,8 @@ public class GameEngineTest {
         getGameEngine().play(atk, atkTerritory, def, defTerritory, null);
 
         //Case 2
-        defTerritory.setNumbOfArmy(1);
-        getGameEngine().play(atk, atkTerritory, def, defTerritory, null);
+        /*defTerritory.setNumbOfArmy(1);
+        getGameEngine().play(atk, atkTerritory, def, defTerritory, null);*/
     }
 
     @Test
@@ -362,6 +322,27 @@ public class GameEngineTest {
 
     @Test
     public void startGame() {
-        getGameEngine().startGame(null);
+        GameEngine gameEngine = getGameEngine();
+        gameEngine.createTestData();
+        gameEngine.startGame(null);
+    }
+
+    @Test
+    public void getWinner() {
+        GameEngine gameEngine = getGameEngine();
+        gameEngine.createTestData();
+
+        assertNotNull(gameEngine.getWinner());
+    }
+
+    @Test
+    public void initBattle() {
+        GameEngine gameEngine = getGameEngine();
+        gameEngine.createTestData();
+
+        gameEngine.initBattle(null);
+
+        gameEngine.players.get(0).setLost(false);
+        gameEngine.initBattle(null);
     }
 }

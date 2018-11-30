@@ -40,6 +40,10 @@ public class GameEngine {
         //Telegram Bot
         if (telegramBot != null) telegramBot.sendMessage("Hi, let' start the game");
 
+        initBattle(telegramBot);
+    }
+
+    public void initBattle(TelegramBot bot) {
         //Create territory objects and store them in territories list
         List<Territory>  availableTerritories = new ArrayList<>();
         availableTerritories.addAll(finalTerritories);
@@ -47,18 +51,23 @@ public class GameEngine {
         if (finalTerritories.size() > 0)
         {
             if (!checkWinCondition()) {
-                battleStage(telegramBot);
+                battleStage(bot);
 
                 for (int i = 0; i < players.size(); i++) {
                     players.get(i).setBonusArmies(0);
-                    setAllTerritory(players.get(i), availableTerritories, telegramBot);
+                    setAllTerritory(players.get(i), availableTerritories, bot);
                 }
 
             }
-            else telegramBot.sendMessage(players.stream().filter(player ->
-                    !player.isLost()).findFirst().get().getPlayerName() + " wins.");
+            else {
+                String winnerName = getWinner().getPlayerName();
+                if (bot != null) bot.sendMessage( winnerName + " wins.");
+            }
         }
-        else System.out.println("Error when import territories data.\nExit.");
+    }
+
+    public Player getWinner() {
+        return players.stream().filter(player -> !player.isLost()).findFirst().get();
     }
 
     public void createTestData() {
@@ -265,20 +274,6 @@ public class GameEngine {
             case "-lav":
                 printUnoccupiedTerritory(players, territories, bot);
                 if (bot != null) return true;
-            case "-map":
-                displayMap();
-                if (bot != null) return true;
-        }
-        if (command.length() > 6 && command.substring(0, 5).equals("-shde")) {
-            command = command.substring(6);
-            try {
-                if (!printTerritory(command, finalTerritories, bot) && !printTerritory(Integer.parseInt(command), finalTerritories, bot)
-                && bot != null)
-                    bot.sendMessage("Territory not found.");
-            } catch (NumberFormatException e) {
-                if (bot != null) bot.sendMessage("Territory not found.");
-            }
-            return true;
         }
         return false;
     }
@@ -294,9 +289,6 @@ public class GameEngine {
                 bot.sendMessage("Enter -la to list all territories of all player and available territories.");
                 bot.sendMessage("Enter -lm to list all territories of your possession.");
                 bot.sendMessage("Enter -lav to list all available territories.");
-                bot.sendMessage("Enter -map to the map.");
-                bot.sendMessage("Enter -shde [Territory name] or -shde [Territory index] (eg: -shde Alaska or -shde 1)\n" +
-                        " to list detail about that territory and its adjacent territories.");
                 bot.sendMessage("Enter Territory name, or index, or command: ");
             }
 
@@ -524,41 +516,6 @@ public class GameEngine {
         return playerLostCounter >= players.size() - 1;
     }
 
-    /**
-     * <p style="color:blue;">Print basic information of territory base on <b>territoryName</b> and all its adjacent territories</p>
-     * @param territoryName .Territory name which the information is pulled from
-     * @param territories .Territory list
-     * @return <b>True</b> when territoryName is valid territory, and <b>False</b> when territoryName is not found
-     */
-    public boolean printTerritory(String territoryName,  List<Territory> territories, TelegramBot bot) {
-        //Find the territory by name in the territories list, then store it in the territory variable
-        Territory territory = findTerritory(territoryName, territories);
-        if (territory != null) {
-            //Print out all adjacent territories of the territory which is stored in territory variable
-            territory.printAdjTerritories(bot);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * <p style="color:blue;">Print basic information of territory base on <b>territoryIndex</b> and all its adjacent territories</p>
-     * @param territoryIndex .Territory index which corresponding to the order the territory names are appeared in the console window
-     *                       and from that we can pull the information of the territory
-     * @param territories The territory list
-     * @return <b>True</b> when territoryName is valid territory, and <b>False</b> when territoryName is not found
-     */
-    public boolean printTerritory(int territoryIndex,  List<Territory> territories, TelegramBot bot) {
-        //Find the territory by index in the territories list, then store it in the territory variable
-        Territory territory = findTerritory(territoryIndex, territories);
-        if (territory != null) {
-            //Print out all adjacent territories of the territory which is stored in territory variable
-            territory.printAdjTerritories(bot);
-            return true;
-        }
-        return false;
-    }
-
     public void printTerritory(List<Player> players,  List<Territory> territories, TelegramBot bot) {
             //Print out each player's owned territories
             players.forEach(player -> {
@@ -640,43 +597,5 @@ public class GameEngine {
             foundTerritory = findTerritory(territoryIndex, territories);
         }
         return foundTerritory;
-    }
-
-    public void displayMap() {
-        if (mapPath != "") {
-            BufferedImage img = null;
-            try {
-                img = ImageIO.read(new File(mapPath));
-            } catch (IOException e) {
-            }
-
-            if (img != null) {
-                //Store the img variable in another variable to pass to inner class
-                BufferedImage image = img; //Effectively final image variable
-                //Create new panel to draw on
-                JPanel jPanel = new JPanel() {
-                    @Override
-                    protected void paintComponent(Graphics graphic) {
-                        super.paintComponent(graphic);
-                        graphic.drawImage(image, 0, 0, null); //Draw the image
-                    }
-                };
-
-                JFrame jFrame = buildFrame(); //Build the frame
-                jFrame.add(jPanel); //Add the drawn panel to frame and display it
-            }
-        }
-    }
-
-    /**
-     * Build the frame or window to display the map image
-     * @return The frame or window which the image will be drawn on
-     */
-    public  JFrame buildFrame() {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        frame.setSize(1200, 850);
-        frame.setVisible(true);
-        return frame;
     }
 }

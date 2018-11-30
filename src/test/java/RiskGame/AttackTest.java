@@ -124,6 +124,8 @@ public class AttackTest {
     public void afterBattle1() {
         getDefender().afterBattle(-1, null);
         getDefender().afterBattle(0, null);
+        getDefender().thisPlayer.getOwnedTerritories().clear();
+        getDefender().afterBattle(1, null);
 
         Attack atk = getAttacker();
         atk.setArmyPenaltyToDefender(3);
