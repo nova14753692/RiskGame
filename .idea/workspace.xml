@@ -13,8 +13,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/RiskGame$All_in_RiskGame.ic" NAME="All in RiskGame Coverage Results" MODIFIED="1543612860626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/RiskGame$AttackTest.ic" NAME="AttackTest Coverage Results" MODIFIED="1543613085554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/RiskGame$All_in_RiskGame.ic" NAME="All in RiskGame Coverage Results" MODIFIED="1543614520549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/RiskGame$AttackTest_afterBattle2.ic" NAME="AttackTest.afterBattle2 Coverage Results" MODIFIED="1543615512690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>RiskGame.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/RiskGame$AttackTest.ic" NAME="AttackTest Coverage Results" MODIFIED="1543614202365" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>RiskGame.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/RiskGame$RiskGame_in_RiskGame.ic" NAME="RiskGame in RiskGame Coverage Results" MODIFIED="1543116781512" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
@@ -31,7 +34,7 @@
     </SUITE>
   </component>
   <component name="CoverageViewManager">
-    <option name="myElementSize" value="361" />
+    <option name="myElementSize" value="356" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -52,10 +55,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Attack.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="581">
-              <caret line="49" column="52" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
+            <state relative-caret-position="379">
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
               <folding>
-                <element signature="method#askForTroopWillMove#0;class#Attack#0" />
                 <element signature="e#3083#3084#0" expanded="true" />
                 <element signature="e#3180#3181#0" expanded="true" />
                 <element signature="e#3269#3270#0" expanded="true" />
@@ -80,8 +82,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/RiskGame/AttackTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="582">
-              <caret line="149" column="32" lean-forward="true" selection-start-line="149" selection-start-column="32" selection-end-line="149" selection-end-column="32" />
+            <state relative-caret-position="686">
+              <caret line="181" column="44" selection-start-line="181" selection-start-column="44" selection-end-line="181" selection-end-column="44" />
               <folding>
                 <element signature="method#getAttacker#0;class#AttackTest#0" />
                 <element signature="method#getDefender#0;class#AttackTest#0" />
@@ -419,7 +421,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/OneDrive/Software Design/RiskGame/src/main/java/RiskGame/TelegramBot.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543613223944" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543615510599" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../aws-java-sdk-1.11.431/lib/aws-java-sdk-1.11.431.jar!/" />
@@ -453,7 +455,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.AttackTest">
+  <component name="RunManager" selected="JUnit.AttackTest.afterBattle2">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="RiskGame.Main" />
       <module name="RiskGame" />
@@ -505,7 +507,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameEngineTest.askTerritoryToAttackTo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AttackTest.afterBattle2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="RiskGame" />
       <extension name="coverage">
         <pattern>
@@ -514,27 +516,27 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="RiskGame" />
-      <option name="MAIN_CLASS_NAME" value="RiskGame.GameEngineTest" />
-      <option name="METHOD_NAME" value="askTerritoryToAttackTo" />
+      <option name="MAIN_CLASS_NAME" value="RiskGame.AttackTest" />
+      <option name="METHOD_NAME" value="afterBattle2" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.GameEngineTest.askTerritoryToAttackTo" />
       <item itemvalue="JUnit.All in RiskGame" />
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.AttackTest" />
       <item itemvalue="JUnit.AttackTest.afterBattle1" />
+      <item itemvalue="JUnit.AttackTest.afterBattle2" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.AttackTest" />
+        <item itemvalue="JUnit.AttackTest.afterBattle2" />
         <item itemvalue="JUnit.All in RiskGame" />
+        <item itemvalue="JUnit.AttackTest" />
         <item itemvalue="JUnit.AttackTest.afterBattle1" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.GameEngineTest.askTerritoryToAttackTo" />
       </list>
     </recent_temporary>
   </component>
@@ -552,35 +554,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_RiskGame - 2018.11.30 at 14h 26m 48s.xml">
+    <history-entry file="All_in_RiskGame - 2018.11.30 at 15h 40m 23s.xml">
       <configuration name="All in RiskGame" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.30 at 14h 27m 46s.xml">
-      <configuration name="All in RiskGame" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.30 at 14h 30m 39s.xml">
-      <configuration name="All in RiskGame" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AttackTest - 2018.11.30 at 14h 38m 10s.xml">
+    <history-entry file="AttackTest - 2018.11.30 at 15h 46m 00s.xml">
       <configuration name="AttackTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AttackTest - 2018.11.30 at 14h 38m 27s.xml">
-      <configuration name="AttackTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.30 at 14h 39m 06s.xml">
+    <history-entry file="All_in_RiskGame - 2018.11.30 at 15h 51m 12s.xml">
       <configuration name="All in RiskGame" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.30 at 14h 47m 17s.xml">
+    <history-entry file="All_in_RiskGame - 2018.11.30 at 15h 59m 56s.xml">
       <configuration name="All in RiskGame" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.30 at 15h 00m 10s.xml">
-      <configuration name="All in RiskGame" configurationId="JUnit" />
+    <history-entry file="AttackTest_afterBattle2 - 2018.11.30 at 16h 00m 57s.xml">
+      <configuration name="AttackTest.afterBattle2" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.30 at 15h 02m 10s.xml">
-      <configuration name="All in RiskGame" configurationId="JUnit" />
+    <history-entry file="AttackTest_afterBattle2 - 2018.11.30 at 16h 01m 15s.xml">
+      <configuration name="AttackTest.afterBattle2" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_RiskGame - 2018.11.30 at 15h 22m 11s.xml">
-      <configuration name="All in RiskGame" configurationId="JUnit" />
+    <history-entry file="AttackTest_afterBattle2 - 2018.11.30 at 16h 01m 29s.xml">
+      <configuration name="AttackTest.afterBattle2" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AttackTest_afterBattle2 - 2018.11.30 at 16h 01m 57s.xml">
+      <configuration name="AttackTest.afterBattle2" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AttackTest_afterBattle2 - 2018.11.30 at 16h 03m 51s.xml">
+      <configuration name="AttackTest.afterBattle2" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AttackTest_afterBattle2 - 2018.11.30 at 16h 04m 18s.xml">
+      <configuration name="AttackTest.afterBattle2" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -1099,20 +1101,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Attack.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="581">
-          <caret line="49" column="52" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
-          <folding>
-            <element signature="method#askForTroopWillMove#0;class#Attack#0" />
-            <element signature="e#3083#3084#0" expanded="true" />
-            <element signature="e#3180#3181#0" expanded="true" />
-            <element signature="e#3269#3270#0" expanded="true" />
-            <element signature="method#setArmyPenaltyToDefender#0;class#Attack#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Battle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="567">
@@ -1125,10 +1113,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/RiskGame/Attack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+          <folding>
+            <element signature="e#3083#3084#0" expanded="true" />
+            <element signature="e#3180#3181#0" expanded="true" />
+            <element signature="e#3269#3270#0" expanded="true" />
+            <element signature="method#setArmyPenaltyToDefender#0;class#Attack#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/RiskGame/AttackTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="582">
-          <caret line="149" column="32" lean-forward="true" selection-start-line="149" selection-start-column="32" selection-end-line="149" selection-end-column="32" />
+        <state relative-caret-position="686">
+          <caret line="181" column="44" selection-start-line="181" selection-start-column="44" selection-end-line="181" selection-end-column="44" />
           <folding>
             <element signature="method#getAttacker#0;class#AttackTest#0" />
             <element signature="method#getDefender#0;class#AttackTest#0" />

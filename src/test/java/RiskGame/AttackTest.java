@@ -135,13 +135,16 @@ public class AttackTest {
     public void afterBattle() {
         TelegramBot bot = getBot();
 
-        getAttacker().afterBattle(-1, bot);
-        getAttacker().afterBattle(-2, bot);
-        getAttacker().afterBattle(0, bot);
-        getDefender().thisTerritory.setNumbOfArmy(1);
-        getAttacker().afterBattle(1, bot);
-
+        Defend def = getDefender();
         Attack atk = getAttacker();
+
+        atk.afterBattle(-1, bot);
+        atk.afterBattle(-2, bot);
+        atk.afterBattle(0, bot);
+        def.thisTerritory.setNumbOfArmy(1);
+        atk.afterBattle(1, bot);
+
+        atk = getAttacker();
         atk.thisTerritory.setNumbOfArmy(0);
         atk.afterBattle(-1, bot);
     }
@@ -150,14 +153,33 @@ public class AttackTest {
     public void afterBattle1() {
         TelegramBot bot = getBot();
 
-        getDefender().afterBattle(-1, bot);
-        getDefender().afterBattle(-2, bot);
-        getDefender().afterBattle(0, bot);
-        getDefender().thisPlayer.getOwnedTerritories().clear();
-        getDefender().afterBattle(1, bot);
+        Defend def = getDefender();
+        Attack atk;
 
-        Attack atk = getAttacker();
-        atk.setArmyPenaltyToDefender(3);
+        def.afterBattle(-1, bot);
+        def.afterBattle(-2, bot);
+        def.afterBattle(0, bot);
+        def.thisPlayer.getOwnedTerritories().clear();
+        def.afterBattle(1, bot);
+
+        atk = getAttacker();
+        atk.otherTerritory.setNumbOfArmy(1);
         atk.afterBattle(1, bot);
+    }
+
+    @Test
+    public void afterBattle2() {
+        Defend def = getDefender();
+        Attack atk = getAttacker();
+
+        atk.afterBattle(-1, null);
+        atk.afterBattle(-2, null);
+        atk.afterBattle(0, null);
+        def.thisTerritory.setNumbOfArmy(1);
+        atk.afterBattle(1, null);
+
+        atk = getAttacker();
+        atk.otherTerritory.setNumbOfArmy(1);
+        atk.afterBattle(1, null);
     }
 }
