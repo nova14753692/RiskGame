@@ -1,6 +1,9 @@
 package RiskGame;
 
 import org.junit.Test;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.Comparator;
 
@@ -10,6 +13,18 @@ public class AttackTest {
 
     private Attack atk = null;
     private Defend def = null;
+
+    private TelegramBot getBot() {
+        ApiContextInitializer.init();
+        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+        TelegramBot telegramBot = new TelegramBot();
+        try {
+            telegramBotsApi.registerBot(telegramBot);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return telegramBot;
+    }
 
     private Attack getAttacker() {
         if (atk == null) {
@@ -118,27 +133,31 @@ public class AttackTest {
 
     @Test
     public void afterBattle() {
-        getAttacker().afterBattle(-1, null);
-        getAttacker().afterBattle(-2, null);
-        getAttacker().afterBattle(0, null);
+        TelegramBot bot = getBot();
+
+        getAttacker().afterBattle(-1, bot);
+        getAttacker().afterBattle(-2, bot);
+        getAttacker().afterBattle(0, bot);
         getDefender().thisTerritory.setNumbOfArmy(1);
-        getAttacker().afterBattle(1, null);
+        getAttacker().afterBattle(1, bot);
 
         Attack atk = getAttacker();
         atk.thisTerritory.setNumbOfArmy(0);
-        atk.afterBattle(-1, null);
+        atk.afterBattle(-1, bot);
     }
 
     @Test
     public void afterBattle1() {
-        getDefender().afterBattle(-1, null);
-        getDefender().afterBattle(-2, null);
-        getDefender().afterBattle(0, null);
+        TelegramBot bot = getBot();
+
+        getDefender().afterBattle(-1, bot);
+        getDefender().afterBattle(-2, bot);
+        getDefender().afterBattle(0, bot);
         getDefender().thisPlayer.getOwnedTerritories().clear();
-        getDefender().afterBattle(1, null);
+        getDefender().afterBattle(1, bot);
 
         Attack atk = getAttacker();
         atk.setArmyPenaltyToDefender(3);
-        atk.afterBattle(1, null);
+        atk.afterBattle(1, bot);
     }
 }
