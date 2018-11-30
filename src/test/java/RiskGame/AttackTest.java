@@ -110,19 +110,27 @@ public class AttackTest {
     public void startBattle() {
         assertTrue(getAttacker().startBattle(getAttacker().getNumbOfMaxDie()));
         assertTrue(getDefender().startBattle(getDefender().getNumbOfMaxDie()));
+        assertFalse(getAttacker().startBattle(0));
+        assertFalse(getDefender().startBattle(0));
     }
 
     @Test
     public void afterBattle() {
         getAttacker().afterBattle(-1, null);
+        getAttacker().afterBattle(-2, null);
         getAttacker().afterBattle(0, null);
         getDefender().thisTerritory.setNumbOfArmy(1);
         getAttacker().afterBattle(1, null);
+
+        Attack atk = getAttacker();
+        atk.thisTerritory.setNumbOfArmy(0);
+        atk.afterBattle(-1, null);
     }
 
     @Test
     public void afterBattle1() {
         getDefender().afterBattle(-1, null);
+        getDefender().afterBattle(-2, null);
         getDefender().afterBattle(0, null);
         getDefender().thisPlayer.getOwnedTerritories().clear();
         getDefender().afterBattle(1, null);
