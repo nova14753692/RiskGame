@@ -17,7 +17,7 @@ public class AttackTest {
     private TelegramBot getBot() {
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-        TelegramBot telegramBot = new TelegramBot();
+        TelegramBot telegramBot = new TelegramBot(true);
         try {
             telegramBotsApi.registerBot(telegramBot);
         } catch (TelegramApiException e) {

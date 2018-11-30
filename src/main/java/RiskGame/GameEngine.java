@@ -128,7 +128,7 @@ public class GameEngine {
                 bot.sendMessage("What is the name of player " + (i + 1) + ": ");
             } else playerName = "Player " + (i + 1);
             if (bot != null && bot.waitForInput() && bot.getMessage() != null) playerName = bot.getMessage();
-            else if (bot != null){
+            else if (bot != null && !bot.isTest()) {
                 i--;
                 continue;
             }
@@ -144,7 +144,7 @@ public class GameEngine {
         //Asking input number of player
         //Number of player must be >= minPlayer
         do {
-            if (bot != null) {
+            if (bot != null && !bot.isTest()) {
                 bot.sendMessage("How many players: ");
                 bot.clearMessage();
                 if (bot.waitForInput() && bot.getMessage() != null) {
@@ -316,7 +316,7 @@ public class GameEngine {
                 break;
             }
 
-            if(bot == null) break;
+            if(bot == null || (bot != null && bot.isTest())) break;
         }
         return new Pair<>(tName, tIndex);
     }
@@ -378,8 +378,9 @@ public class GameEngine {
                         bot.sendMessage("Player " + player.getPlayerName() + " does not own territory has index of " + tIndex);
                 }
 
-                if(bot == null) break;
+                if(bot == null || (bot != null && bot.isTest())) break;
             }
+            if(bot == null || (bot != null && bot.isTest())) break;
         }
     }
 
@@ -413,7 +414,7 @@ public class GameEngine {
             attackerTerritory = findTerritory(tName, tIndex, player.getOwnedTerritories());
             if (attackerTerritory == null && bot != null) bot.sendMessage("Territory not found.");
 
-            if(bot == null) break;
+            if(bot == null || (bot != null && bot.isTest())) break;
         }
         return attackerTerritory;
     }
@@ -440,7 +441,7 @@ public class GameEngine {
                 defenderTerritory = null;
             }
 
-            if (bot == null) break;
+            if (bot == null || (bot != null && bot.isTest())) break;
         }
         return defenderTerritory;
     }
@@ -468,12 +469,12 @@ public class GameEngine {
                 int result = -2;
                 if (attackerTerritory != null && defenderTerritory != null)
                     result = play(currentPlayer, attackerTerritory, defenderTerritory.getOccupiedBy(), defenderTerritory, bot);
-                if (result == -2)
+                if (result == -2 || (bot != null && bot.isTest()))
                     break;
             }
             if (i == players.size() - 1 && !checkWinCondition()) i = -1;
 
-            if (bot == null) break;
+            if (bot == null || (bot != null && bot.isTest())) break;
         }
     }
 
@@ -501,7 +502,6 @@ public class GameEngine {
                     atk.afterBattle(result, bot);
                     def.afterBattle(result, bot);
                 }
-                //recordBattle((Attack)atk, (Defend)def, result);
             }
             if (bot != null) bot.clearMessage();
         }

@@ -9,6 +9,21 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private String message = null;
     private long chatID = 0;
+    private int connectionTimeOut;
+    private int inputTimeOut;
+    private boolean test;
+
+    public TelegramBot(boolean test) {
+        if(!test) {
+            this.connectionTimeOut = 10;
+            this.inputTimeOut = 30;
+        }
+        else {
+            this.connectionTimeOut = 1;
+            this.inputTimeOut = 1;
+        }
+        this.test = test;
+    }
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -51,9 +66,8 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     public boolean waitForConnection() {
-        int timeOut = 10;
         int time = 0;
-        while (chatID == 0 && time < timeOut)
+        while (chatID == 0 && time < connectionTimeOut)
         {
             try {
                 time++;
@@ -68,7 +82,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     public boolean waitForInput() {
         boolean timerOut = false;
-        Timer timer = new Timer(30, this);
+        Timer timer = new Timer(inputTimeOut, this);
         timer.start();
 
         int timeOut = timer.getTimeOut();
@@ -92,4 +106,6 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     public void setMessage(String message) { this.message = message; }
+
+    public boolean isTest() { return test; }
 }

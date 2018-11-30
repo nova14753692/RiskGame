@@ -125,24 +125,4 @@ public class Territory {
         army.setNumbOfArmy(numbOfArmy);
         this.numbOfArmy = numbOfArmy;
     }
-
-    public void printAdjTerritories(TelegramBot bot) {
-        if (bot != null) bot.sendMessage(territoryName); //Print this territory name first
-
-        //If the territory is owned by any player, print the name of that player
-        if (occupiedBy != null && bot != null) bot.sendMessage(" - " + occupiedBy.getPlayerName());
-        if (bot != null) {
-            bot.sendMessage(" has Adjacent territories: ");
-            bot.sendMessage("====> ");
-        }
-
-        //Print every adjacent territories this territory has
-        adjTerritories.forEach(t -> {
-            if (bot != null) bot.sendMessage(t.getTerritoryName());
-            if (t.getOccupiedBy() != null && bot != null)
-                bot.sendMessage(" - " + t.getOccupiedBy().getPlayerName() +
-                        " - index: " + t.getTerritoryIndex() + " : " + t.getNumbOfArmy());
-            if (bot != null) bot.sendMessage(" - index: " + t.getTerritoryIndex() + " : " + t.getNumbOfArmy());
-        });
-    }
 }

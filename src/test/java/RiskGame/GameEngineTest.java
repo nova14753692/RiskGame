@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import static org.junit.Assert.*;
 
@@ -17,6 +20,18 @@ public class GameEngineTest {
     final String territoriesDataPath = System.getProperty("user.dir") + File.separator + "Data" + File.separator;
 
     final String mapPath = System.getProperty("user.dir") + File.separator + "map.jpg";
+
+    private TelegramBot getBot() {
+        ApiContextInitializer.init();
+        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+        TelegramBot telegramBot = new TelegramBot(true);
+        try {
+            telegramBotsApi.registerBot(telegramBot);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        return telegramBot;
+    }
 
     private GameEngine getGameEngine() {
         GameEngine gameEngine = new GameEngine();
@@ -32,6 +47,8 @@ public class GameEngineTest {
         assertEquals(players.size(), 2);
         assertEquals(players.get(0).getPlayerName(), "Player 1");
         assertEquals(players.get(1).getPlayerName(), "Player 2");
+
+        players = getGameEngine().createPlayers(getBot());
     }
 
     @Test
@@ -269,10 +286,7 @@ public class GameEngineTest {
         defTerritory.setOccupiedBy(def);
 
         getGameEngine().play(atk, atkTerritory, def, defTerritory, null);
-
-        //Case 2
-        /*defTerritory.setNumbOfArmy(1);
-        getGameEngine().play(atk, atkTerritory, def, defTerritory, null);*/
+        getGameEngine().play(atk, atkTerritory, def, defTerritory, getBot());
     }
 
     @Test
@@ -281,6 +295,7 @@ public class GameEngineTest {
         gameEngine.createTestData();
 
         gameEngine.battleStage(null);
+        gameEngine.battleStage(getBot());
     }
 
     @Test
@@ -292,6 +307,7 @@ public class GameEngineTest {
         Territory atkTerritory = new Territory("Alaska", 0);
 
         gameEngine.askTerritoryToAttackTo(atk, atkTerritory, null);
+        gameEngine.askTerritoryToAttackTo(atk, atkTerritory, getBot());
     }
 
     @Test
@@ -305,6 +321,7 @@ public class GameEngineTest {
         territories.addAll(gameEngine.finalTerritories);
 
         getGameEngine().setAllTerritory(player, territories, null);
+        getGameEngine().setAllTerritory(player, territories, getBot());
     }
 
     @Test
@@ -318,6 +335,7 @@ public class GameEngineTest {
         gameEngine.createTestData();
 
         gameEngine.executeSpecialCommand("-la", gameEngine.players.get(0), gameEngine.finalTerritories, null);
+        gameEngine.executeSpecialCommand("-la", gameEngine.players.get(0), gameEngine.finalTerritories, getBot());
     }
 
     @Test
@@ -341,8 +359,10 @@ public class GameEngineTest {
         gameEngine.createTestData();
 
         gameEngine.initBattle(null);
+        gameEngine.initBattle(getBot());
 
         gameEngine.players.get(0).setLost(false);
         gameEngine.initBattle(null);
+        gameEngine.initBattle(getBot());
     }
 }

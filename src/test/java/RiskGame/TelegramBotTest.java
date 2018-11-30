@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class TelegramBotTest {
 
-    TelegramBot bot = new TelegramBot();
+    TelegramBot bot = new TelegramBot(true);
 
     @Test
     public void getBotUsername() {
@@ -51,4 +51,7 @@ public class TelegramBotTest {
     public void sendMessage() {
         bot.sendMessage("msg");
     }
+
+    @Test
+    public void isTest() { assertTrue(bot.isTest()); }
 }
