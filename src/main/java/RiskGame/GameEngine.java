@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class GameEngine {
@@ -25,30 +24,56 @@ public class GameEngine {
     final int maxPlayer = 6;    //Maximum number of player
     final int maxNumbOfDie = 3; //Maximum number of die each player can have
 
+    public List<Territory> finalTerritories;
+    public List<Player> players;
+
     public void startGame(TelegramBot telegramBot) {
-        List<Player> players = null;   //List contains players
 
         //List contain territories
-        List<Territory> finalTerritories = createTerritories(territoriesDataPath, territoriesDataFileName, telegramBot);
-        List<Territory> availableTerritories = null;
+        createTerritories(territoriesDataFileName);
+
+        //Create player objects and store them in players list
+        players = createPlayers(telegramBot);
+
+        createTestData();
 
         //Telegram Bot
         if (telegramBot != null) telegramBot.sendMessage("Hi, let' start the game");
 
-        //Create player objects and store them in players list
-        //players = createPlayers(minPlayer, maxPlayer, maxNumbOfDie, userInput);
-        players = createPlayers(maxNumbOfDie, telegramBot);
-        //recordPlayerNames(players);
-
         //Create territory objects and store them in territories list
-        availableTerritories = new ArrayList<>();
+        List<Territory>  availableTerritories = new ArrayList<>();
         availableTerritories.addAll(finalTerritories);
+
+        if (finalTerritories.size() > 0)
+        {
+            if (!checkWinCondition()) {
+                battleStage(telegramBot);
+
+                for (int i = 0; i < players.size(); i++) {
+                    players.get(i).setBonusArmies(0);
+                    setAllTerritory(players.get(i), availableTerritories, telegramBot);
+                }
+
+            }
+            else telegramBot.sendMessage(players.stream().filter(player ->
+                    !player.isLost()).findFirst().get().getPlayerName() + " wins.");
+        }
+        else System.out.println("Error when import territories data.\nExit.");
+    }
+
+    public void createTestData() {
+        if (finalTerritories == null) createTerritories(territoriesDataFileName);
 
         //Set territory state of the game
         //Allow each player to set up their territories
         //setAllTerritory(players, availableTerritories, finalTerritories, userInput, mapPath);
 
         //Test
+        if (players == null) {
+            players = new ArrayList<>();
+            players.add(new Player("Ton"));
+            players.add(new Player("AI"));
+        }
         players.get(0).setNumOfAvailableArmy(getNumberOfArmyEachPlayer(players.size()));
         players.get(1).setNumOfAvailableArmy(getNumberOfArmyEachPlayer(players.size()));
         for (int i = 1; i <= 42; i++) {
@@ -66,24 +91,9 @@ public class GameEngine {
                 players.get(1).addOwnedTerritory(findTerritory(i, finalTerritories));
             }
         }
-
-        if (finalTerritories.size() > 0)
-        {
-            if (!checkWinCondition(players)) {
-                battleStage(finalTerritories, players, telegramBot);
-
-                for (int i = 0; i < players.size(); i++) {
-                    players.get(i).setBonusArmies(0);
-                    setAllTerritory(players.get(i), players, availableTerritories, finalTerritories, telegramBot);
-                }
-
-            }
-            else System.out.println(players.stream().filter(player -> !player.isLost()).findFirst().get().getPlayerName() + " wins.");
-        }
-        else System.out.println("Error when import territories data.\nExit.");
     }
 
-    public List<Player> createPlayers(int maxNumbOfDie, TelegramBot bot) {
+    public List<Player> createPlayers(TelegramBot bot) {
         List<Player> players = new ArrayList<>();
 
         int numbOfPlayer = askForNumberOfPlayer(bot);
@@ -107,7 +117,7 @@ public class GameEngine {
             if (bot != null) {
                 bot.clearMessage();
                 bot.sendMessage("What is the name of player " + (i + 1) + ": ");
-            } else playerName = "Player " + i;
+            } else playerName = "Player " + (i + 1);
             if (bot != null && bot.waitForInput() && bot.getMessage() != null) playerName = bot.getMessage();
             else if (bot != null){
                 i--;
@@ -141,42 +151,18 @@ public class GameEngine {
         return numbOfPlayer;
     }
 
-    public List<Player> createPlayers(int maxNumbOfDie, int numOfPlayer, List<String> playerNames) {
-        List<Player> players = new ArrayList<>();
-
-        int i = 0;
-        while(i < numOfPlayer) {
-            Player player = new Player(playerNames.get(i), maxNumbOfDie);
-            players.add(player);
-            i++;
-        }
-        return players;
-    }
-
-    /**
-     * <p style="color:blue;">Return the pair of the list of all territory name the game has just read, and the indicate number</p>
-     * <p style="color:blue;">if the indicate number is 1 means there are duplications in the data, if it's 0 means there is no duplication</p>
-     * @param filePath The path to the territories data folder
-     * @param fileName The of the territory data file
-     * @param fileExtension The extension of the territory data file
-     * @return The pair of the list of all territory name the game has just read, and the indicate number
-     */
-    public List<String> readTerritoriesData(String filePath, String fileName, String fileExtension) {
+    public List<String> readTerritoriesData(String fileName, String fileExtension) {
         String line;
         List<String> territoryNames = new ArrayList<>();
 
         //Read territory data file to get the list of all territory
         try {
-            FileReader fileReader = new FileReader(filePath + fileName + fileExtension);
+            FileReader fileReader = new FileReader(territoriesDataPath + fileName + fileExtension);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             //Store territory names to a list
             while((line = bufferedReader.readLine()) != null) { territoryNames.add(line); }
             bufferedReader.close();
-        }
-        catch(FileNotFoundException ex) {
-            //System.out.println("Unable to open file '" + fileName + "'");
-            return null;
         }
         catch(IOException ex) {
             //System.out.println("Error reading file '" + fileName + "'");
@@ -212,51 +198,36 @@ public class GameEngine {
         return territories;
     }
 
-    public List<String> findAdjacentTerritoryNames(String filePath, String fileExtension, String territoryName) {
-        return readTerritoriesData(filePath, territoryName, ".adj");
+    public List<String> findAdjacentTerritoryNames(String territoryName) {
+        return readTerritoriesData(territoryName, ".adj");
     }
 
-    public void createTerritoryAdjacents(Territory territory, List<String> adjacentNames, List<Territory> territories) {
-        adjacentNames.stream().forEach(item -> {
-            Territory territoryToAdd = findTerritory(item, territories);
+    public void createTerritoryAdjacents(Territory territory, List<String> adjacentNames) {
+        adjacentNames.forEach(item -> {
+            Territory territoryToAdd = findTerritory(item, finalTerritories);
             if (territoryToAdd != null) territory.getAdjTerritories().add(territoryToAdd);
         });
     }
 
-    public  List<Territory> createTerritories(String filePath, String fileName,  TelegramBot bot) {
-        List<Territory> territories = new ArrayList<>();
-        List<String> territoryNames = readTerritoriesData(filePath, fileName, ".list");
-        if (territoryNames == null) return null;
-
-        String answer = ""; //Store the user input if there are duplications whether if they want to continue
+    public void createTerritories(String fileName) {
+        List<String> territoryNames = readTerritoriesData(fileName, ".list");
+        if (territoryNames == null) return;
 
         //If the territory name list without duplications is less in size then territory names list
         //Means the territoryDuplicatedPair returns 1 as the second value
         //It means that there are duplications
         //If user answers no, then quit the program
-        if (checkDuplicationsInTerritoryNames(territoryNames) && bot != null) {
-            bot.sendMessage("There are duplications in TerritoryData!");
-            while (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
-                bot.clearMessage();
-                bot.sendMessage("Match territory list and continue? (Y/N): ");
-                if (bot.waitForInput()) answer = bot.getMessage();
-            }
-            if (answer.toLowerCase().equals("y")) {
-                bot.sendMessage("Territory list is updated and without duplication.");
-            } else return null;
-        }
+        if (checkDuplicationsInTerritoryNames(territoryNames)) return;
 
         territoryNames = filterOutTerritoryNamesDuplications(territoryNames);
         //Create each territory base on each territory name in the territoryName list
-        territories = createTerritoriesFromNames(territoryNames);
+        finalTerritories = createTerritoriesFromNames(territoryNames);
 
         //Search and open file which contains adjacent territories for each territory in territories list
-        for (Territory territory : territories) {
-            List<String> adjacentNames = findAdjacentTerritoryNames(filePath, ".adj", territory.getTerritoryName());
-            createTerritoryAdjacents(territory, adjacentNames, territories);
+        for (Territory territory : finalTerritories) {
+            List<String> adjacentNames = findAdjacentTerritoryNames(territory.getTerritoryName());
+            createTerritoryAdjacents(territory, adjacentNames);
         }
-
-        return territories;
     }
 
     /**
@@ -280,8 +251,7 @@ public class GameEngine {
         return -1;
     }
 
-    public boolean executeSpecialCommand(String command, List<Player> players, Player player, List<Territory> territories,
-                                          List<Territory> finalTerritories, TelegramBot bot) {
+    public boolean executeSpecialCommand(String command, Player player, List<Territory> territories, TelegramBot bot) {
         switch (command) {
             case "-la":
                 printTerritory(players, territories, bot);
@@ -293,7 +263,7 @@ public class GameEngine {
                     return true;
                 }
             case "-lav":
-                printTerritory(players, territories, true, bot);
+                printUnoccupiedTerritory(players, territories, bot);
                 if (bot != null) return true;
             case "-map":
                 displayMap();
@@ -304,18 +274,16 @@ public class GameEngine {
             try {
                 if (!printTerritory(command, finalTerritories, bot) && !printTerritory(Integer.parseInt(command), finalTerritories, bot)
                 && bot != null)
-                    bot.sendMessage(".Territory not found.");
+                    bot.sendMessage("Territory not found.");
             } catch (NumberFormatException e) {
-                if (bot != null) bot.sendMessage(".Territory not found.");
+                if (bot != null) bot.sendMessage("Territory not found.");
             }
             return true;
         }
         return false;
     }
 
-    public Pair<String, Integer> userInputRequest(List<Territory> territories, List<Territory> finalTerritories,
-                                                   List<Player> players, Player player,
-                                                   String addOutput, TelegramBot bot) {
+    public Pair<String, Integer> userInputRequest(List<Territory> territories, Player player, String addOutput, TelegramBot bot) {
 
         int tIndex = -1; //.Territory index temporary variable, because no variable is allowed inside java lambda expression
         String tName = null; //.Territory name temporary variable, because no variable is allowed inside java lambda expression
@@ -340,7 +308,7 @@ public class GameEngine {
                 if (bot.waitForInput() && bot.getMessage() != null) input = bot.getMessage();
             }
 
-            if (!executeSpecialCommand(input, players, player, territories, finalTerritories, bot)) {
+            if (!executeSpecialCommand(input, player, territories, bot)) {
                 //Try to parse the input string to a integer
                 //If the string can be parse successfully, then the player entered a territory index instead of territory name
                 try {
@@ -371,7 +339,7 @@ public class GameEngine {
     }
 
     public Territory addTroopsToOwnedTerritory(Player player, String tName, int tIndex) {
-        Territory foundTerritory = null;
+        Territory foundTerritory;
 
         if (tName != null) {
             //Find territory in the player's owned availableTerritories list by its name, then store in the foundTerritory variable
@@ -387,8 +355,7 @@ public class GameEngine {
         return foundTerritory;
     }
 
-    public void setAllTerritory(Player player, List<Player> players, List<Territory> availableTerritories,
-                                 List<Territory> finalTerritories, TelegramBot bot) {
+    public void setAllTerritory(Player player, List<Territory> availableTerritories, TelegramBot bot) {
         //Set territory stage
         for (int i = 0; i < player.getNumOfAvailableArmy(); i++) {
             Territory foundTerritory = null;
@@ -398,8 +365,7 @@ public class GameEngine {
             while (foundTerritory == null) {
                 String addOutput = "It's " + player.getPlayerName() + "'s turn to place armies.";
                 Pair<String, Integer> stringIntegerPair = new Pair<>("Alaska", 0);
-                if (bot != null) stringIntegerPair = userInputRequest(availableTerritories, finalTerritories,
-                        players, player, addOutput, bot);
+                if (bot != null) stringIntegerPair = userInputRequest(availableTerritories, player, addOutput, bot);
                 String tName = stringIntegerPair.getFirst();
                 int tIndex = stringIntegerPair.getSecond();
                 //If availableTerritories list size is still > 0, then there is at least 1 free territory available
@@ -425,10 +391,10 @@ public class GameEngine {
         }
     }
 
-    public int askToAttack(Player player, List<Player> players, List<Territory> finalTerritories,  TelegramBot bot) {
+    public int askToAttack(Player player, TelegramBot bot) {
         String input;
         String addOutput = "It's " + player.getPlayerName() + " to attack.\nDo you want to attack (Y/N): ";
-        Pair<String, Integer> userInput = userInputRequest(finalTerritories, finalTerritories, players, player, addOutput, bot);
+        Pair<String, Integer> userInput = userInputRequest(finalTerritories, player, addOutput, bot);
         input = userInput.getFirst();
         if (userInput.getSecond() == -2 || bot == null) input = "N";
         if (input == null) input = "";
@@ -439,13 +405,13 @@ public class GameEngine {
         return 1;
     }
 
-    public Territory askTerritoryToAttackFrom(Player player, List<Player> players, List<Territory> finalTerritories,  TelegramBot bot) {
+    public Territory askTerritoryToAttackFrom(Player player, TelegramBot bot) {
         String addOutput = "It's " + player.getPlayerName() + " to attack.\n" +
                 "First choose the territory to attack from.";
         Territory attackerTerritory = null;
 
         while (attackerTerritory == null) {
-            Pair<String, Integer> stringIntegerPair = userInputRequest(finalTerritories, finalTerritories, players, player, addOutput, bot);
+            Pair<String, Integer> stringIntegerPair = userInputRequest(finalTerritories, player, addOutput, bot);
 
             String tName = stringIntegerPair.getFirst();
             int tIndex = stringIntegerPair.getSecond();
@@ -453,19 +419,19 @@ public class GameEngine {
             if(tIndex == -2) break;
 
             attackerTerritory = findTerritory(tName, tIndex, player.getOwnedTerritories());
-            if (attackerTerritory == null && bot != null) bot.sendMessage(".Territory not found.");
+            if (attackerTerritory == null && bot != null) bot.sendMessage("Territory not found.");
 
             if(bot == null) break;
         }
         return attackerTerritory;
     }
 
-    public Territory askTerritoryToAttackTo(Player player, Territory attackerTerritory, List<Player> players, List<Territory> finalTerritories,  TelegramBot bot) {
+    public Territory askTerritoryToAttackTo(Player player, Territory attackerTerritory, TelegramBot bot) {
         String addOutput = "Now choose the territory you wish to attack.";
         Territory defenderTerritory = null;
 
         while (defenderTerritory == null && attackerTerritory != null) {
-            Pair<String, Integer> stringIntegerPair = userInputRequest(finalTerritories, finalTerritories, players, player, addOutput, bot);
+            Pair<String, Integer> stringIntegerPair = userInputRequest(finalTerritories, player, addOutput, bot);
 
             String tName = stringIntegerPair.getFirst();
             int tIndex = stringIntegerPair.getSecond();
@@ -487,7 +453,7 @@ public class GameEngine {
         return defenderTerritory;
     }
 
-    public void battleStage(List<Territory> finalTerritories, List<Player> players,  TelegramBot bot) {
+    public void battleStage(TelegramBot bot) {
         for (int i = 0; i < players.size(); i++) {
             while (!players.get(i).isLost()) {
                 Player currentPlayer = players.get(i);
@@ -495,16 +461,16 @@ public class GameEngine {
                 //wantToAttack == -1 -> user fail to answer either Y or N
                 //wantToAttack == 0 -> user answers N
                 //wantToAttack == 1 -> user answers Y
-                int wantToAttack = askToAttack(currentPlayer, players, finalTerritories, bot);
+                int wantToAttack = askToAttack(currentPlayer, bot);
                 if (bot != null) {
                     if (wantToAttack == 0) break;
                     else if (wantToAttack == -1) continue;
                 }
 
-                Territory attackerTerritory = askTerritoryToAttackFrom(currentPlayer, players, finalTerritories, bot);
+                Territory attackerTerritory = askTerritoryToAttackFrom(currentPlayer, bot);
                 if (attackerTerritory == null && bot != null) break;
 
-                Territory defenderTerritory = askTerritoryToAttackTo(currentPlayer, attackerTerritory, players, finalTerritories, bot);
+                Territory defenderTerritory = askTerritoryToAttackTo(currentPlayer, attackerTerritory, bot);
                 if (defenderTerritory == null && bot != null) break;
 
                 int result = -2;
@@ -513,7 +479,7 @@ public class GameEngine {
                 if (result == -2)
                     break;
             }
-            if (i == players.size() - 1 && !checkWinCondition(players)) i = -1;
+            if (i == players.size() - 1 && !checkWinCondition()) i = -1;
 
             if (bot == null) break;
         }
@@ -550,16 +516,7 @@ public class GameEngine {
         return result;
     }
 
-    /**
-     * <p style="color:blue;">Check whether we have the final winner of the game</p>
-     * @param players The list contains all player
-     * @return The result of the battle:
-     * <p><b style="color:blue;">result</b> <b> = -2</b> means there are error(s) when execute battle function</p>
-     * <p><b style="color:blue;">result</b> <b> = -1</b> means the attacker loses, and the defender wins</p>
-     * <p><b style="color:blue;">result</b> <b> = 0</b> means neither the attacker nor the defender win</p>
-     * <p><b style="color:blue;">result</b> <b> = 1</b> means the attacker wins, and the defender loses</p>
-     */
-    public boolean checkWinCondition(List<Player> players) {
+    public boolean checkWinCondition() {
         int playerLostCounter = 0;
         for (Player player : players) {
             if (player.isLost()) playerLostCounter++;
@@ -612,7 +569,7 @@ public class GameEngine {
             });
 
             //Print out the available territories
-            printTerritory(players, territories, true, bot);
+            printUnoccupiedTerritory(players, territories, bot);
     }
 
     public void printTerritory(Player player,  List<Player> players,  List<Territory> territories, TelegramBot bot) {
@@ -621,10 +578,10 @@ public class GameEngine {
             if (bot != null) bot.sendMessage(territory.getTerritoryName() + ": " + territory.getNumbOfArmy());
         });
 
-        printTerritory(players, territories, true, bot);
+        printUnoccupiedTerritory(players, territories, bot);
     }
 
-    public void printTerritory(List<Player> players,  List<Territory> territories, boolean unoccupied, TelegramBot bot) {
+    public void printUnoccupiedTerritory(List<Player> players, List<Territory> territories, TelegramBot bot) {
         if (bot != null) bot.sendMessage("Unoccupied territories: ");
         for (Territory t : territories) {
             //Check whether the territory is already in any player's owned territory

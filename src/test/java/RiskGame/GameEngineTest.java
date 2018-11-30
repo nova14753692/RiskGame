@@ -27,23 +27,19 @@ public class GameEngineTest {
 
     @Test
     public void createPlayers() {
-        List<Player> players = new ArrayList<>();
+        List<Player> players;
 
-        List<String> playerNames = new ArrayList<>();
-        playerNames.add("Ton");
-        playerNames.add("AI");
-
-        players = getGameEngine().createPlayers(6, 2, playerNames);
+        players = getGameEngine().createPlayers(null);
 
         assertEquals(players.size(), 2);
-        assertEquals(players.get(0).getPlayerName(), "Ton");
-        assertEquals(players.get(1).getPlayerName(), "AI");
+        assertEquals(players.get(0).getPlayerName(), "Player 1");
+        assertEquals(players.get(1).getPlayerName(), "Player 2");
     }
 
     @Test
     public void readTerritoriesData() {
         List<String> territoryNames = getGameEngine()
-                .readTerritoriesData(territoriesDataPath, territoriesDataFileName, ".list");
+                .readTerritoriesData(territoriesDataFileName, ".list");
 
         assertEquals(territoryNames.size(), 42);
         assertEquals(territoryNames.get(0), "Alaska");
@@ -51,8 +47,7 @@ public class GameEngineTest {
 
     @Test
     public void checkDuplicationsInTerritoryNames() {
-        List<String> territoryNames = getGameEngine()
-                .readTerritoriesData(territoriesDataPath, territoriesDataFileName, ".list");
+        List<String> territoryNames = getGameEngine().readTerritoriesData(territoriesDataFileName, ".list");
 
         assertFalse(getGameEngine().checkDuplicationsInTerritoryNames(territoryNames));
         assertFalse(getGameEngine().checkDuplicationsInTerritoryNames(null));
@@ -60,8 +55,7 @@ public class GameEngineTest {
 
     @Test
     public void filterOutTerritoryNamesDuplications() {
-        List<String> territoryNames = getGameEngine()
-                .readTerritoriesData(territoriesDataPath, territoriesDataFileName, ".list");
+        List<String> territoryNames = getGameEngine().readTerritoriesData(territoriesDataFileName, ".list");
 
         assertEquals(getGameEngine().filterOutTerritoryNamesDuplications(territoryNames).size(), 42);
         assertNull(getGameEngine().filterOutTerritoryNamesDuplications(null));
@@ -69,8 +63,7 @@ public class GameEngineTest {
 
     @Test
     public void createTerritoriesFromNames() {
-        List<String> territoryNames = getGameEngine()
-                .readTerritoriesData(territoriesDataPath, territoriesDataFileName, ".list");
+        List<String> territoryNames = getGameEngine().readTerritoriesData(territoriesDataFileName, ".list");
 
         assertEquals(getGameEngine().createTerritoriesFromNames(territoryNames).size(), 42);
     }
@@ -78,8 +71,7 @@ public class GameEngineTest {
     @Test
     public void findAdjacentTerritoryNames() {
         String territoryName = "Alaska";
-        List<String> territoryNames = getGameEngine()
-                .readTerritoriesData(territoriesDataPath, territoryName, ".adj");
+        List<String> territoryNames = getGameEngine().readTerritoriesData(territoryName, ".adj");
         assertEquals(territoryNames.size(), 3);
     }
 
@@ -87,15 +79,11 @@ public class GameEngineTest {
     public void createTerritoryAdjacents() {
         Territory territory = new Territory("Alaska", 0);
 
-        List<Territory> territories = new ArrayList<>();
-        territories.add(territory);
-        territories.add(new Territory("Northwest", 1));
-        territories.add(new Territory("Alberta", 2));
-        territories.add(new Territory("Kamchatka", 2));
+        GameEngine gameEngine = getGameEngine();
+        gameEngine.createTestData();
 
-        List<String> adjTerritoryNames = getGameEngine()
-                .readTerritoriesData(territoriesDataPath, territory.getTerritoryName(), ".adj");
-        getGameEngine().createTerritoryAdjacents(territory, adjTerritoryNames, territories);
+        List<String> adjTerritoryNames = gameEngine.readTerritoriesData(territory.getTerritoryName(), ".adj");
+        gameEngine.createTerritoryAdjacents(territory, adjTerritoryNames);
 
         assertEquals(territory.getAdjTerritories().size(), 3);
         assertEquals(territory.getAdjTerritories().get(0).getTerritoryName(), "Northwest");
@@ -114,12 +102,10 @@ public class GameEngineTest {
 
     @Test
     public void checkWinCondition() {
-        List<Player> players = new ArrayList<>();
-        players.add(new Player("Ton", 3));
-        players.add(new Player("AI", 3));
-        players.add(new Player("Ken", 3));
+        GameEngine gameEngine = getGameEngine();
+        gameEngine.createTestData();
 
-        assertFalse(getGameEngine().checkWinCondition(players));
+        assertFalse(gameEngine.checkWinCondition());
     }
 
     @Test
@@ -157,36 +143,33 @@ public class GameEngineTest {
 
     @Test
     public void addTroopsToOwnedTerritory() {
-        List<Territory> territories = new ArrayList<>();
-        territories.add(new Territory("Alaska", 0));
-        territories.add(new Territory("Northwest", 1));
-        territories.add(new Territory("Alberta", 2));
-        territories.add(new Territory("Kamchatka", 3));
+        Player player = new Player("Ton");
+        GameEngine gameEngine = getGameEngine();
+        gameEngine.createTestData();
 
-        Player player = new Player("Ton", 3);
         String tName = "Alaska";
         int tIndex = 0;
 
         //Case 1
-        Territory foundTerritory = getGameEngine().addTroopsToOwnedTerritory(player,tName, tIndex);
+        Territory foundTerritory = gameEngine.addTroopsToOwnedTerritory(player, tName, tIndex);
 
         if (foundTerritory != null) {
             assertEquals(foundTerritory.getTerritoryName(), "Alaska");
             assertEquals(foundTerritory.getTerritoryIndex(), 0);
             assertEquals(foundTerritory.getOccupiedBy().getPlayerName(), "Ton");
-            assertEquals(foundTerritory.getNumbOfArmy(), 1);
+            assertEquals(foundTerritory.getNumbOfArmy(), 3);
         }
 
         //Case 2
         tName = null;
         tIndex = 0;
-        foundTerritory = getGameEngine().addTroopsToOwnedTerritory(player,tName, tIndex);
+        foundTerritory = gameEngine.addTroopsToOwnedTerritory(player, tName, tIndex);
 
         if(foundTerritory != null) {
             assertEquals(foundTerritory.getTerritoryName(), "Alaska");
             assertEquals(foundTerritory.getTerritoryIndex(), 0);
             assertEquals(foundTerritory.getOccupiedBy().getPlayerName(), "Ton");
-            assertEquals(foundTerritory.getNumbOfArmy(), 1);
+            assertEquals(foundTerritory.getNumbOfArmy(), 4);
         }
     }
 
@@ -334,99 +317,47 @@ public class GameEngineTest {
 
     @Test
     public void battleStage() {
-        Player atk = new Player("Ton");
-        Player def = new Player("Ton");
-        List<Player> players = new ArrayList<>();
-        players.add(atk);
-        players.add(def);
+        GameEngine gameEngine = getGameEngine();
+        gameEngine.createTestData();
 
-        Territory atkTerritory = new Territory("Alaska", 0);
-        Territory defTerritory = new Territory("Northwest", 1);
-        atkTerritory.getAdjTerritories().add(defTerritory);
-        defTerritory.getAdjTerritories().add(atkTerritory);
-        List<Territory> territories = new ArrayList<>();
-        territories.add(atkTerritory);
-        territories.add(defTerritory);
-
-        atk.getOwnedTerritories().add(atkTerritory);
-        def.getOwnedTerritories().add(defTerritory);
-
-        atkTerritory.setNumbOfArmy(2);
-        defTerritory.setNumbOfArmy(2);
-
-        atkTerritory.setOccupiedBy(atk);
-        defTerritory.setOccupiedBy(def);
-
-        getGameEngine().battleStage(territories, players, null);
+        gameEngine.battleStage(null);
     }
 
     @Test
     public void askTerritoryToAttackTo() {
+        GameEngine gameEngine = getGameEngine();
+        gameEngine.createTestData();
+
         Player atk = new Player("Ton");
-        Player def = new Player("Ton");
-        List<Player> players = new ArrayList<>();
-        players.add(atk);
-        players.add(def);
-
         Territory atkTerritory = new Territory("Alaska", 0);
-        Territory defTerritory = new Territory("Northwest", 1);
-        defTerritory.getAdjTerritories().add(atkTerritory);
-        List<Territory> territories = new ArrayList<>();
-        territories.add(atkTerritory);
-        territories.add(defTerritory);
 
-        atk.getOwnedTerritories().add(atkTerritory);
-        def.getOwnedTerritories().add(defTerritory);
-
-        atkTerritory.setNumbOfArmy(2);
-        defTerritory.setNumbOfArmy(2);
-
-        atkTerritory.setOccupiedBy(atk);
-        defTerritory.setOccupiedBy(def);
-
-        getGameEngine().askTerritoryToAttackTo(atk, atkTerritory, players, territories, null);
+        gameEngine.askTerritoryToAttackTo(atk, atkTerritory, null);
     }
 
     @Test
     public void setAllTerritory() {
-        Player player = new Player("Ton");
-        List<Player> players = new ArrayList<>();
-        players.add(player);
-        player.setNumOfAvailableArmy(3);
-        List<Territory> territories = new ArrayList<>();
-        List<Territory> finalTerritories = new ArrayList<>();
-        territories.add(new Territory("Alaska", 0));
-        territories.add(new Territory("Northwest", 1));
-        finalTerritories.add(new Territory("Alaska", 0));
-        finalTerritories.add(new Territory("Northwest", 1));
+        GameEngine gameEngine = getGameEngine();
+        gameEngine.createTestData();
 
-        getGameEngine().setAllTerritory(player, players, territories, finalTerritories, null);
+        Player player = new Player("Ton");
+        player.setNumOfAvailableArmy(35);
+        List<Territory> territories = new ArrayList<>();
+        territories.addAll(gameEngine.finalTerritories);
+
+        getGameEngine().setAllTerritory(player, territories, null);
     }
 
     @Test
     public void createTerritory() {
-        getGameEngine().createTerritories(territoriesDataPath, territoriesDataFileName, null);
-    }
-
-    @Test
-    public void createPlayer2() {
-        getGameEngine().createPlayers(1, null);
+        getGameEngine().createTerritories(territoriesDataFileName);
     }
 
     @Test
     public void executeSpecialCommand() {
-        Player player = new Player("Ton");
-        List<Player> players = new ArrayList<>();
-        players.add(player);
-        player.setNumOfAvailableArmy(3);
-        List<Territory> territories = new ArrayList<>();
-        List<Territory> finalTerritories = new ArrayList<>();
-        territories.add(new Territory("Alaska", 0));
-        territories.add(new Territory("Northwest", 1));
-        finalTerritories.add(new Territory("Alaska", 0));
-        finalTerritories.add(new Territory("Northwest", 1));
+        GameEngine gameEngine = getGameEngine();
+        gameEngine.createTestData();
 
-        getGameEngine().executeSpecialCommand("-la", players, player, territories, territories, null);
+        gameEngine.executeSpecialCommand("-la", gameEngine.players.get(0), gameEngine.finalTerritories, null);
     }
 
     @Test
