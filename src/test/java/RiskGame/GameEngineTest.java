@@ -21,16 +21,20 @@ public class GameEngineTest {
 
     final String mapPath = System.getProperty("user.dir") + File.separator + "map.jpg";
 
+    private TelegramBot bot;
+
     private TelegramBot getBot() {
-        ApiContextInitializer.init();
-        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-        TelegramBot telegramBot = new TelegramBot(true);
-        try {
-            telegramBotsApi.registerBot(telegramBot);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
+        if (bot == null) {
+            ApiContextInitializer.init();
+            TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+            bot = new TelegramBot(true);
+            try {
+                telegramBotsApi.registerBot(bot);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
         }
-        return telegramBot;
+        return bot;
     }
 
     private GameEngine getGameEngine() {

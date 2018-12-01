@@ -11,17 +11,20 @@ public class TimerTest {
 
     Timer time = new Timer(5, null);
 
+    private TelegramBot bot;
 
     private TelegramBot getBot() {
-        ApiContextInitializer.init();
-        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-        TelegramBot telegramBot = new TelegramBot(true);
-        try {
-            telegramBotsApi.registerBot(telegramBot);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
+        if (bot == null) {
+            ApiContextInitializer.init();
+            TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+            bot = new TelegramBot(true);
+            try {
+                telegramBotsApi.registerBot(bot);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
         }
-        return telegramBot;
+        return bot;
     }
 
     @Test
