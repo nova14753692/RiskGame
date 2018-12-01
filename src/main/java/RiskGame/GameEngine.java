@@ -78,7 +78,7 @@ public class GameEngine {
         //setAllTerritory(players, availableTerritories, finalTerritories, userInput, mapPath);
 
         //Test
-        if (players == null) {
+        if (players == null || (players != null && players.size() == 0)) {
             players = new ArrayList<>();
             players.add(new Player("Ton"));
             players.add(new Player("AI"));
