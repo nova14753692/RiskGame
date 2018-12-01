@@ -19,7 +19,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             this.inputTimeOut = 10;
         }
         else {
-            this.connectionTimeOut = 1;
+            this.connectionTimeOut = 2;
             this.inputTimeOut = 1;
         }
         this.test = test;

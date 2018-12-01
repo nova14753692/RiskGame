@@ -49,6 +49,10 @@ public class GameEngineTest {
         assertEquals(players.get(1).getPlayerName(), "Player 2");
 
         players = getGameEngine().createPlayers(getBot());
+        assertEquals(players.size(), 0);
+
+        players = getGameEngine().createPlayers(null);
+        assertEquals(players.size(), 2);
     }
 
     @Test
@@ -247,7 +251,9 @@ public class GameEngineTest {
         players.add(new Player("Ton"));
         players.add(new Player("AI"));
 
-        getGameEngine().printTerritory(players, territories, null);
+        GameEngine gameEngine = getGameEngine();
+        gameEngine.printTerritory(players, territories, null);
+        gameEngine.printTerritory(players, territories, getBot());
     }
 
     @Test
@@ -264,7 +270,32 @@ public class GameEngineTest {
         player.getOwnedTerritories().addAll(territories);
         players.add(new Player("AI"));
 
-        getGameEngine().printTerritory(player, players, territories, null);
+        GameEngine gameEngine = getGameEngine();
+        gameEngine.printTerritory(player, players, territories, null);
+        gameEngine.printTerritory(player, players, territories, getBot());
+    }
+
+    @Test
+    public void printTerritory3() {
+        List<Territory> territories = new ArrayList<>();
+        territories.add(new Territory("Alaska", 0));
+        territories.add(new Territory("Northwest", 1));
+        territories.add(new Territory("Alberta", 2));
+        territories.add(new Territory("Kamchatka", 3));
+
+        List<Player> players = new ArrayList<>();
+        Player player = new Player("Ton");
+        players.add(player);
+        player.getOwnedTerritories().addAll(territories);
+        players.add(new Player("AI"));
+
+        GameEngine gameEngine = getGameEngine();
+        gameEngine.printTerritory(player, players, territories, null);
+        gameEngine.printTerritory(player, players, territories, getBot());
+
+        player.getOwnedTerritories().clear();
+        gameEngine.printTerritory(player, players, territories, null);
+        gameEngine.printTerritory(player, players, territories, getBot());
     }
 
     @Test
@@ -357,6 +388,7 @@ public class GameEngineTest {
         GameEngine gameEngine = getGameEngine();
         gameEngine.createTestData();
         gameEngine.startGame(null);
+        gameEngine.startGame(getBot());
     }
 
     @Test
@@ -375,7 +407,7 @@ public class GameEngineTest {
         gameEngine.initBattle(null);
         gameEngine.initBattle(getBot());
 
-        gameEngine.players.get(0).setLost(false);
+        gameEngine.players.get(0).setLost(true);
         gameEngine.initBattle(null);
         gameEngine.initBattle(getBot());
     }
