@@ -21,6 +21,6 @@ public class Main {
         }
         if (args == null) telegramBot = null;
         GameEngine gameEngine = new GameEngine();
-        gameEngine.startGame(telegramBot);
+        gameEngine.startGame(telegramBot, false);
     }
 }

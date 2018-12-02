@@ -391,8 +391,8 @@ public class GameEngineTest {
     public void startGame() {
         GameEngine gameEngine = getGameEngine();
         gameEngine.createTestData();
-        gameEngine.startGame(null);
-        gameEngine.startGame(getBot());
+        gameEngine.startGame(null, true);
+        gameEngine.startGame(getBot(), true);
     }
 
     @Test
@@ -414,5 +414,17 @@ public class GameEngineTest {
         gameEngine.players.get(0).setLost(true);
         gameEngine.initBattle(null);
         gameEngine.initBattle(getBot());
+    }
+
+    @Test
+    public void initTerritory() {
+        GameEngine gameEngine = getGameEngine();
+
+        gameEngine.createTestData();
+        gameEngine.players.forEach(player -> {
+            player.setNumOfAvailableArmy(0);
+            player.getOwnedTerritories().clear();
+        });
+        gameEngine.initTerritories(gameEngine.finalTerritories, null);
     }
 }

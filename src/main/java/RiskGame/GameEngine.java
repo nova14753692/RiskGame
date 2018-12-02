@@ -27,7 +27,7 @@ public class GameEngine {
     public List<Territory> finalTerritories;
     public List<Player> players;
 
-    public void startGame(TelegramBot telegramBot) {
+    public void startGame(TelegramBot telegramBot, boolean test) {
 
         //List contain territories
         createTerritories(territoriesDataFileName);
@@ -35,19 +35,21 @@ public class GameEngine {
         //Create player objects and store them in players list
         players = createPlayers(telegramBot);
 
-        createTestData();
-
         //Telegram Bot
         if (telegramBot != null) telegramBot.sendMessage("Hi, let' start the game");
+
+        if (test) createTestData();
+        else players.forEach(player -> player.setNumOfAvailableArmy(getNumberOfArmyEachPlayer(players.size())));
+
+        List<Territory> availableTerritories = new ArrayList<>();
+        availableTerritories.addAll(finalTerritories);
+
+        if (!test) initTerritories(availableTerritories, telegramBot);
 
         initBattle(telegramBot);
     }
 
     public void initBattle(TelegramBot bot) {
-        //Create territory objects and store them in territories list
-        List<Territory>  availableTerritories = new ArrayList<>();
-        availableTerritories.addAll(finalTerritories);
-
         if (finalTerritories.size() > 0)
         {
             if (!checkWinCondition()) {
@@ -55,7 +57,7 @@ public class GameEngine {
 
                 for (int i = 0; i < players.size(); i++) {
                     players.get(i).setBonusArmies(0);
-                    setAllTerritory(players.get(i), availableTerritories, bot);
+                    setAllTerritory(players.get(i), finalTerritories, bot);
                 }
 
             }
@@ -63,6 +65,18 @@ public class GameEngine {
                 String winnerName = getWinner().getPlayerName();
                 if (bot != null) bot.sendMessage( winnerName + " wins.");
             }
+        }
+    }
+
+    public void initTerritories(List<Territory> availableTerritories, TelegramBot bot) {
+        int i = 0;
+        while (players.stream()
+                .anyMatch(player ->
+                        player.getOwnedTerritories().size() < getNumberOfArmyEachPlayer(players.size()))) {
+            setTerritoryOnePlayer(players.get(i), availableTerritories, bot);
+            i++;
+            if (i >= players.size()) i = 0;
+            if(bot == null) break;
         }
     }
 
@@ -352,36 +366,40 @@ public class GameEngine {
     public void setAllTerritory(Player player, List<Territory> availableTerritories, TelegramBot bot) {
         //Set territory stage
         for (int i = 0; i < player.getNumOfAvailableArmy(); i++) {
-            Territory foundTerritory = null;
+            setTerritoryOnePlayer(player, availableTerritories, bot);
+            if(bot == null || (bot != null && bot.isTest())) break;
+        }
+    }
 
-            //The loop will continue to ask what move the player wants
-            //It will continue to ask for user input until the player has entered a valid territory (when foundTerritory != null)
-            while (foundTerritory == null) {
-                String addOutput = "It's " + player.getPlayerName() + "'s turn to place armies.";
-                Pair<String, Integer> stringIntegerPair = new Pair<>("Alaska", 0);
-                if (bot != null) stringIntegerPair = userInputRequest(availableTerritories, player, addOutput, bot);
-                String tName = stringIntegerPair.getFirst();
-                int tIndex = stringIntegerPair.getSecond();
-                //If availableTerritories list size is still > 0, then there is at least 1 free territory available
-                //If so, we add the territory the player entered to that player's owned availableTerritories list as a new territory
-                //Then, that territory need to be removed from the available availableTerritories list
-                if (availableTerritories.size() > 0) {
-                    //When found a territory, add it to the player's owned availableTerritories list and remove it from available availableTerritories list
-                    //Otherwise, output error and ask that player again
-                    foundTerritory = setTerritory(player, tName, tIndex, availableTerritories);
-                    if (foundTerritory == null && bot != null) bot.sendMessage("Territory not found");
-                } else {
-                    //Occurred when there is no available territory but there are armies left that have not set
-                    //At this time, each player can place their armies any where within their owned availableTerritories
-                    foundTerritory = addTroopsToOwnedTerritory(player, tName, tIndex);
-                    if (foundTerritory == null && tName != null && bot != null)
-                        bot.sendMessage("Player " + player.getPlayerName() + " does not own " + tName);
-                    else if (bot != null)
-                        bot.sendMessage("Player " + player.getPlayerName() + " does not own territory has index of " + tIndex);
-                }
+    public void setTerritoryOnePlayer(Player player, List<Territory> availableTerritories, TelegramBot bot) {
+        Territory foundTerritory = null;
 
-                if(bot == null || (bot != null && bot.isTest())) break;
+        //The loop will continue to ask what move the player wants
+        //It will continue to ask for user input until the player has entered a valid territory (when foundTerritory != null)
+        while (foundTerritory == null) {
+            String addOutput = "It's " + player.getPlayerName() + "'s turn to place armies.";
+            Pair<String, Integer> stringIntegerPair = new Pair<>("Alaska", 0);
+            if (bot != null) stringIntegerPair = userInputRequest(availableTerritories, player, addOutput, bot);
+            String tName = stringIntegerPair.getFirst();
+            int tIndex = stringIntegerPair.getSecond();
+            //If availableTerritories list size is still > 0, then there is at least 1 free territory available
+            //If so, we add the territory the player entered to that player's owned availableTerritories list as a new territory
+            //Then, that territory need to be removed from the available availableTerritories list
+            if (availableTerritories.size() > 0) {
+                //When found a territory, add it to the player's owned availableTerritories list and remove it from available availableTerritories list
+                //Otherwise, output error and ask that player again
+                foundTerritory = setTerritory(player, tName, tIndex, availableTerritories);
+                if (foundTerritory == null && bot != null) bot.sendMessage("Territory not found");
+            } else {
+                //Occurred when there is no available territory but there are armies left that have not set
+                //At this time, each player can place their armies any where within their owned availableTerritories
+                foundTerritory = addTroopsToOwnedTerritory(player, tName, tIndex);
+                if (foundTerritory == null && tName != null && bot != null)
+                    bot.sendMessage("Player " + player.getPlayerName() + " does not own " + tName);
+                else if (bot != null)
+                    bot.sendMessage("Player " + player.getPlayerName() + " does not own territory has index of " + tIndex);
             }
+
             if(bot == null || (bot != null && bot.isTest())) break;
         }
     }
